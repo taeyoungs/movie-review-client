@@ -10,7 +10,8 @@ import {
 } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { usePersistCache } from './hooks/usePersistCache';
+import { usePersistCache } from 'hooks/usePersistCache';
+import P from 'components/atoms/P';
 
 interface IDefinition {
   kind: string;
@@ -61,7 +62,9 @@ const App = (): JSX.Element => {
 
   return loaded && client ? (
     <ApolloProvider client={client}>
-      <div>가나다라마바사</div>
+      <div>
+        <P>가나다라마바사</P>
+      </div>
     </ApolloProvider>
   ) : (
     <div>⏰</div>
