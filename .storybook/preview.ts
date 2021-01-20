@@ -1,3 +1,9 @@
-import { configure } from '@storybook/react';
-
-configure(require.context('../src', true, /\.stories\.(js|tsx)$/), module);
+module.exports = [
+  '@storybook/addon-docs/react/preset',
+  {
+    name: '@storybook/preset-create-react-app',
+    options: {
+      tsDocgenLoaderOptions: {},
+    },
+  },
+];
