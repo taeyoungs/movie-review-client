@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { IComponentProps } from 'models/common';
 import { ColorPalette, ColorType } from 'models/color';
 import { CalculateBox } from 'utils';
+import EP from './WithEmotion';
 
 export enum WordBreak {
   KEEP = 'keep-all',
@@ -23,12 +23,6 @@ export enum TextAlign {
   RIGHT = 'right',
 }
 
-const EP = styled.p({
-  width: '100%',
-  height: 'auto',
-  margin: 0,
-});
-
 interface IProps extends IComponentProps {
   lineHeight?: number;
   weight?: number;
@@ -37,14 +31,13 @@ interface IProps extends IComponentProps {
   whiteSpace?: WhiteSpace;
   size?: number;
   align?: TextAlign;
+  /** 생략 여부 */
   ellipsis?: boolean;
 }
 
-// ellipsis: 생략
-
 const P: React.FC<IProps> = ({
   children,
-  color = ColorPalette.Black.BLACK,
+  color = ColorPalette.Neutral.NEUTRAL_1000,
   weight = 300,
   lineHeight = 1.1,
   margin = [0],

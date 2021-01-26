@@ -7,4 +7,4 @@ const EInput = styled.input({
   cursor: 'pointer',
 });
 
-export { EInput };
+export default EInput;

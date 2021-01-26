@@ -1,16 +1,14 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { IComponentProps } from 'models/common';
 import { ColorPalette, ColorType } from 'models/color';
 import { CalculateBox } from 'utils';
+import ESpan from './WithEmotion';
 
 export enum TextAlign {
   LEFT = 'left',
   CENTER = 'center',
   RIGHT = 'right',
 }
-
-const ESpan = styled.span({});
 
 interface IProps extends IComponentProps {
   lineHeight?: number;
@@ -24,7 +22,7 @@ const Span: React.FC<IProps> = ({
   children,
   lineHeight = 1,
   weight = 300,
-  color = ColorPalette.Black.BLACK,
+  color = ColorPalette.Neutral.NEUTRAL_1000,
   size = 12,
   margin = [0],
   align = TextAlign.LEFT,

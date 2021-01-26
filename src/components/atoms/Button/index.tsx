@@ -1,6 +1,6 @@
-import { IComponentProps } from 'models/common';
 import React from 'react';
-import { EButton } from './WithEmotion';
+import { IComponentProps } from 'models/common';
+import EButton from './WithEmotion';
 
 interface IProps extends IComponentProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;

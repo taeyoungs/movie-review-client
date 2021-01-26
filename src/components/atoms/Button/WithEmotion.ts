@@ -7,4 +7,4 @@ const EButton = styled.button({
   cursor: 'pointer',
 });
 
-export { EButton };
+export default EButton;

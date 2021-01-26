@@ -1,6 +1,6 @@
 import React from 'react';
 import { IComponentProps } from 'models/common';
-import { EInput } from './WithEmotion';
+import EInput from './WithEmotion';
 
 export enum InputType {
   BUTTON = 'button',
