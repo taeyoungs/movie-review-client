@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { IComponentProps } from 'models/common';
 import { CalculateBox } from 'utils';
+import EBlock from './WithEmotion';
 
 export enum Direction {
   ROW = 'row',
@@ -33,13 +33,6 @@ export enum Sort {
   SPACE_AROUND_CENTER = 52,
   SPACE_AROUND_RIGHT = 53,
 }
-
-const EBlock = styled.div({
-  display: 'flex',
-  width: '100%',
-  height: 'auto',
-  boxSizing: 'border-box',
-});
 
 interface IProps extends IComponentProps {
   children: React.ReactNode;
@@ -73,6 +66,7 @@ const Block: React.FC<IProps> = ({
   sort = Sort.CENTER_CENTER,
   margin = [0],
   padding = [0],
+  style,
 }) => {
   const [horizontal, vertical] = CalculateSort(sort);
 
@@ -80,6 +74,7 @@ const Block: React.FC<IProps> = ({
   const alignItems = direction === Direction.ROW ? vertical : horizontal;
 
   const styleProps = {
+    ...style,
     justifyContent,
     alignItems,
     flexDirection: direction,

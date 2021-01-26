@@ -1,0 +1,19 @@
+import { IComponentProps } from 'models/common';
+import React from 'react';
+import EA from './WithEmotion';
+
+interface IProps extends IComponentProps {
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  href?: string;
+  children: string;
+}
+
+const A: React.FC<IProps> = ({ children, href, onClick }) => {
+  return (
+    <EA href={href} onClick={onClick}>
+      {children}
+    </EA>
+  );
+};
+
+export default A;
