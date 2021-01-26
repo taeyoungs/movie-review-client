@@ -3,6 +3,7 @@ import Button, { IProps } from './index';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
 import { Wrapper } from './WithEmotion';
+import Icon from 'Icon/Icon';
 
 export default {
   title: 'Design System/Atoms/Button',
@@ -77,6 +78,31 @@ export const Disabled: Story<IProps> = (args) => {
       </Button>
       <Button {...args} appearance="secondary" disabled>
         Secondary
+      </Button>
+    </Wrapper>
+  );
+};
+
+export const ButtonWithIcon: Story<IProps> = (args) => {
+  return (
+    <Wrapper>
+      <Button {...args} appearance="default">
+        <Icon icon="menu" color="black" size="1rem" />
+        <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
+          Default
+        </span>
+      </Button>
+      <Button {...args} appearance="primary">
+        <Icon icon="menu" color="white" size="1rem" />
+        <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
+          Primary
+        </span>
+      </Button>
+      <Button {...args} appearance="secondary">
+        <Icon icon="menu" color="#f1c40f" size="1rem" />
+        <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
+          Secondary
+        </span>
       </Button>
     </Wrapper>
   );

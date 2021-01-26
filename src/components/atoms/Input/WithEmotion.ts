@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-const EButton = styled.button({
+const EInput = styled.input({
   outline: 'none',
   border: 'none',
   background: 'none',
   cursor: 'pointer',
 });
 
-export { EButton };
+export { EInput };

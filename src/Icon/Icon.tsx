@@ -17,6 +17,7 @@ export interface IProps {
 /** 아이콘을 나타내고 싶을 때 `Icon` 컴포넌트를 이용하세요. */
 const Icon: React.FC<IProps> = ({ icon, color, size, className }) => {
   const SVGIcon = icons[icon];
+
   return (
     <SVGIcon
       style={{ fill: color || 'currentColor', width: size, height: 'auto' }}

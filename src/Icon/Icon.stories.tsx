@@ -1,4 +1,5 @@
 import { Story } from '@storybook/react/types-6-0';
+import { argsToArgsConfig } from 'graphql/type/definition';
 import Icon, { IProps } from './Icon';
 
 export default {
@@ -8,8 +9,8 @@ export default {
 
 const Template: Story<IProps> = (args) => <Icon {...args} />;
 
-export const Menu = Template.bind({});
-Menu.args = { icon: 'menu' };
+export const Default = Template.bind({});
+Default.args = { icon: 'menu' };
 
 export const CustomSize = Template.bind({});
 CustomSize.args = { icon: 'menu', size: '3rem' };

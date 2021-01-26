@@ -44,7 +44,6 @@ interface IProps extends IComponentProps {
 
 const P: React.FC<IProps> = ({
   children,
-  className,
   color = ColorPalette.Black.BLACK,
   weight = 300,
   lineHeight = 1.1,
@@ -69,11 +68,7 @@ const P: React.FC<IProps> = ({
     width: ellipsis ? 'calc(100% - 0px)' : '100%',
   };
 
-  return (
-    <EP className={className} style={styleProps}>
-      {children}
-    </EP>
-  );
+  return <EP style={styleProps}>{children}</EP>;
 };
 
 export default P;
