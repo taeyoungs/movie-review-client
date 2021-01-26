@@ -1,102 +1,89 @@
 import styled from '@emotion/styled';
+import Button from 'components/atoms/Button';
+import { ColorPalette } from 'models/color';
 import { ButtonAppearance, ButtonSize } from '.';
 
 interface IStyleProps {
   size: ButtonSize;
   appearance: ButtonAppearance;
-  disabled: boolean;
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flexwrap: wrap;
-  align-items: center;
-  & button {
-    margin-right: 1.5em;
-  }
-`;
-
-const EButton = styled.button<IStyleProps>`
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background: ${(props) => {
-    console.log(props.theme);
-    return '#f1c40f';
-  }};
+const PEbutton = styled(Button)<IStyleProps>`
+  background: ${ColorPalette.Yellow.YELLOW_400};
   display: inline-flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   height: 2rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   border-radius: 0.25rem;
   font-weight: 600;
   padding: 0 1rem;
-  color: black;
+  color: ${ColorPalette.Neutral.NEUTRAL_1000};
   &:focus {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
   }
   &:disabled {
-    background: rgba(241, 196, 15, 0.4);
-    color: rgba(0, 0, 0, 0.4);
-    cursor: default
+    background: ${ColorPalette.Yellow.YELLOW_400};
+    opacity: 0.7;
+    cursor: default;
   }
   ${(props) =>
-    props.size === 'big' &&
+    props.size === ButtonSize.BIG &&
     `
     height: 2.5rem;
     font-size: 1.125rem;
     padding: 0 1.5rem;
   `}
   ${(props) =>
-    props.size === 'medium' &&
+    props.size === ButtonSize.MEDIUM &&
     `
     height: 2rem;
     font-size: 1rem;
     padding: 0 1rem;
   `}
   ${(props) =>
-    props.size === 'small' &&
+    props.size === ButtonSize.SMALL &&
     `
     height: 1.75rem;
     font-size: 0.75rem;
     padding: 0 0.875rem;
   `}
   ${(props) =>
-    props.appearance === 'default' &&
+    props.appearance === ButtonAppearance.DEFAULT &&
     `
     &:hover:enabled {
-        background: #dfb50d;
+        background: ${ColorPalette.Yellow.YELLOW_600};
     }
   `}
   ${(props) =>
-    props.appearance === 'primary' &&
+    props.appearance === ButtonAppearance.PRIMARY &&
     `
-    background: black;
-    color: white;
+    background: ${ColorPalette.Neutral.NEUTRAL_1000};
+    color: ${ColorPalette.Neutral.NEUTRAL_0};
     &:hover:enabled {
-        background: rgba(0, 0, 0, 0.7);
+      background: ${ColorPalette.Neutral.NEUTRAL_900};
     }
     &:disabled {
-        background: rgba(0, 0, 0, 0.1);
+      background: ${ColorPalette.Neutral.NEUTRAL_1000};
+      color: ${ColorPalette.Neutral.NEUTRAL_0};
+      opacity: 0.7;
     }
   `}
   ${(props) =>
-    props.appearance === 'secondary' &&
+    props.appearance === ButtonAppearance.SECONDARY &&
     `
     background: none;
-    color: #f1c40f;
+    color: ${ColorPalette.Yellow.YELLOW_400};
     &:hover:enabled {
-        color: #dfb50d;
+      color: ${ColorPalette.Yellow.YELLOW_600};
     }
     &:disabled {
-        background: none;
-        color: rgba(241, 196, 15, 0.4);
+      background: none;
+      color: ${ColorPalette.Yellow.YELLOW_400};
+      opacity: 0.6;
     }
   `}
 `;
 
-const EEButton = styled(EButton)``;
-
-export { EButton, Wrapper, EEButton };
+export default PEbutton;

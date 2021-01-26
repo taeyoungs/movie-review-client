@@ -1,10 +1,17 @@
-import theme from 'models/theme';
-import { Palette } from 'models/theme/colors';
 import React from 'react';
-import { EButton } from './WithEmotion';
+import PEButton from './WithEmotion';
 
-export type ButtonSize = 'big' | 'medium' | 'small';
-export type ButtonAppearance = 'default' | 'primary' | 'secondary';
+export enum ButtonSize {
+  BIG = 'big',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+}
+// export type ButtonAppearance = 'default' | 'primary' | 'secondary';
+export enum ButtonAppearance {
+  DEFAULT = 'default',
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+}
 
 export interface IProps {
   /** 버튼을 클릭했을 때 호출할 함수 */
@@ -15,40 +22,27 @@ export interface IProps {
   appearance?: ButtonAppearance;
   /** 버튼 안에 들어갈 내용 */
   children: React.ReactNode;
-  /** 이벤트 캡처링 설정합니다. */
-  isCapturing?: boolean;
   /** 버튼을 비활성화 시킵니다. */
   disabled?: boolean;
-  style?: Record<string, string>;
 }
 
 /** `Button` 컴포넌트는 어떠한 작업을 트리거 할 때 사용합니다.  */
 const Button: React.FC<IProps> = ({
   children,
-  isCapturing = false,
   onClick,
-  size = 'medium',
-  appearance = 'default',
+  size = ButtonSize.MEDIUM,
+  appearance = ButtonAppearance.DEFAULT,
   disabled = false,
-  style,
 }) => {
-  const clickEvent = isCapturing ? { onClickCapture: onClick } : { onClick };
-  const c = Palette.Neutral.NEUTRAL_0;
-  const color = theme.Palette.Neutral.NEUTRAL_0;
-  const styleProps = {
-    color,
-  };
-
   return (
-    <EButton
-      {...clickEvent}
+    <PEButton
+      size={size}
       appearance={appearance}
       disabled={disabled}
-      size={size}
-      style={styleProps}
+      onClick={onClick}
     >
       {children}
-    </EButton>
+    </PEButton>
   );
 };
 

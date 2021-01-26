@@ -25,6 +25,7 @@ export enum NEUTRAL {
   NEUTRAL_800 = '#364141',
   NEUTRAL_900 = '#273333',
   NEUTRAL_1000 = '#162020',
+  NEUTRAL_1100 = '#FFFFFF',
 }
 
 export enum GREEN {

@@ -1,109 +1,113 @@
 import React from 'react';
-import Button, { IProps } from './index';
+import Button, { ButtonAppearance, ButtonSize, IProps } from './index';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
-import { Wrapper } from './WithEmotion';
+import Background from 'products/_common';
 import Icon from 'Icon/Icon';
+import { ColorPalette } from 'models/color';
 
 export default {
-  title: 'Design System/Atoms/Button',
+  title: 'Products/Button',
   component: Button,
-
   argTypes: {
     size: {
       control: {
         type: 'select',
+        options: Object.values(ButtonSize),
       },
     },
     appearance: {
       control: {
         type: 'select',
+        options: Object.values(ButtonAppearance),
       },
     },
-    children: {
-      type: { required: true },
-    },
   },
-  decorators: [(story) => <div style={{ padding: '2rem' }}>{story()}</div>],
+  decorators: [(Story) => <Background>{Story()}</Background>],
 } as Meta;
 
-const Template: Story<IProps> = (args) => <Button {...args} />;
+const Template: Story<IProps> = (args) => {
+  console.log(args);
+  return <Button {...args} />;
+};
 
 export const Default = Template.bind({});
-Default.args = { children: 'Button', onClick: action('onClick') };
+Default.args = { children: '버튼', onClick: action('onClick') };
 
+/** asdafasfsd */
 export const Appearance: Story<IProps> = (args) => {
   return (
-    <Wrapper>
-      <Button {...args} appearance="default">
+    <>
+      <Button {...args} appearance={ButtonAppearance.DEFAULT}>
         Default
       </Button>
-      <Button {...args} appearance="primary">
+      <Button {...args} appearance={ButtonAppearance.PRIMARY}>
         Primary
       </Button>
-      <Button {...args} appearance="secondary">
+      <Button {...args} appearance={ButtonAppearance.SECONDARY}>
         Secondary
       </Button>
-    </Wrapper>
+    </>
   );
 };
 
 export const Sizes: Story<IProps> = (args) => {
   return (
-    <div>
-      <div style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>Small</div>
-      <Button {...args} size="small">
+    <>
+      <Button {...args} size={ButtonSize.SMALL}>
         Button
       </Button>
-      <div style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>Medium</div>
-      <Button {...args} size="medium">
+      <Button {...args} size={ButtonSize.MEDIUM}>
         Button
       </Button>
-      <div style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>Big</div>
-      <Button {...args} size="big">
+      <Button {...args} size={ButtonSize.BIG}>
         Button
       </Button>
-    </div>
+    </>
   );
 };
 
 export const Disabled: Story<IProps> = (args) => {
   return (
-    <Wrapper>
-      <Button {...args} appearance="default" disabled>
+    <>
+      <Button {...args} appearance={ButtonAppearance.DEFAULT} disabled>
         Default
       </Button>
-      <Button {...args} appearance="primary" disabled>
+      <Button {...args} appearance={ButtonAppearance.PRIMARY} disabled>
         Primary
       </Button>
-      <Button {...args} appearance="secondary" disabled>
+      <Button {...args} appearance={ButtonAppearance.SECONDARY} disabled>
         Secondary
       </Button>
-    </Wrapper>
+    </>
   );
 };
 
 export const ButtonWithIcon: Story<IProps> = (args) => {
   return (
-    <Wrapper>
-      <Button {...args} appearance="default">
-        <Icon icon="menu" color="black" size="1rem" />
+    <>
+      <Button {...args} appearance={ButtonAppearance.DEFAULT}>
+        <Icon
+          icon="menu"
+          color={ColorPalette.Neutral.NEUTRAL_1000}
+          size="1rem"
+        />
         <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
           Default
         </span>
       </Button>
-      <Button {...args} appearance="primary">
-        <Icon icon="menu" color="white" size="1rem" />
+      <Button {...args} appearance={ButtonAppearance.PRIMARY}>
+        <Icon icon="menu" color={ColorPalette.Neutral.NEUTRAL_0} size="1rem" />
         <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
           Primary
         </span>
       </Button>
-      <Button {...args} appearance="secondary">
-        <Icon icon="menu" color="#f1c40f" size="1rem" />
+      <Button {...args} appearance={ButtonAppearance.SECONDARY}>
+        <Icon icon="menu" color={ColorPalette.Yellow.YELLOW_400} size="1rem" />
         <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
           Secondary
         </span>
       </Button>
-    </Wrapper>
+    </>
   );
 };
