@@ -14,15 +14,20 @@ const Card: React.FC<IProps> = ({
   padding = [0],
   radius = [0],
   style,
+  className,
 }) => {
   const styleProps = {
     ...style,
     margin: CalculateBox(margin),
     padding: CalculateBox(padding),
-    radius: CalculateBox(radius),
+    borderRadius: CalculateBox(radius),
   };
 
-  return <ECard style={styleProps}>{children}</ECard>;
+  return (
+    <ECard className={className} style={styleProps}>
+      {children}
+    </ECard>
+  );
 };
 
 export default Card;

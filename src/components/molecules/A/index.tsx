@@ -8,9 +8,9 @@ interface IProps extends IComponentProps {
   children: string;
 }
 
-const A: React.FC<IProps> = ({ children, href, onClick }) => {
+const A: React.FC<IProps> = ({ children, href, onClick, className }) => {
   return (
-    <EA href={href} onClick={onClick}>
+    <EA className={className} href={href} onClick={onClick}>
       {children}
     </EA>
   );

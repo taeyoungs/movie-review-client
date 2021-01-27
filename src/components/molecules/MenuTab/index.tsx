@@ -31,14 +31,18 @@ const MenuTabItem: React.FC<IItemProps> = ({ distance, children }) => {
   return <ELi style={styleProps}>{children}</ELi>;
 };
 
-const MenuTab: React.FC<IProps> = ({ items, menuStyle = MenuStyle.ROW }) => {
+const MenuTab: React.FC<IProps> = ({
+  items,
+  menuStyle = MenuStyle.ROW,
+  className,
+}) => {
   const styleProps = {
     flexDirection: menuStyle,
     justifyContent: menuStyle === MenuStyle.ROW ? 'center' : 'flex-start',
     alignItems: 'center',
   };
   return (
-    <EUl style={styleProps}>
+    <EUl style={styleProps} className={className}>
       {items.map((item) => {
         const ItemComponent: React.FunctionComponent<any> = item.component;
 

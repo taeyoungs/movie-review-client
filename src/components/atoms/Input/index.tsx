@@ -48,6 +48,7 @@ const Input: React.FC<IProps> = ({
   onFocus,
   onKeyDown,
   onKeyUp,
+  className,
 }) => {
   const changeEvent = isCapturing ? { onChangeCapture: onChange } : onChange;
   const blurEvent = isCapturing ? { onBlurCapture: onBlur } : onBlur;
@@ -58,6 +59,7 @@ const Input: React.FC<IProps> = ({
   const keyUpEvent = isCapturing ? { onKeyUpCapture: onKeyUp } : onKeyUp;
   return (
     <EInput
+      className={className}
       type={type}
       value={value}
       {...changeEvent}

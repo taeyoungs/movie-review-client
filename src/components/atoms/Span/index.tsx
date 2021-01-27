@@ -26,6 +26,7 @@ const Span: React.FC<IProps> = ({
   size = 12,
   margin = [0],
   align = TextAlign.LEFT,
+  className,
 }) => {
   const styleProps = {
     lineHeight,
@@ -36,7 +37,11 @@ const Span: React.FC<IProps> = ({
     textAlign: align,
   };
 
-  return <ESpan style={styleProps}>{children}</ESpan>;
+  return (
+    <ESpan className={className} style={styleProps}>
+      {children}
+    </ESpan>
+  );
 };
 
 export default Span;

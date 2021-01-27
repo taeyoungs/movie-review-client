@@ -4,7 +4,6 @@ import { ColorPalette, ColorType } from 'models/color';
 
 interface IProps {
   background?: ColorType;
-  direction?: boolean;
 }
 
 const Bg = styled.div<IProps>`
@@ -12,7 +11,6 @@ const Bg = styled.div<IProps>`
   justify-content: flex-start;
   align-items: center;
   display: flex;
-  flex-direction: ${(props) => (props.direction ? 'row' : 'column')};
   color: ${ColorPalette.Neutral.NEUTRAL_0};
   padding: 20px;
   background: ${(props) => props.background};
@@ -24,13 +22,8 @@ const Bg = styled.div<IProps>`
 const Background: React.FC<IProps> = ({
   children,
   background = ColorPalette.Neutral.NEUTRAL_1000,
-  direction = true,
 }) => {
-  return (
-    <Bg direction={direction} background={background}>
-      {children}
-    </Bg>
-  );
+  return <Bg background={background}>{children}</Bg>;
 };
 
 export default Background;

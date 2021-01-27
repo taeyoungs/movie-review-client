@@ -43,9 +43,10 @@ const P: React.FC<IProps> = ({
   margin = [0],
   wordBreak = WordBreak.KEEP,
   whiteSpace = WhiteSpace.NORMAL,
-  size = 12,
+  size = 14,
   align = TextAlign.LEFT,
   ellipsis = false,
+  className,
 }) => {
   const styleProps = {
     color,
@@ -61,7 +62,11 @@ const P: React.FC<IProps> = ({
     width: ellipsis ? 'calc(100% - 0px)' : '100%',
   };
 
-  return <EP style={styleProps}>{children}</EP>;
+  return (
+    <EP className={className} style={styleProps}>
+      {children}
+    </EP>
+  );
 };
 
 export default P;
