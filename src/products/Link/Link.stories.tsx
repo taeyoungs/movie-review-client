@@ -1,7 +1,9 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import Link, { IProps } from '.';
+import Block, { Sort } from 'components/molecules/Block';
 import Background from 'products/_common';
+import Icon from 'Icon/Icon';
+import Link, { IProps } from '.';
 
 export default {
   title: 'Design System/Link',
@@ -35,7 +37,23 @@ export const All = (): JSX.Element => {
       <div style={{ marginRight: '10px' }}>
         <Link secondary>Secondary </Link>
       </div>
+      <div style={{ marginRight: '10px' }}>
+        <Link tertiary>Teritary </Link>
+      </div>
       <Link underline>Underline</Link>
+    </>
+  );
+};
+
+export const WithIcon = (): JSX.Element => {
+  return (
+    <>
+      <Link tertiary>
+        <Block sort={Sort.CENTER_LEFT}>
+          <Icon icon="youtube" style={{ marginRight: '10px' }} />
+          Teritary
+        </Block>
+      </Link>
     </>
   );
 };

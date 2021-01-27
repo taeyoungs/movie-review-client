@@ -18,6 +18,25 @@ const EPLink = styled(A)<IProps>`
             color: ${ColorPalette.Neutral.NEUTRAL_300};
         }
     `}
+  ${(props) =>
+    props.tertiary &&
+    `
+        color: ${ColorPalette.Neutral.NEUTRAL_300};
+        & > svg {
+            fill: ${ColorPalette.Neutral.NEUTRAL_300};
+        }
+        &:hover {
+            color: ${ColorPalette.Neutral.NEUTRAL_0};
+            ${
+              props.containIcon &&
+              `
+                & > svg {
+                    fill: ${ColorPalette.Neutral.NEUTRAL_0};
+                }
+                `
+            }
+        }
+    `}
 `;
 
 export default EPLink;

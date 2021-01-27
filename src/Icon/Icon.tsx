@@ -12,18 +12,21 @@ export interface IProps {
   /** 아이콘 크기 */
   size?: string | number;
   className?: string;
+  style?: Record<string, string | number>;
 }
 
 /** 아이콘을 나타내고 싶을 때 `Icon` 컴포넌트를 이용하세요. */
-const Icon: React.FC<IProps> = ({ icon, color, size, className }) => {
+const Icon: React.FC<IProps> = ({ icon, color, size, className, style }) => {
   const SVGIcon = icons[icon];
 
-  return (
-    <SVGIcon
-      style={{ fill: color || 'currentColor', width: size, height: 'auto' }}
-      className={className}
-    />
-  );
+  const styleProps = {
+    ...style,
+    fill: color || 'currentColor',
+    width: size,
+    height: 'auto',
+  };
+
+  return <SVGIcon style={styleProps} className={className} />;
 };
 
 export default Icon;
