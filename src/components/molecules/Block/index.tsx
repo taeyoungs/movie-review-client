@@ -62,11 +62,12 @@ const CalculateSort = (sort: Sort): Array<string> => {
 
 const Block: React.FC<IProps> = ({
   children,
-  direction,
+  direction = Direction.ROW,
   sort = Sort.CENTER_CENTER,
   margin = [0],
   padding = [0],
   style,
+  className,
 }) => {
   const [horizontal, vertical] = CalculateSort(sort);
 
@@ -74,7 +75,6 @@ const Block: React.FC<IProps> = ({
   const alignItems = direction === Direction.ROW ? vertical : horizontal;
 
   const styleProps = {
-    ...style,
     justifyContent,
     alignItems,
     flexDirection: direction,
@@ -82,7 +82,11 @@ const Block: React.FC<IProps> = ({
     padding: CalculateBox(padding),
   };
 
-  return <EBlock style={styleProps}>{children}</EBlock>;
+  return (
+    <EBlock style={style} {...styleProps} className={className}>
+      {children}
+    </EBlock>
+  );
 };
 
 export default Block;

@@ -21,8 +21,9 @@ export enum InputType {
 }
 
 interface IProps extends IComponentProps {
+  id: string;
   /** `input`에 들어오는 값 */
-  value: string | number;
+  value: string;
   /** `input`의 타입을 설정합니다. */
   type?: InputType;
   /** `input`의 value가 변했을 때 호출할 함수 */
@@ -40,6 +41,7 @@ interface IProps extends IComponentProps {
 }
 
 const Input: React.FC<IProps> = ({
+  id,
   value,
   type = 'text',
   isCapturing = false,
@@ -59,6 +61,7 @@ const Input: React.FC<IProps> = ({
   const keyUpEvent = isCapturing ? { onKeyUpCapture: onKeyUp } : onKeyUp;
   return (
     <EInput
+      id={id}
       className={className}
       type={type}
       value={value}

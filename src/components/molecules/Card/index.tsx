@@ -17,14 +17,13 @@ const Card: React.FC<IProps> = ({
   className,
 }) => {
   const styleProps = {
-    ...style,
     margin: CalculateBox(margin),
     padding: CalculateBox(padding),
     borderRadius: CalculateBox(radius),
   };
 
   return (
-    <ECard className={className} style={styleProps}>
+    <ECard className={className} style={style} {...styleProps}>
       {children}
     </ECard>
   );
