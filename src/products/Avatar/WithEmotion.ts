@@ -9,9 +9,9 @@ const Container = styled(Card)<IProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: ${ColorPalette.Yellow.YELLOW_400};
+  background: ${ColorPalette.Main.CTA_PRIMARY};
   text-transform: uppercase;
-  color: ${ColorPalette.Neutral.NEUTRAL_1000};
+  color: ${ColorPalette.Main.BG_PRIMARY};
   font-weight: 600;
   & > svg {
       width: 22px;

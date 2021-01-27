@@ -39,6 +39,11 @@ export default {
         },
       },
     },
+    onClick: {
+      table: {
+        disable: true,
+      },
+    },
   },
   decorators: [(Story) => <Background>{Story()}</Background>],
 } as Meta;

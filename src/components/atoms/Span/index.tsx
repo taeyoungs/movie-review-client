@@ -31,7 +31,7 @@ const Span: React.FC<IProps> = ({
   const styleProps = {
     lineHeight,
     fontWeight: weight,
-    color,
+    color: color.toString(),
     fontSize: size,
     margin: CalculateBox(margin),
     textAlign: align,

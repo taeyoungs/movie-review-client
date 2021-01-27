@@ -190,6 +190,17 @@ export enum NETWORK {
   KAKAO_BROWN = '#3A1D1D',
 }
 
+export enum MAIN {
+  BG_PRIMARY = NEUTRAL.NEUTRAL_1000,
+  BG_SECONDARY = NEUTRAL.NEUTRAL_0,
+  CTA_PRIMARY = YELLOW.YELLOW_400,
+  CTA_SECONDARY = NEUTRAL.NEUTRAL_0,
+  TEXT_BODY = NEUTRAL.NEUTRAL_800,
+  TEXT_HEADLINE = NEUTRAL.NEUTRAL_900,
+  BORDER_PRIMARY = YELLOW.YELLOW_400,
+  BORDER_SECONDARY = NEUTRAL.NEUTRAL_200,
+}
+
 export type ColorType =
   | NEUTRAL
   | PINK
@@ -201,7 +212,8 @@ export type ColorType =
   | YELLOW
   | AQUA
   | MAGENTA
-  | NETWORK;
+  | NETWORK
+  | MAIN;
 
 export const ColorPalette = {
   Neutral: NEUTRAL,
@@ -215,4 +227,5 @@ export const ColorPalette = {
   Magenta: MAGENTA,
   Network: NETWORK,
   Purple: PURPLE,
+  Main: MAIN,
 };

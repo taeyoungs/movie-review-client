@@ -1,0 +1,23 @@
+import styled from '@emotion/styled';
+import A from 'components/molecules/A';
+import { ColorPalette } from 'models/color';
+import { IProps } from '.';
+
+const EPLink = styled(A)<IProps>`
+  color: ${ColorPalette.Main.CTA_PRIMARY};
+  text-decoration: none;
+  &:hover {
+    color: ${ColorPalette.Yellow.YELLOW_600};
+    ${(props) => props.underline && `text-decoration: underline;`}
+  }
+  ${(props) =>
+    props.secondary &&
+    `
+        color: ${ColorPalette.Main.CTA_SECONDARY};
+        &:hover {
+            color: ${ColorPalette.Neutral.NEUTRAL_300};
+        }
+    `}
+`;
+
+export default EPLink;

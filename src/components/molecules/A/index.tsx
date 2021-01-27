@@ -5,7 +5,7 @@ import EA from './WithEmotion';
 interface IProps extends IComponentProps {
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   href?: string;
-  children: string;
+  children: React.ReactNode;
 }
 
 const A: React.FC<IProps> = ({ children, href, onClick, className }) => {
