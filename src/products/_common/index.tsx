@@ -9,9 +9,8 @@ interface IProps {
 
 const Bg = styled.div<IProps>`
   width: 100vw;
-  height: 30vh;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: ${(props) => (props.direction ? 'row' : 'column')};
   color: ${ColorPalette.Neutral.NEUTRAL_0};

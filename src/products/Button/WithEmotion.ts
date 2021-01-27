@@ -1,24 +1,17 @@
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
 import { ColorPalette } from 'models/color';
-import { ButtonAppearance, ButtonSize } from '.';
+import { ButtonAppearance, ButtonSize, IProps } from '.';
 
-interface IStyleProps {
-  size: ButtonSize;
-  appearance: ButtonAppearance;
-}
-
-const PEbutton = styled(Button)<IStyleProps>`
+const PEbutton = styled(Button)<IProps>`
   background: ${ColorPalette.Yellow.YELLOW_400};
   display: inline-flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  height: 2rem;
-  font-size: 1rem;
-  border-radius: 0.25rem;
+  border-radius: 3em;
   font-weight: 600;
-  padding: 0 1rem;
+  padding: ${(props) => (props.onlyIcon ? '12px' : '13px 20px')};
   color: ${ColorPalette.Neutral.NEUTRAL_1000};
   &:focus {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
@@ -26,28 +19,19 @@ const PEbutton = styled(Button)<IStyleProps>`
   &:disabled {
     background: ${ColorPalette.Yellow.YELLOW_400};
     opacity: 0.7;
-    cursor: default;
+    cursor: no-drop;
   }
   ${(props) =>
     props.size === ButtonSize.BIG &&
     `
-    height: 2.5rem;
     font-size: 1.125rem;
-    padding: 0 1.5rem;
-  `}
-  ${(props) =>
-    props.size === ButtonSize.MEDIUM &&
-    `
-    height: 2rem;
-    font-size: 1rem;
-    padding: 0 1rem;
+    padding: ${props.onlyIcon ? '16px' : '18px 24px'};
   `}
   ${(props) =>
     props.size === ButtonSize.SMALL &&
     `
-    height: 1.75rem;
     font-size: 0.75rem;
-    padding: 0 0.875rem;
+    padding: ${props.onlyIcon ? '8px' : '8px 16px'};
   `}
   ${(props) =>
     props.appearance === ButtonAppearance.DEFAULT &&
@@ -68,6 +52,7 @@ const PEbutton = styled(Button)<IStyleProps>`
       background: ${ColorPalette.Neutral.NEUTRAL_1000};
       color: ${ColorPalette.Neutral.NEUTRAL_0};
       opacity: 0.7;
+      cursor: no-drop;
     }
   `}
   ${(props) =>
@@ -82,6 +67,43 @@ const PEbutton = styled(Button)<IStyleProps>`
       background: none;
       color: ${ColorPalette.Yellow.YELLOW_400};
       opacity: 0.6;
+      cursor: no-drop;
+    }
+  `}
+  ${(props) =>
+    props.appearance === ButtonAppearance.OUTLINE &&
+    `
+    background: ${ColorPalette.Neutral.NEUTRAL_1000};
+    color: ${ColorPalette.Yellow.YELLOW_400};
+    border: 1px solid ${ColorPalette.Yellow.YELLOW_400};
+    &:hover:enabled {
+      color: ${ColorPalette.Yellow.YELLOW_600};
+      border: 1px solid ${ColorPalette.Yellow.YELLOW_600};
+    }
+    &:disabled {
+      background: ${ColorPalette.Neutral.NEUTRAL_1000};
+      color: ${ColorPalette.Yellow.YELLOW_400};
+      border: 1px solid ${ColorPalette.Yellow.YELLOW_400};
+      opacity: 0.6;
+      cursor: no-drop;
+    }
+  `}
+  ${(props) =>
+    props.appearance === ButtonAppearance.OUTLINE_PRIMARY &&
+    `
+    background: ${ColorPalette.Neutral.NEUTRAL_1000};
+    color: ${ColorPalette.Neutral.NEUTRAL_0};
+    border: 1px solid ${ColorPalette.Neutral.NEUTRAL_0};
+    &:hover:enabled {
+      color: ${ColorPalette.Neutral.NEUTRAL_400};
+      border: 1px solid ${ColorPalette.Neutral.NEUTRAL_400};
+    }
+    &:disabled {
+      background: ${ColorPalette.Neutral.NEUTRAL_1000};
+      color: ${ColorPalette.Neutral.NEUTRAL_0};
+      border: 1px solid ${ColorPalette.Neutral.NEUTRAL_0};
+      opacity: 0.6;
+      cursor: no-drop;
     }
   `}
 `;

@@ -1,9 +1,8 @@
 import { Story } from '@storybook/react/types-6-0';
-import { argsToArgsConfig } from 'graphql/type/definition';
 import Icon, { IProps } from './Icon';
 
 export default {
-  title: 'Design System/Atoms/Icon',
+  title: 'Design System/Icon',
   component: Icon,
 };
 

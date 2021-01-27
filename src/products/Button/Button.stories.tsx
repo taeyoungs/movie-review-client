@@ -7,7 +7,7 @@ import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 
 export default {
-  title: 'Products/Button',
+  title: 'Design System/Button',
   component: Button,
   argTypes: {
     size: {
@@ -15,26 +15,39 @@ export default {
         type: 'select',
         options: Object.values(ButtonSize),
       },
+      defaultValue: ButtonSize.MEDIUM,
+      table: {
+        defaultValue: { summary: ButtonSize.MEDIUM },
+        type: {
+          summary: '목록',
+          detail: '"small" | "medium" | "big"',
+        },
+      },
     },
     appearance: {
       control: {
         type: 'select',
         options: Object.values(ButtonAppearance),
       },
+      defaultValue: ButtonAppearance.DEFAULT,
+      table: {
+        defaultValue: { summary: ButtonAppearance.DEFAULT },
+        type: {
+          summary: '목록',
+          detail:
+            '"default" | "primary" | "secondary" | "outline" | "outline_primary"',
+        },
+      },
     },
   },
   decorators: [(Story) => <Background>{Story()}</Background>],
 } as Meta;
 
-const Template: Story<IProps> = (args) => {
-  console.log(args);
-  return <Button {...args} />;
-};
+const Template: Story<IProps> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
 Default.args = { children: '버튼', onClick: action('onClick') };
 
-/** asdafasfsd */
 export const Appearance: Story<IProps> = (args) => {
   return (
     <>
@@ -47,6 +60,12 @@ export const Appearance: Story<IProps> = (args) => {
       <Button {...args} appearance={ButtonAppearance.SECONDARY}>
         Secondary
       </Button>
+      <Button {...args} appearance={ButtonAppearance.OUTLINE}>
+        Outline
+      </Button>
+      <Button {...args} appearance={ButtonAppearance.OUTLINE_PRIMARY}>
+        Outline Primary
+      </Button>
     </>
   );
 };
@@ -55,13 +74,13 @@ export const Sizes: Story<IProps> = (args) => {
   return (
     <>
       <Button {...args} size={ButtonSize.SMALL}>
-        Button
+        Small
       </Button>
       <Button {...args} size={ButtonSize.MEDIUM}>
-        Button
+        Medium
       </Button>
       <Button {...args} size={ButtonSize.BIG}>
-        Button
+        Big
       </Button>
     </>
   );
@@ -78,6 +97,9 @@ export const Disabled: Story<IProps> = (args) => {
       </Button>
       <Button {...args} appearance={ButtonAppearance.SECONDARY} disabled>
         Secondary
+      </Button>
+      <Button {...args} appearance={ButtonAppearance.OUTLINE} disabled>
+        Outline
       </Button>
     </>
   );
@@ -107,6 +129,23 @@ export const ButtonWithIcon: Story<IProps> = (args) => {
         <span style={{ display: 'inline-block', marginLeft: '0.5rem' }}>
           Secondary
         </span>
+      </Button>
+    </>
+  );
+};
+
+export const OnlyIcon: Story<IProps> = (args) => {
+  return (
+    <>
+      <Button {...args} appearance={ButtonAppearance.DEFAULT} onlyIcon={true}>
+        <Icon
+          icon="menu"
+          color={ColorPalette.Neutral.NEUTRAL_1000}
+          size="1rem"
+        />
+      </Button>
+      <Button {...args} appearance={ButtonAppearance.PRIMARY} onlyIcon={true}>
+        <Icon icon="menu" color={ColorPalette.Neutral.NEUTRAL_0} size="1rem" />
       </Button>
     </>
   );
