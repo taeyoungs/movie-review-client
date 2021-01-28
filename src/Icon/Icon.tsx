@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import * as icons from './svg';
 
 type IconType = keyof typeof icons;
@@ -20,13 +21,20 @@ const Icon: React.FC<IProps> = ({ icon, color, size, className, style }) => {
   const SVGIcon = icons[icon];
 
   const styleProps = {
-    ...style,
     fill: color || 'currentColor',
     width: size,
     height: 'auto',
+    transition: 'fill 200ms ease-in-out 0s',
   };
 
-  return <SVGIcon style={styleProps} className={className} />;
+  return <SVGIcon style={style} {...styleProps} className={className} />;
 };
 
-export default Icon;
+const StyledIcon = styled(Icon)`
+  fill: ${(props) => props.color || 'currentColor'};
+  width: ${(props) => props.size};
+  height: auto;
+  transition: fill 200ms ease-in-out 0s;
+`;
+
+export default StyledIcon;

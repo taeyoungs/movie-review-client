@@ -13,6 +13,7 @@ const PEbutton = styled(Button)<IProps>`
   font-weight: 600;
   padding: ${(props) => (props.onlyIcon ? '12px' : '13px 20px')};
   color: ${ColorPalette.Neutral.NEUTRAL_1000};
+  transition: all 100ms ease-in-out 0s;
   &:focus {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
   }
@@ -95,8 +96,12 @@ const PEbutton = styled(Button)<IProps>`
     color: ${ColorPalette.Neutral.NEUTRAL_0};
     border: 1px solid ${ColorPalette.Neutral.NEUTRAL_0};
     &:hover:enabled {
-      color: ${ColorPalette.Neutral.NEUTRAL_400};
-      border: 1px solid ${ColorPalette.Neutral.NEUTRAL_400};
+      color: ${ColorPalette.Main.CTA_PRIMARY};
+      border: 1px solid ${ColorPalette.Main.CTA_PRIMARY};
+      box-shadow: ${ColorPalette.Main.CTA_PRIMARY} 0px 0px 2px 0px;
+      & > svg {
+        fill: ${ColorPalette.Main.CTA_PRIMARY};
+      }
     }
     &:disabled {
       background: ${ColorPalette.Neutral.NEUTRAL_1000};

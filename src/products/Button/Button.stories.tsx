@@ -155,3 +155,19 @@ export const OnlyIcon: Story<IProps> = (args) => {
     </>
   );
 };
+
+export const ArrowButton: Story<IProps> = (args) => {
+  return (
+    <Button
+      {...args}
+      appearance={ButtonAppearance.OUTLINE_PRIMARY}
+      onlyIcon={true}
+    >
+      <Icon
+        icon="arrowRight"
+        color={ColorPalette.Neutral.NEUTRAL_0}
+        size={18}
+      />
+    </Button>
+  );
+};
