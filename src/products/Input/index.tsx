@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'Icon/Icon';
-import { Wrapper, PEInput, PELabel, InnerWrapper } from './WithEmotion';
+import { Wrapper, PEInput, PELabel, InnerWrapper, Error } from './WithEmotion';
 
 export enum InputAppearance {
   DEFAULT = 'default',
@@ -28,18 +28,25 @@ export interface IProps {
   icon?: 'menu' | 'user' | 'youtube';
   /** label의 텍스트를 설정합니다. */
   label: string;
+  /** error 텍스트를 설정합니다. */
+  error?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  disabled?: boolean;
 }
 
 const Input: React.FC<IProps> = ({
   id,
-  value = 'value',
+  value,
   appearance = InputAppearance.DEFAULT,
-  orientation = InputOrientation.HORIZONTAL,
+  orientation = InputOrientation.VERTICAL,
   hideLabel = false,
   icon,
   label = 'Label',
   onChange,
+  error,
+  placeholder,
+  disabled,
 }) => {
   return (
     <Wrapper orientation={orientation}>
@@ -48,14 +55,18 @@ const Input: React.FC<IProps> = ({
           {label}
         </PELabel>
       )}
-      <InnerWrapper orientation={orientation}>
+      <InnerWrapper orientation={orientation} error={error}>
         {icon ? <Icon icon={icon} /> : null}
         <PEInput
           id={id}
           value={value}
           appearance={appearance}
           onChange={onChange}
+          error={error}
+          placeholder={placeholder}
+          disabled={disabled}
         />
+        <Error error={error}>{error}</Error>
       </InnerWrapper>
     </Wrapper>
   );

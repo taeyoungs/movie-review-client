@@ -23,7 +23,7 @@ export enum InputType {
 interface IProps extends IComponentProps {
   id: string;
   /** `input`에 들어오는 값 */
-  value: string;
+  value?: string;
   /** `input`의 타입을 설정합니다. */
   type?: InputType;
   /** `input`의 value가 변했을 때 호출할 함수 */
@@ -38,6 +38,8 @@ interface IProps extends IComponentProps {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   /** 이벤트 캡처링을 설정합니다. */
   isCapturing?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
 }
 
 const Input: React.FC<IProps> = ({
@@ -51,6 +53,8 @@ const Input: React.FC<IProps> = ({
   onKeyDown,
   onKeyUp,
   className,
+  placeholder = 'Placeholder',
+  disabled = false,
 }) => {
   const changeEvent = isCapturing ? { onChangeCapture: onChange } : onChange;
   const blurEvent = isCapturing ? { onBlurCapture: onBlur } : onBlur;
@@ -70,6 +74,8 @@ const Input: React.FC<IProps> = ({
       {...focusEvent}
       {...keyDownEvent}
       {...keyUpEvent}
+      placeholder={placeholder}
+      disabled={disabled}
     />
   );
 };

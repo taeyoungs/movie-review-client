@@ -10,31 +10,38 @@ interface IStyleProps {
   appearance?: InputAppearance;
   orientation?: InputOrientation;
   icon?: string;
+  error?: string;
 }
 
 const PEInput = styled(Input)<IStyleProps>`
   padding: 0.715em 1em;
-  &:focus {
-    border: 2px solid ${ColorPalette.Main.BORDER_PRIMARY};
+  color: ${ColorPalette.Main.TEXT_BODY};
+  transition: box-shadow 100ms ease-in-out 0s;
+  &::placeholder {
+    font-weight: 600;
   }
-  ${(props) =>
-    props.appearance === InputAppearance.DEFAULT &&
-    `
-    border: 2px solid transparent;
-    `}
+  &:disabled {
+    cursor: no-drop;
+    opacity: 0.6;
+    background: ${ColorPalette.Neutral.NEUTRAL_100};
+  }
+  &:focus {
+    ${(props) =>
+      !props.error &&
+      props.appearance != InputAppearance.SECONDARY &&
+      `
+      box-shadow: ${ColorPalette.Main.BORDER_PRIMARY} 0px 0px 0px 1px inset;
+      `}
+  }
   ${(props) =>
     props.appearance === InputAppearance.PRIMARY &&
     `
-    border: 2px solid ${ColorPalette.Main.BORDER_SECONDARY};
+    box-shadow: ${ColorPalette.Main.BORDER_SECONDARY} 0px 0px 0px 1px inset;
     `}
   ${(props) =>
     props.appearance === InputAppearance.SECONDARY &&
     `
     padding: 0px;
-    border: none;
-    &:focus {
-        border: none;
-    }
     `}
   ${(props) =>
     props.appearance === InputAppearance.PILL &&
@@ -42,9 +49,14 @@ const PEInput = styled(Input)<IStyleProps>`
     padding: 0.5em 1em;
     border-radius: 3em;
     font-size: 12px;
-    border: 2px solid ${ColorPalette.Main.BORDER_SECONDARY};
+    box-shadow: ${ColorPalette.Main.BORDER_SECONDARY} 0px 0px 0px 1px inset;
     `}
- 
+  ${(props) =>
+    props.appearance != InputAppearance.SECONDARY &&
+    props.error &&
+    `
+    box-shadow: ${ColorPalette.Red.RED_600} 0px 0px 0px 1px inset;
+    `}
 `;
 
 const PELabel = styled.label<{ orientation?: InputOrientation }>`
@@ -72,13 +84,38 @@ const Wrapper = styled(InlineBlock)<{ orientation?: InputOrientation }>`
     `}
 `;
 
-const InnerWrapper = styled(InlineBlock)<{ orientation?: InputOrientation }>`
+const InnerWrapper = styled(InlineBlock)<{
+  orientation?: InputOrientation;
+  error?: string;
+}>`
   ${(props) =>
     props.orientation === InputOrientation.HORIZONTAL &&
     `
     width: auto;
     display: table-cell;
     `}
+  &:hover {
+    ${(props) =>
+      props.error &&
+      `
+        & > input + div {
+          opacity: 0;
+          transform: translate3d(100%, -50%, 0);
+        }
+      `}
+  }
 `;
 
-export { PEInput, PELabel, Wrapper, InnerWrapper };
+const Error = styled.div<{ error?: string }>`
+  position: absolute;
+  top: 50%;
+  padding: 0.25em 1.25em 0.1em 0.5em;
+  opacity: 1;
+  transform: translate3d(0%, -50%, 0);
+  transition: all 200ms ease-out 0s;
+  right: 0px;
+  color: ${ColorPalette.Red.RED_800};
+  font-size: 12px;
+`;
+
+export { PEInput, PELabel, Wrapper, InnerWrapper, Error };
