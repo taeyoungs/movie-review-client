@@ -47,13 +47,11 @@ export const All = (): JSX.Element => {
 
 export const WithIcon = (): JSX.Element => {
   return (
-    <>
-      <Link tertiary>
-        <Block sort={Sort.CENTER_LEFT}>
-          <Icon icon="youtube" style={{ marginRight: '10px' }} />
-          Teritary
-        </Block>
-      </Link>
-    </>
+    <Link tertiary>
+      <Block sort={Sort.CENTER_LEFT}>
+        <Icon icon="youtube" style={{ marginRight: '10px' }} />
+        Teritary
+      </Block>
+    </Link>
   );
 };

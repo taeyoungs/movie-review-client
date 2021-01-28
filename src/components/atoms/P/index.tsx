@@ -1,6 +1,6 @@
 import React from 'react';
 import { IComponentProps } from 'models/common';
-import { ColorPalette, ColorType } from 'models/color';
+import { ColorType } from 'models/color';
 import { CalculateBox } from 'utils';
 import EP from './WithEmotion';
 
@@ -37,7 +37,7 @@ interface IProps extends IComponentProps {
 
 const P: React.FC<IProps> = ({
   children,
-  color = ColorPalette.Neutral.NEUTRAL_1000,
+  color,
   weight = 300,
   lineHeight = 1.1,
   margin = [0],
@@ -47,9 +47,11 @@ const P: React.FC<IProps> = ({
   align = TextAlign.LEFT,
   ellipsis = false,
   className,
+  style,
 }) => {
+  console.log(color);
   const styleProps = {
-    color,
+    fontColor: color,
     fontWeight: weight,
     lineHeight,
     margin: CalculateBox(margin),
@@ -63,7 +65,7 @@ const P: React.FC<IProps> = ({
   };
 
   return (
-    <EP className={className} style={styleProps}>
+    <EP className={className} style={style} {...styleProps}>
       {children}
     </EP>
   );
