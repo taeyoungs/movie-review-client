@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
 const EMenuItem = styled.li<{ selected: boolean }>`
+  display: flex;
+  align-items: center;
   border-radius: 0.5em;
   padding: 6px 8px;
   margin: 2px 0px;
@@ -16,6 +18,9 @@ const EMenuItem = styled.li<{ selected: boolean }>`
     `
     background: ${ColorPalette.Yellow.YELLOW_300};
     `}
+  & > svg {
+    margin-right: 10px;
+  }
 `;
 
-export default EMenuItem;
+export { EMenuItem };

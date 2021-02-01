@@ -3,3 +3,7 @@ export { ReactComponent as user } from './user.svg';
 export { ReactComponent as youtube } from './youtube.svg';
 export { ReactComponent as arrowRight } from './arrow-right.svg';
 export { ReactComponent as cone } from './cone.svg';
+export { ReactComponent as movie } from './movie.svg';
+export { ReactComponent as review } from './review.svg';
+export { ReactComponent as show } from './show.svg';
+export { ReactComponent as search } from './search.svg';

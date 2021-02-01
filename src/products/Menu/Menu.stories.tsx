@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import Menu, { IProps } from '.';
 import Block, { Direction, Sort } from 'components/molecules/Block';
-import Icon from 'Icon/Icon';
+import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import Background from 'products/_common';
 import MenuItem from 'products/MenuItem';
@@ -32,7 +32,8 @@ const Template: Story<IProps> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = { isOpen: true };
 
-const itemTitleList = ['All', 'TV Shows', 'Movies'];
+const itemTitleList = ['All', 'Movies', 'TV Shows'];
+const iconTitleList: Array<IconType> = ['search', 'movie', 'show'];
 
 export const SearchbarMenu = (): JSX.Element => {
   const [title, setTitle] = useState('All');
@@ -102,5 +103,21 @@ export const PopupMenu = (): JSX.Element => {
         </Menu>
       </div>
     </Block>
+  );
+};
+
+export const MenuWithIcon = (): JSX.Element => {
+  return (
+    <Menu isOpen={true}>
+      {itemTitleList.map((item, index) => (
+        <MenuItem
+          key={index}
+          title={item}
+          selected={'All' === item}
+          onClick={() => alert(item)}
+          iconName={iconTitleList[index]}
+        />
+      ))}
+    </Menu>
   );
 };
