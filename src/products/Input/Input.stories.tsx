@@ -35,11 +35,6 @@ export default {
         options: Object.values(InputOrientation),
       },
     },
-    icon: {
-      control: {
-        type: 'string',
-      },
-    },
     value: {
       defaultValue: 'value',
     },
@@ -54,6 +49,11 @@ export default {
       },
     },
     disabled: {
+      table: {
+        disable: true,
+      },
+    },
+    icon: {
       table: {
         disable: true,
       },

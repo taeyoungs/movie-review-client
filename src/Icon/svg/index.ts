@@ -2,3 +2,4 @@ export { ReactComponent as menu } from './menu.svg';
 export { ReactComponent as user } from './user.svg';
 export { ReactComponent as youtube } from './youtube.svg';
 export { ReactComponent as arrowRight } from './arrow-right.svg';
+export { ReactComponent as cone } from './cone.svg';

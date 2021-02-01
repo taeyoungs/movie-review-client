@@ -9,10 +9,10 @@ export default {
 const Template: Story<IProps> = (args) => <Icon {...args} />;
 
 export const Default = Template.bind({});
-Default.args = { icon: 'menu' };
+Default.args = { icon: 'menu', size: '1rem' };
 
 export const CustomSize = Template.bind({});
 CustomSize.args = { icon: 'menu', size: '3rem' };
 
 export const CustomColor = Template.bind({});
-CustomColor.args = { icon: 'menu', color: '#f1c40f' };
+CustomColor.args = { icon: 'menu', color: '#f1c40f', size: '1rem' };

@@ -7,9 +7,9 @@ interface IProps {
 }
 
 const Bg = styled.div<IProps>`
-  width: 100vw;
+  width: 100%;
+  height: 300px;
   justify-content: flex-start;
-  align-items: center;
   display: flex;
   color: ${ColorPalette.Neutral.NEUTRAL_0};
   padding: 20px;
