@@ -45,7 +45,13 @@ export default {
       },
     },
   },
-  decorators: [(Story) => <Background>{Story()}</Background>],
+  decorators: [
+    (Story) => (
+      <Background>
+        <div>{Story()}</div>
+      </Background>
+    ),
+  ],
 } as Meta;
 
 const Template: Story<IProps> = (args) => <Button {...args} />;

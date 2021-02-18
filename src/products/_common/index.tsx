@@ -8,13 +8,13 @@ interface IProps {
 
 const Bg = styled.div<IProps>`
   width: 100%;
-  height: 300px;
+  height: 250px;
   justify-content: flex-start;
   display: flex;
   color: ${ColorPalette.Neutral.NEUTRAL_0};
   padding: 20px;
   background: ${(props) => props.background};
-  & > button {
+  & > div > button {
     margin-right: 15px;
   }
 `;

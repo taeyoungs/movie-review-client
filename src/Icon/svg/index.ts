@@ -7,3 +7,4 @@ export { ReactComponent as movie } from './movie.svg';
 export { ReactComponent as review } from './review.svg';
 export { ReactComponent as show } from './show.svg';
 export { ReactComponent as search } from './search.svg';
+export { ReactComponent as star } from './star.svg';

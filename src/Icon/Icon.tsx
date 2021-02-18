@@ -23,8 +23,6 @@ const Icon: React.FC<IProps> = ({ icon, color, size, className, style }) => {
   const styleProps = {
     fill: color || 'currentColor',
     width: size,
-    height: 'auto',
-    transition: 'fill 200ms ease-in-out 0s',
   };
 
   return <SVGIcon style={style} {...styleProps} className={className} />;
@@ -32,7 +30,7 @@ const Icon: React.FC<IProps> = ({ icon, color, size, className, style }) => {
 
 const StyledIcon = styled(Icon)`
   fill: ${(props) => props.color || 'currentColor'};
-  width: ${(props) => props.size};
+  width: ${(props) => props.size}px;
   height: auto;
   transition: fill 200ms ease-in-out 0s;
 `;

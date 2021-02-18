@@ -50,6 +50,7 @@ const LiContainer = styled.div`
 
 const MenuButton = styled.div<{ isOpen: boolean }>`
   display: inline-flex;
+  align-items: center;
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   background: ${ColorPalette.Main.BG_SECONDARY};
@@ -59,7 +60,7 @@ const MenuButton = styled.div<{ isOpen: boolean }>`
   padding: 0.5em;
   & > svg {
     transition: transform 200ms ease-in-out 0s;
-    padding: 0.25em;
+    padding-left: 0.25em;
     ${(props) =>
       props.isOpen
         ? `transform: rotate3d(1, 0, 0, 180deg)`
