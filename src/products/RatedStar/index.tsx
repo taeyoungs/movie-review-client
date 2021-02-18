@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { EmptyStars, ColorStars, HalfStar } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
@@ -6,9 +6,7 @@ import { ColorPalette } from 'models/color';
 export interface IProps {
   rating?: number;
   isHover?: boolean;
-  handleMouseOver?(i: number): void;
   handleClick?(i: number): void;
-  handleMouseOut?(): void;
 }
 
 function calculateStar(rating: number): number {
@@ -42,19 +40,14 @@ function calculateStar(rating: number): number {
 const RatedStar: React.FC<IProps> = ({
   rating = 0,
   isHover = false,
-  handleMouseOver,
-  handleMouseOut,
   handleClick,
 }) => {
+  const [tempRating, setTempRating] = useState(0);
   const emptyStars = [];
   for (let i = 1; i <= 10; i++) {
     const rev = i % 2 == 0;
     emptyStars.push(
-      <HalfStar
-        reverse={rev}
-        onMouseOver={() => handleMouseOver && handleMouseOver(i)}
-        onClick={() => handleClick && handleClick(i)}
-      >
+      <HalfStar reverse={rev} onMouseOver={() => setTempRating(i)}>
         <Icon icon="star" size={20} color={ColorPalette.Neutral.NEUTRAL_300} />
       </HalfStar>
     );
@@ -66,9 +59,9 @@ const RatedStar: React.FC<IProps> = ({
     colorStars.push(
       <HalfStar
         reverse={rev}
-        onMouseOver={() => handleMouseOver && handleMouseOver(i)}
+        onMouseOver={() => setTempRating(i)}
         onClick={() => handleClick && handleClick(i)}
-        onMouseOut={() => handleMouseOut && handleMouseOut()}
+        onMouseOut={() => setTempRating(0)}
       >
         <Icon icon="star" size={20} color={ColorPalette.Yellow.YELLOW_600} />
       </HalfStar>
@@ -78,7 +71,9 @@ const RatedStar: React.FC<IProps> = ({
   return (
     <EmptyStars isHover={isHover}>
       {emptyStars}
-      <ColorStars w={calculateStar(rating)}>{colorStars}</ColorStars>
+      <ColorStars w={calculateStar(tempRating != 0 ? tempRating : rating)}>
+        {colorStars}
+      </ColorStars>
     </EmptyStars>
   );
 };

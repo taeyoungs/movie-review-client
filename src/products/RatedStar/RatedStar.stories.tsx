@@ -29,30 +29,10 @@ export const WithRating = (): JSX.Element => {
 
 export const HoverRating = (): JSX.Element => {
   const [rating, setRating] = useState(0);
-  const [tempRating, setTempRating] = useState(0);
-
-  function handleMouseOver(i: number) {
-    setTempRating(rating);
-    setRating(i);
-  }
 
   function handleClick(i: number) {
-    setTempRating(i);
     setRating(i);
   }
 
-  function handleMouseOut() {
-    setRating(tempRating);
-    setTempRating(0);
-  }
-
-  return (
-    <RatedStar
-      rating={rating}
-      isHover
-      handleMouseOver={handleMouseOver}
-      handleClick={handleClick}
-      handleMouseOut={handleMouseOut}
-    />
-  );
+  return <RatedStar rating={rating} isHover handleClick={handleClick} />;
 };
