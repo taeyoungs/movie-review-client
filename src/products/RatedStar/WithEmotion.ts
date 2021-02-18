@@ -20,4 +20,15 @@ const ColorStars = styled.div<{ w: number }>`
   white-space: nowrap;
 `;
 
-export { EmptyStars, ColorStars };
+const HalfStar = styled.div<{ reverse?: boolean }>`
+  display: inline-block;
+  overflow: hidden;
+  width: 10px;
+  ${(props) =>
+    props.reverse &&
+    `
+    direction: rtl;
+    `}
+`;
+
+export { EmptyStars, ColorStars, HalfStar };

@@ -1,14 +1,10 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { EmptyStars, ColorStars } from './WithEmotion';
+import { EmptyStars, ColorStars, HalfStar } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 
-// ToDo: 1. hover 2. without hover
-
 export interface IProps {
   rating?: number;
-  tempRating?: number;
   isHover?: boolean;
   handleMouseOver?(i: number): void;
   handleClick?(i: number): void;
@@ -43,17 +39,6 @@ function calculateStar(rating: number): number {
   }
 }
 
-const HalfS = styled.div<{ reverse?: boolean }>`
-  display: inline-block;
-  overflow: hidden;
-  width: 10px;
-  ${(props) =>
-    props.reverse &&
-    `
-    direction: rtl;
-    `}
-`;
-
 const RatedStar: React.FC<IProps> = ({
   rating = 0,
   isHover = false,
@@ -61,39 +46,39 @@ const RatedStar: React.FC<IProps> = ({
   handleMouseOut,
   handleClick,
 }) => {
-  const stars = [];
+  const emptyStars = [];
   for (let i = 1; i <= 10; i++) {
     const rev = i % 2 == 0;
-    stars.push(
-      <HalfS
+    emptyStars.push(
+      <HalfStar
         reverse={rev}
         onMouseOver={() => handleMouseOver && handleMouseOver(i)}
         onClick={() => handleClick && handleClick(i)}
       >
         <Icon icon="star" size={20} color={ColorPalette.Neutral.NEUTRAL_300} />
-      </HalfS>
+      </HalfStar>
     );
   }
 
-  const starss = [];
+  const colorStars = [];
   for (let i = 1; i <= 10; i++) {
     const rev = i % 2 == 0;
-    starss.push(
-      <HalfS
+    colorStars.push(
+      <HalfStar
         reverse={rev}
         onMouseOver={() => handleMouseOver && handleMouseOver(i)}
         onClick={() => handleClick && handleClick(i)}
         onMouseOut={() => handleMouseOut && handleMouseOut()}
       >
         <Icon icon="star" size={20} color={ColorPalette.Yellow.YELLOW_600} />
-      </HalfS>
+      </HalfStar>
     );
   }
 
   return (
     <EmptyStars isHover={isHover}>
-      {stars}
-      <ColorStars w={calculateStar(rating)}>{starss}</ColorStars>
+      {emptyStars}
+      <ColorStars w={calculateStar(rating)}>{colorStars}</ColorStars>
     </EmptyStars>
   );
 };
