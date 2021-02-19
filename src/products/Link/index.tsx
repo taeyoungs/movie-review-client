@@ -10,6 +10,8 @@ export interface IProps {
   secondary?: boolean;
   /** 세 번째 링크 형태 */
   tertiary?: boolean;
+  /** 네 번째 링크 형태 */
+  isTitle?: boolean;
   /** hover 시 밑줄을 활성화 시킵니다. */
   underline?: boolean;
   /** icon 포함 여부 */
@@ -20,6 +22,7 @@ const Link: React.FC<IProps> = ({
   children,
   secondary = false,
   tertiary = false,
+  isTitle = false,
   underline = false,
   containIcon = false,
   href = '#',
@@ -31,6 +34,7 @@ const Link: React.FC<IProps> = ({
       tertiary={tertiary}
       underline={underline}
       containIcon={containIcon}
+      isTitle={isTitle}
       href={href}
       onClick={onClick}
     >

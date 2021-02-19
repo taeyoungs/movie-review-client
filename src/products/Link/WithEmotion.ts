@@ -11,11 +11,20 @@ const EPLink = styled(A)<IProps>`
     ${(props) => props.underline && `text-decoration: underline;`}
   }
   ${(props) =>
+    props.isTitle &&
+    `
+        color: ${ColorPalette.Main.TEXT_BODY};
+        &:hover {
+            ${props.underline && `text-decoration: underline;`}
+        }
+    `}
+  ${(props) =>
     props.secondary &&
     `
         color: ${ColorPalette.Main.CTA_SECONDARY};
         &:hover {
             color: ${ColorPalette.Neutral.NEUTRAL_300};
+            ${props.underline && `text-decoration: underline;`}
         }
     `}
   ${(props) =>
@@ -27,6 +36,7 @@ const EPLink = styled(A)<IProps>`
         }
         &:hover {
             color: ${ColorPalette.Neutral.NEUTRAL_0};
+            ${props.underline && `text-decoration: underline;`}
             ${
               props.containIcon &&
               `
