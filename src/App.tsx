@@ -12,6 +12,9 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { usePersistCache } from 'hooks/usePersistCache';
 import RouterContainer from 'router';
+import Loading from 'products/Loading';
+import { Global } from '@emotion/react';
+import reset from 'models/reset';
 
 interface IDefinition {
   kind: string;
@@ -62,10 +65,11 @@ const App = (): JSX.Element => {
 
   return loaded && client ? (
     <ApolloProvider client={client}>
+      <Global styles={reset} />
       <RouterContainer />
     </ApolloProvider>
   ) : (
-    <div>⏰</div>
+    <Loading />
   );
 };
 

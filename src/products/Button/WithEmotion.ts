@@ -7,10 +7,10 @@ const PEbutton = styled(Button)<IProps>`
   background: ${ColorPalette.Yellow.YELLOW_400};
   display: inline-flex;
   justify-content: center;
+  font-family: Nanum Gothic;
   align-items: center;
   box-sizing: border-box;
   border-radius: 3em;
-  font-weight: 600;
   padding: ${(props) => (props.onlyIcon ? '12px' : '13px 20px')};
   color: ${ColorPalette.Neutral.NEUTRAL_1000};
   transition: all 100ms ease-in-out 0s;

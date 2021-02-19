@@ -9,3 +9,4 @@ export { ReactComponent as show } from './show.svg';
 export { ReactComponent as search } from './search.svg';
 export { ReactComponent as star } from './star.svg';
 export { ReactComponent as spinner } from './spinner.svg';
+export { ReactComponent as logo } from './logo.svg';

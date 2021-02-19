@@ -53,6 +53,7 @@ const MenuButton = styled.div<{ isOpen: boolean }>`
   align-items: center;
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
+  white-space: nowrap;
   background: ${ColorPalette.Main.BG_SECONDARY};
   cursor: pointer;
   color: ${ColorPalette.Main.BG_PRIMARY};
@@ -60,7 +61,7 @@ const MenuButton = styled.div<{ isOpen: boolean }>`
   padding: 0.5em;
   & > svg {
     transition: transform 200ms ease-in-out 0s;
-    padding-left: 0.25em;
+    padding: 0 0.5em;
     ${(props) =>
       props.isOpen
         ? `transform: rotate3d(1, 0, 0, 180deg)`

@@ -35,7 +35,7 @@ Basic.args = { isOpen: true };
 const itemTitleList = ['All', 'Movies', 'TV Shows'];
 const iconTitleList: Array<IconType> = ['search', 'movie', 'show'];
 
-export const SearchbarMenu = (): JSX.Element => {
+export const SearchbarMenu: React.FunctionComponent = () => {
   const [title, setTitle] = useState('All');
   const [isOpen, setIsOpen] = useState(false);
 

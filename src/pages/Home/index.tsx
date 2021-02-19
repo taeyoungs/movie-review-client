@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const Home: React.FC<IProps> = () => {
-  return <div>Home</div>;
+  return <div style={{ marginTop: '3.5rem' }}>Home</div>;
 };
 
 export default Home;
