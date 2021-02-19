@@ -1,32 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import Icon from 'Icon/Icon';
 import { Link } from 'react-router-dom';
 import SearchBar from 'products/SearchBar';
 import Button, { ButtonAppearance } from 'products/Button';
-
-const HeaderContainer = styled.nav`
-  display: flex;
-  width: 100%;
-  height: 3.5rem;
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0.25rem;
-`;
-
-const MenuContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0px auto;
-  width: 1280px;
-`;
-
-const SLink = styled(Link)`
-  text-decoration: none;
-  margin: 0 10px;
-`;
+import { HeaderContainer, MenuContainer, SLink } from './WithEmotion';
+import Icon from 'Icon/Icon';
 
 const Header: React.FunctionComponent = () => {
   return (
