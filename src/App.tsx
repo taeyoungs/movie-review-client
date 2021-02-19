@@ -11,7 +11,7 @@ import {
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { usePersistCache } from 'hooks/usePersistCache';
-import Button from 'products/Button';
+import RouterContainer from 'router';
 
 interface IDefinition {
   kind: string;
@@ -62,9 +62,7 @@ const App = (): JSX.Element => {
 
   return loaded && client ? (
     <ApolloProvider client={client}>
-      <div>
-        <Button>Button</Button>
-      </div>
+      <RouterContainer />
     </ApolloProvider>
   ) : (
     <div>⏰</div>
