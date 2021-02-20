@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { MenuButton } from 'products/Menu/WithEmotion';
 import Menu from 'products/Menu';
-import styled from '@emotion/styled';
 import MenuItem from 'products/MenuItem';
+import SearchBarContent, { ISearchProps } from 'products/SearchBarContent';
+import {
+  Container,
+  SearchbarInput,
+  RelativeContainer,
+  ResultContainer,
+  LoadingContainer,
+} from './WithEmotion';
+import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
-import { Container, SearchbarInput } from './WithEmotion';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import { MULTI_SEARCH_QUERY } from 'queries/Query';
 
 // ToDo: media-query
 
-const RelativeContainer = styled.div`
-  position: relative;
-  flex-grow: 1;
-`;
-
-const ResultContainer = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: white;
-  border-radius: 0.5em;
-`;
+interface IProps {
+  multiSearch: Array<ISearchProps>;
+}
 
 const SearchBar: React.FunctionComponent = () => {
   const [title, setTitle] = useState('All');
   const [isOpen, setIsOpen] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('');
-  const [getResults, { loading, data }] = useLazyQuery(MULTI_SEARCH_QUERY);
-  const itemTitleList = ['All', '영화', 'TV 프로그램'];
-  const iconTitleList: Array<IconType> = ['search', 'movie', 'show'];
+  const [getResults, { loading, data }] = useLazyQuery<IProps>(
+    MULTI_SEARCH_QUERY
+  );
+  const itemTitleList = ['All', '영화', 'TV 프로그램', '사람'];
+  const iconTitleList: Array<IconType> = ['search', 'movie', 'show', 'person'];
+
+  useEffect(() => {
+    if (value != '') {
+      const searchType =
+        title === 'All'
+          ? 'multi'
+          : title === '영화'
+          ? 'movie'
+          : title === 'TV 프로그램'
+          ? 'tv'
+          : 'person';
+      getResults({ variables: { term: value, page: 1, searchType } });
+    }
+  }, [value]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    getResults({ variables: { term: value, page: 1 } });
   };
 
   return (
@@ -64,6 +74,7 @@ const SearchBar: React.FunctionComponent = () => {
                 onClick={() => {
                   setTitle(item);
                   setIsOpen(false);
+                  setValue('');
                 }}
                 iconName={iconTitleList[index]}
               />
@@ -78,16 +89,21 @@ const SearchBar: React.FunctionComponent = () => {
           onChange={handleChange}
         />
       </Container>
-      <ResultContainer>
-        {loading ? (
-          <div>Loading ... </div>
-        ) : (
-          data &&
-          data.multiSearch.map((item: Record<string, string>) => (
-            <div>{item.id}</div>
-          ))
-        )}
-      </ResultContainer>
+      {value != '' && (
+        <ResultContainer>
+          {loading ? (
+            <LoadingContainer>
+              <Icon icon="spinner" />
+            </LoadingContainer>
+          ) : data && data.multiSearch.length > 10 ? (
+            data.multiSearch
+              .slice(0, 9)
+              .map((item) => <SearchBarContent {...item} />)
+          ) : (
+            data?.multiSearch.map((item) => <SearchBarContent {...item} />)
+          )}
+        </ResultContainer>
+      )}
     </RelativeContainer>
   );
 };

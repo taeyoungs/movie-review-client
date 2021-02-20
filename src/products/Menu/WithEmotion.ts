@@ -69,16 +69,9 @@ const MenuButton = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-export { MenuGroup, UlContainer, LiContainer, MenuButton };
+const Container = styled.div`
+  position: absolute;
+  z-index: 50;
+`;
 
-// &:hover {
-//     color: ${ColorPalette.Yellow.YELLOW_600};
-//     box-shadow: ${ColorPalette.Yellow.YELLOW_600} 0px 1px 0px 0px;
-//   }
-
-// ${(props) =>
-//     props.selected &&
-//     `
-//       color: ${ColorPalette.Yellow.YELLOW_600};
-//       border-bottom: 2px solid ${ColorPalette.Yellow.YELLOW_600};
-//       `}
+export { MenuGroup, UlContainer, LiContainer, MenuButton, Container };

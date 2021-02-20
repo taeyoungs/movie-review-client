@@ -26,4 +26,32 @@ const SearchbarInput = styled.input`
   outline: none;
 `;
 
-export { Container, SearchbarInput };
+const RelativeContainer = styled.div`
+  position: relative;
+  flex-grow: 1;
+`;
+
+const ResultContainer = styled.div`
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 0.5em;
+  background: rgba(255, 255, 255, 0.02);
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+`;
+
+export {
+  Container,
+  SearchbarInput,
+  RelativeContainer,
+  ResultContainer,
+  LoadingContainer,
+};

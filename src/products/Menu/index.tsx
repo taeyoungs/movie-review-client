@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuGroup, UlContainer, LiContainer } from './WithEmotion';
+import { MenuGroup, UlContainer, LiContainer, Container } from './WithEmotion';
 
 export interface IProps {
   isOpen?: boolean;
@@ -8,13 +8,13 @@ export interface IProps {
 
 const Menu: React.FC<IProps> = ({ children, isOpen = false }) => {
   return (
-    <div style={{ position: 'absolute' }}>
+    <Container>
       <UlContainer isOpen={isOpen}>
         <MenuGroup>
           <LiContainer>{children}</LiContainer>
         </MenuGroup>
       </UlContainer>
-    </div>
+    </Container>
   );
 };
 
