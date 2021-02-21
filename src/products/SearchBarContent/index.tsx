@@ -8,6 +8,7 @@ import {
   Poster,
   PosterContainer,
   RatingContainer,
+  NoImgContainer,
 } from './WithEmotion';
 
 export interface ISearchProps {
@@ -38,11 +39,17 @@ const SearchBarContent: React.FC<ISearchProps> = ({
   return (
     <ItemContainer>
       <PosterContainer>
-        <Poster
-          imgPath={`https://image.tmdb.org/t/p/w220_and_h330_face${
-            poster_path || profile_path
-          }`}
-        ></Poster>
+        {poster_path || profile_path ? (
+          <Poster
+            imgPath={`https://image.tmdb.org/t/p/w220_and_h330_face${
+              poster_path || profile_path
+            }`}
+          ></Poster>
+        ) : (
+          <NoImgContainer>
+            <Icon icon="logo" size={50} />
+          </NoImgContainer>
+        )}
       </PosterContainer>
       <ContentContainer>
         <P color={ColorPalette.Neutral.NEUTRAL_0} weight={600} size={16}>

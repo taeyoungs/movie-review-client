@@ -37,10 +37,19 @@ const RatingContainer = styled.div`
   align-items: center;
 `;
 
+const NoImgContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export {
   ItemContainer,
   PosterContainer,
   Poster,
   ContentContainer,
   RatingContainer,
+  NoImgContainer,
 };
