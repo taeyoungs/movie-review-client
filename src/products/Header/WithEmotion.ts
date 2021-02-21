@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { ColorPalette } from 'models/color';
 
 const HeaderContainer = styled.nav`
   display: flex;
@@ -36,4 +37,25 @@ const SLink = styled(Link)`
   margin: 0 10px;
 `;
 
-export { HeaderContainer, MenuContainer, SLink };
+const VisibleMenu = styled.div`
+  display: none;
+  @media (min-width: 1024px) {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const SidebarIcon = styled.div`
+  @media (min-width: 1024px) {
+    display: none;
+  }
+  border-radius: 50%;
+  padding: 0.6rem 1rem;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    background: ${ColorPalette.Neutral.NEUTRAL_900};
+  }
+`;
+
+export { HeaderContainer, MenuContainer, SLink, VisibleMenu, SidebarIcon };

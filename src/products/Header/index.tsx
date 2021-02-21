@@ -2,35 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from 'products/SearchBar';
 import Button, { ButtonAppearance } from 'products/Button';
-import styled from '@emotion/styled';
-import { HeaderContainer, MenuContainer, SLink } from './WithEmotion';
+import SidebarMenu from 'products/SidebarMenu';
+import {
+  HeaderContainer,
+  MenuContainer,
+  SLink,
+  VisibleMenu,
+  SidebarIcon,
+} from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
-import SidebarMenu from 'products/SidebarMenu';
 
 // ToDo: media-query
 // 1024px 600px
-
-const VisibleMenu = styled.div`
-  display: none;
-  @media (min-width: 1024px) {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const SidebarIcon = styled.div`
-  @media (min-width: 1024px) {
-    display: none;
-  }
-  border-radius: 50%;
-  padding: 0.6rem 1rem;
-  margin-right: 10px;
-  cursor: pointer;
-  &:hover {
-    background: ${ColorPalette.Neutral.NEUTRAL_900};
-  }
-`;
 
 const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);
