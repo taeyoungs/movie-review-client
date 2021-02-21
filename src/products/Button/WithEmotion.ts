@@ -47,7 +47,7 @@ const PEbutton = styled(Button)<IProps>`
     background: ${ColorPalette.Neutral.NEUTRAL_1000};
     color: ${ColorPalette.Neutral.NEUTRAL_0};
     &:hover:enabled {
-      background: ${ColorPalette.Neutral.NEUTRAL_900};
+      background: ${ColorPalette.Main.ICON_HOVER_COLOR};
     }
     &:disabled {
       background: ${ColorPalette.Neutral.NEUTRAL_1000};

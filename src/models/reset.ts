@@ -107,7 +107,7 @@ const reset = css`
   }
   body {
     line-height: 1;
-    background: ${ColorPalette.Main.BG_PRIMARY};
+    background: black;
   }
   ol,
   ul {
@@ -127,6 +127,9 @@ const reset = css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+  a {
+    text-decoration: none;
   }
 `;
 

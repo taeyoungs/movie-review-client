@@ -11,3 +11,4 @@ export { ReactComponent as star } from './star.svg';
 export { ReactComponent as spinner } from './spinner.svg';
 export { ReactComponent as logo } from './logo.svg';
 export { ReactComponent as person } from './person.svg';
+export { ReactComponent as cross } from './cross.svg';

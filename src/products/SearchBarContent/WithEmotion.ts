@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ColorPalette } from 'models/color';
 
 const ItemContainer = styled.li`
   width: 100%;
@@ -8,6 +9,7 @@ const ItemContainer = styled.li`
     background: rgba(255, 255, 255, 0.08);
   }
   box-sizing: border-box;
+  border-bottom: 1px solid ${ColorPalette.Neutral.NEUTRAL_600};
 `;
 
 const PosterContainer = styled.div`

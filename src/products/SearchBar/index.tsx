@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
+import P, { TextAlign } from 'components/atoms/P';
 import { MenuButton } from 'products/Menu/WithEmotion';
 import Menu from 'products/Menu';
 import MenuItem from 'products/MenuItem';
@@ -16,6 +17,7 @@ import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 
 // ToDo: media-query
+// ToDo: 전체 검색 결과 보기
 
 interface IProps {
   multiSearch: Array<ISearchProps>;
@@ -98,9 +100,21 @@ const SearchBar: React.FunctionComponent = () => {
           ) : data && data.multiSearch.length > 10 ? (
             data.multiSearch
               .slice(0, 9)
-              .map((item) => <SearchBarContent {...item} />)
+              .map((item) => <SearchBarContent key={item.id} {...item} />)
           ) : (
-            data?.multiSearch.map((item) => <SearchBarContent {...item} />)
+            data?.multiSearch.map((item) => (
+              <SearchBarContent key={item.id} {...item} />
+            ))
+          )}
+          {data && data.multiSearch.length === 0 && (
+            <LoadingContainer>
+              <P
+                align={TextAlign.CENTER}
+                color={ColorPalette.Yellow.YELLOW_600}
+              >
+                검색 결과가 존재하지 않습니다.
+              </P>
+            </LoadingContainer>
           )}
         </ResultContainer>
       )}

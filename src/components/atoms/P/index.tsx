@@ -49,7 +49,6 @@ const P: React.FC<IProps> = ({
   className,
   style,
 }) => {
-  console.log(color);
   const styleProps = {
     fontColor: color,
     fontWeight: weight,

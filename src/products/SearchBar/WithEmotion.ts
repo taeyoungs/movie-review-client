@@ -6,11 +6,15 @@ const Container = styled.div<{ isFocus: boolean }>`
   transition: box-shadow 100ms ease-in-out 0s;
   flex-grow: 1;
   border-radius: 0.5em;
+  margin-left: 10px;
   ${(props) =>
     props.isFocus &&
     `
     box-shadow: ${ColorPalette.Yellow.YELLOW_600} 0px 0px 0px 2px;
     `}
+  @media (min-width: 1024px) {
+    margin-left: 0px;
+  }
 `;
 
 const SearchbarInput = styled.input`
