@@ -42,7 +42,7 @@ const ResultContainer = styled.div`
   width: 100%;
   background: white;
   border-radius: 0.5em;
-  background: rgba(255, 255, 255, 0.02);
+  background: ${ColorPalette.Main.BG_PRIMARY};
 `;
 
 const LoadingContainer = styled.div`

@@ -37,7 +37,7 @@ const App: React.FunctionComponent = () => {
   const link = split(
     ({ query }) => {
       const { kind, operation }: IDefinition = getMainDefinition(query);
-      console.log(kind, operation);
+      // console.log(kind, operation);
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,

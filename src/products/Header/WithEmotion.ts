@@ -54,7 +54,7 @@ const SidebarIcon = styled.div`
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    background: ${ColorPalette.Neutral.NEUTRAL_900};
+    background: ${ColorPalette.Main.ICON_HOVER_COLOR};
   }
 `;
 

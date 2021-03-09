@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { ColorPalette } from './color';
 
 const reset = css`
   html,
@@ -90,6 +89,7 @@ const reset = css`
     font: inherit;
     vertical-align: baseline;
     font-family: Nanum Gothic;
+    box-sizing: border-box;
   }
   /* HTML5 display-role reset for older browsers */
   article,

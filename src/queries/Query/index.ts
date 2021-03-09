@@ -15,3 +15,15 @@ export const MULTI_SEARCH_QUERY = gql`
     }
   }
 `;
+
+export const POPULAR_SHOWS_QUERY = gql`
+  query PopularShows($page: Int!) {
+    shows(page: $page) {
+      id
+      poster_path
+      backdrop_path
+      name
+      overview
+    }
+  }
+`;

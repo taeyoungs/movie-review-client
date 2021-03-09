@@ -45,8 +45,8 @@ const SidebarMenu: React.FC<IProps> = ({ isShow = false, handleGoBack }) => {
           </Exit>
         </ExitContainer>
         <MenuList>
-          {menuList.map((menu) => (
-            <Link to={menu.pathName}>
+          {menuList.map((menu, index) => (
+            <Link to={menu.pathName} key={index}>
               <MenuContainer>
                 <Icon size={30} icon={menu.iconName} />
                 <P size={15} color={ColorPalette.Neutral.NEUTRAL_0}>
