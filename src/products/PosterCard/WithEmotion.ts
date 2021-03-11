@@ -12,8 +12,9 @@ const Bg = styled.div<{ isDark?: boolean }>`
   flex-wrap: wrap;
 `;
 
-const RBlock = styled.div`
+const RBlock = styled.figure`
   box-sizing: border-box;
+  margin-right: 20px;
   width: 180px;
   min-width: 180px;
   border-radius: 10px;
@@ -54,7 +55,7 @@ const Rating = styled.div<{ isDark?: boolean }>`
     `}
 `;
 
-const Content = styled.div<{ isDark?: boolean }>`
+const Content = styled.figcaption<{ isDark?: boolean }>`
   padding: 10px 6px 12px 10px;
   position: relative;
   ${(props) =>

@@ -27,3 +27,15 @@ export const POPULAR_SHOWS_QUERY = gql`
     }
   }
 `;
+
+export const POPULAR_MOVIES_QUERY = gql`
+  query PopularMovies($page: Int!) {
+    movies(page: $page) {
+      id
+      poster_path
+      title
+      vote_average
+      release_date
+    }
+  }
+`;

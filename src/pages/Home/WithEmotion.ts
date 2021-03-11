@@ -13,10 +13,12 @@ const Container = styled.article`
   @media (min-width: 1024px) {
     max-width: 1024px;
     margin: 0px auto;
+    margin-bottom: 40px;
   }
   @media (min-width: 1280px) {
     max-width: 1280px;
     margin: 0px auto;
+    margin-bottom: 40px;
   }
 `;
 

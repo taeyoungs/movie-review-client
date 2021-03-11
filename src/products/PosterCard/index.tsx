@@ -6,35 +6,44 @@ import { Content, Poster, Rating, RBlock } from './WithEmotion';
 import { ColorPalette } from 'models/color';
 
 export interface IProps {
-  posterPath?: string;
-  voteAverage?: number;
+  poster_path?: string;
+  vote_average?: number;
   title?: string;
-  releaseDate?: string;
+  release_date?: string;
   isDark?: boolean;
   href?: string;
 }
 
+function formatDate(date: string): string {
+  const [year, month, day] = date.split('-');
+
+  return `${month}.${day} ${year}`;
+}
+
 const PosterCard: React.FC<IProps> = ({
-  posterPath = 'https://image.tmdb.org/t/p/w220_and_h330_face/rCcL0gv0frDkGLktAbmaAsz7TX6.jpg',
-  voteAverage = 4.2,
+  poster_path = 'https://image.tmdb.org/t/p/w220_and_h330_face/rCcL0gv0frDkGLktAbmaAsz7TX6.jpg',
+  vote_average = 4.2,
   title = '익스트랙션',
-  releaseDate = '04.24 2020',
+  release_date = '04.24 2020',
   isDark = false,
   href = '#',
 }) => {
   return (
     <RBlock>
       <Link href={href}>
-        <Poster posterPath={posterPath} isDark={isDark}></Poster>
+        <Poster
+          posterPath={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
+          isDark={isDark}
+        ></Poster>
       </Link>
       <Content isDark={isDark}>
         <Rating isDark={isDark}>
           <Icon icon="star" color={ColorPalette.Yellow.YELLOW_600} size={22} />
           <P weight={600} margin={[0, 0, 0, 3]}>
-            {voteAverage}
+            {vote_average}
           </P>
         </Rating>
-        <P size={16} weight={600} margin={[10, 0, 5, 0]}>
+        <P size={16} weight={600} margin={[15, 0, 5, 0]}>
           {!isDark ? (
             <Link isTitle href={href}>
               {title}
@@ -53,7 +62,7 @@ const PosterCard: React.FC<IProps> = ({
               : ColorPalette.Neutral.NEUTRAL_600
           }
         >
-          {releaseDate}
+          {formatDate(release_date)}
         </P>
       </Content>
     </RBlock>
