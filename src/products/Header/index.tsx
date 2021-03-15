@@ -9,6 +9,8 @@ import {
   SLink,
   VisibleMenu,
   SidebarIcon,
+  LogoTitle,
+  LogoContainer,
 } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
@@ -28,9 +30,13 @@ const Header: React.FunctionComponent = () => {
         <SidebarIcon onClick={() => setIsShow(true)}>
           <Icon icon="menu" color={ColorPalette.Neutral.NEUTRAL_0} size={14} />
         </SidebarIcon>
-        <Link to="/">
-          <Icon icon="logo" />
-        </Link>
+        <LogoContainer>
+          <Link to="/">
+            <Icon icon="logo" />
+          </Link>
+          <LogoTitle>Youngs</LogoTitle>
+        </LogoContainer>
+
         <VisibleMenu>
           <SLink to="/movies">
             <Button appearance={ButtonAppearance.PRIMARY}>영화</Button>

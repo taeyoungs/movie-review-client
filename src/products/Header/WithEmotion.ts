@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
-const HeaderContainer = styled.nav`
+const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   height: 3.5rem;
@@ -32,12 +32,25 @@ const MenuContainer = styled.div`
   }
 `;
 
+const LogoContainer = styled.h1`
+  position: relative;
+`;
+
+const LogoTitle = styled.span`
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+`;
+
 const SLink = styled(Link)`
   text-decoration: none;
   margin: 0 10px;
 `;
 
-const VisibleMenu = styled.div`
+const VisibleMenu = styled.nav`
   display: none;
   @media (min-width: 1024px) {
     display: flex;
@@ -58,4 +71,12 @@ const SidebarIcon = styled.div`
   }
 `;
 
-export { HeaderContainer, MenuContainer, SLink, VisibleMenu, SidebarIcon };
+export {
+  HeaderContainer,
+  MenuContainer,
+  SLink,
+  VisibleMenu,
+  SidebarIcon,
+  LogoContainer,
+  LogoTitle,
+};
