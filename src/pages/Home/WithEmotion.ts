@@ -94,14 +94,21 @@ const SlideContainer = styled.div`
   }
 `;
 
-const ArrowBtn = styled.div<{ next: boolean }>`
-  position: absolute;
-  top: 45%;
-  ${(props) =>
-    props.next
-      ? `right: 10px;`
-      : `transform: rotate3d(0, 1, 0, 180deg);
-        left: 10px;`}
+const ArrowBtn = styled.button<{ next: boolean }>`
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: 0;
+  cursor: pointer;
+  &:nth-of-type(2) {
+    border-right: 1px solid ${ColorPalette.Main.TEXT_BODY};
+    border-left: 1px solid ${ColorPalette.Main.TEXT_BODY};
+  }
+  ${(props) => props.next && `transform: rotate3d(0, 1, 0, 180deg);`}
 `;
 
 const UpNextItem = styled.figure`

@@ -12,3 +12,5 @@ export { ReactComponent as spinner } from './spinner.svg';
 export { ReactComponent as logo } from './logo.svg';
 export { ReactComponent as person } from './person.svg';
 export { ReactComponent as cross } from './cross.svg';
+export { ReactComponent as pause } from './pause.svg';
+export { ReactComponent as play } from './play.svg';

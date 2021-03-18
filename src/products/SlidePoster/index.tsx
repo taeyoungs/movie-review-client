@@ -72,14 +72,14 @@ const SlidePoster: React.FC<IProps> = ({
     <BackdropContainer key={id} className="backdrop-container">
       <Backdrop
         src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-        alt={`${name}`}
+        alt={name}
         style={{ width: imgSize }}
       />
       <GradientContainer />
       <Info>
         <Poster
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          alt={`${name}`}
+          alt={name}
         />
       </Info>
       <Content>
