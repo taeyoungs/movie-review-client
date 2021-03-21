@@ -10,6 +10,8 @@ export interface IProps {
   vote_average?: number;
   title?: string;
   release_date?: string;
+  name?: string;
+  first_air_date?: string;
   isDark?: boolean;
   href?: string;
   lazy?: boolean;
@@ -24,11 +26,13 @@ function formatDate(date: string): string {
 const PosterCard: React.FC<IProps> = ({
   poster_path = 'https://image.tmdb.org/t/p/w220_and_h330_face/rCcL0gv0frDkGLktAbmaAsz7TX6.jpg',
   vote_average = 4.2,
-  title = '익스트랙션',
-  release_date = '04.24 2020',
+  title,
+  release_date,
   isDark = false,
   href = '#',
   lazy = false,
+  name,
+  first_air_date,
 }) => {
   return (
     <RBlock>
@@ -56,11 +60,13 @@ const PosterCard: React.FC<IProps> = ({
         <P size={16} weight={600} margin={[15, 0, 5, 0]}>
           {!isDark ? (
             <Link isTitle href={href}>
-              {title}
+              {title && title}
+              {name && name}
             </Link>
           ) : (
             <Link secondary underline href={href}>
-              {title}
+              {title && title}
+              {name && name}
             </Link>
           )}
         </P>
@@ -72,7 +78,8 @@ const PosterCard: React.FC<IProps> = ({
               : ColorPalette.Neutral.NEUTRAL_600
           }
         >
-          {formatDate(release_date)}
+          {release_date && formatDate(release_date)}
+          {first_air_date && formatDate(first_air_date)}
         </P>
       </Content>
     </RBlock>
