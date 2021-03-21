@@ -12,6 +12,7 @@ export interface IProps {
   release_date?: string;
   isDark?: boolean;
   href?: string;
+  lazy?: boolean;
 }
 
 function formatDate(date: string): string {
@@ -27,14 +28,23 @@ const PosterCard: React.FC<IProps> = ({
   release_date = '04.24 2020',
   isDark = false,
   href = '#',
+  lazy = false,
 }) => {
   return (
     <RBlock>
       <Link href={href}>
-        <Poster
-          posterPath={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
-          isDark={isDark}
-        ></Poster>
+        {lazy ? (
+          <Poster
+            data-src={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
+            isDark={isDark}
+            className="lazy"
+          ></Poster>
+        ) : (
+          <Poster
+            src={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
+            isDark={isDark}
+          ></Poster>
+        )}
       </Link>
       <Content isDark={isDark}>
         <Rating isDark={isDark}>

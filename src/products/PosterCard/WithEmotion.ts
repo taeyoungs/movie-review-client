@@ -21,12 +21,9 @@ const RBlock = styled.figure`
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 `;
 
-const Poster = styled.div<{ posterPath: string; isDark?: boolean }>`
+const Poster = styled.img<{ isDark?: boolean }>`
   width: 100%;
   height: calc(180px * 1.5);
-  background-image: url(${(props) => props.posterPath});
-  background-size: cover;
-  background-position: center;
   cursor: pointer;
   ${(props) =>
     !props.isDark &&

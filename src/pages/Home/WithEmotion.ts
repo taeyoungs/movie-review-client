@@ -57,7 +57,7 @@ const SwiperWarpper = styled.figure`
   height: 100%;
   display: flex;
   transition-property: transform;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: linear;
 `;
 
 const BackdropContainer = styled.div`
@@ -151,6 +151,50 @@ const UpNextPoster = styled.img`
   }
 `;
 
+const HomeScrollSection = styled.section`
+  width: 100%;
+  padding-top: 15px;
+  margin: 0px 0px 20px 30px;
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    margin: 0px auto 20px;
+    padding-top: 20px;
+  }
+  @media (min-width: 1280px) {
+    max-width: 1280px;
+    margin: 0px auto 20px;
+    padding-top: 20px;
+  }
+  & h2 {
+    color: #f1c40f;
+    font-size: 25px;
+    margin: 20px 0px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const ScrollDiv = styled.div`
+  padding: 20px 0px 40px;
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  min-height: 370px;
+  position: relative;
+  &::-webkit-scrollbar {
+    height: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #f1c40f;
+    border-radius: 10px;
+    width: ;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+`;
+
 export {
   Main,
   Container,
@@ -165,4 +209,6 @@ export {
   UpNextItem,
   UpNext,
   UpNextPoster,
+  HomeScrollSection,
+  ScrollDiv,
 };

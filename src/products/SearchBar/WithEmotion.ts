@@ -40,7 +40,7 @@ const ResultContainer = styled.div`
   top: 40px;
   left: 0;
   width: 100%;
-  background: white;
+  z-index: 50;
   border-radius: 0.5em;
   background: ${ColorPalette.Main.BG_PRIMARY};
 `;

@@ -8,13 +8,14 @@ const LoadingContainer = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.05);
+  background: #1f1f1f;
 `;
 
 const Spinner = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Loading: React.FunctionComponent = () => {
