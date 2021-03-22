@@ -25,3 +25,14 @@ export function CalculateBox(
 
   return `${resultArr.toString().replace(/,/gi, 'px ')}px`;
 }
+
+export function setWidth(): number {
+  const width = window.innerWidth;
+  if (width >= 1280) {
+    return (1280 / 3) * 2;
+  } else if (width >= 1024) {
+    return (1024 / 3) * 2;
+  } else {
+    return width - 17;
+  }
+}

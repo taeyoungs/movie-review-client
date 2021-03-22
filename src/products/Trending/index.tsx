@@ -1,64 +1,11 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 import { useLazyQuery } from '@apollo/client';
 import { HomeScrollSection, ScrollDiv } from 'pages/Home/WithEmotion';
 import Loading from 'products/Loading';
 import PosterCard from 'products/PosterCard';
 import { TRENDING_MOVIES_QUERY, TRENDING_SHOWS_QUERY } from 'queries/Query';
-import { ColorPalette } from 'models/color';
-
-const ToggleBtn = styled.label`
-  color: #000;
-  background-color: #fff;
-  border-radius: 20px;
-  display: inline-flex;
-  justify-content: space-around;
-  margin: 0 10px;
-  cursor: pointer;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 65px;
-    height: 25px;
-    background-color: ${ColorPalette.Main.CTA_PRIMARY};
-    border-radius: 20px;
-    z-index: 9;
-  }
-  &:nth-of-type(1) {
-    margin-left: 30px;
-  }
-`;
-
-const HiddenBox = styled.input`
-  display: none;
-`;
-
-const ToggleText = styled.span`
-  display: inline-block;
-  font-size: 14px;
-  padding: 8px 20px;
-  font-weight: 300;
-  z-index: 10;
-`;
-
-interface IShowProps {
-  id: number;
-  poster_path: string;
-  name: string;
-  overview: string;
-  backdrop_path: string;
-}
-
-interface IMovieProps {
-  id: number;
-  poster_path: string;
-  title: string;
-  vote_average: number;
-  release_date: string;
-}
+import { HiddenBox, ToggleBtn, ToggleText } from './WithEmotion';
+import { IMovieProps, IShowProps } from 'models/types';
 
 const Trending: React.FunctionComponent = () => {
   const [mediaType, setMediaType] = useState(false);
