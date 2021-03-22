@@ -11,6 +11,7 @@ import {
   SidebarIcon,
   LogoTitle,
   LogoContainer,
+  SearchIcon,
 } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
@@ -49,6 +50,13 @@ const Header: React.FunctionComponent = () => {
           </SLink>
         </VisibleMenu>
         <SearchBar />
+        <SearchIcon>
+          <Icon
+            icon="search"
+            color={ColorPalette.Neutral.NEUTRAL_0}
+            size={14}
+          />
+        </SearchIcon>
         <SLink to="/reviews">
           <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
         </SLink>

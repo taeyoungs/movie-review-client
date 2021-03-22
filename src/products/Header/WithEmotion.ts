@@ -71,6 +71,18 @@ const SidebarIcon = styled.div`
   }
 `;
 
+const SearchIcon = styled.div`
+  @media (min-width: 600px) {
+    display: none;
+  }
+  border-radius: 50%;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  &:hover {
+    background: ${ColorPalette.Main.ICON_HOVER_COLOR};
+  }
+`;
+
 export {
   HeaderContainer,
   MenuContainer,
@@ -79,4 +91,5 @@ export {
   SidebarIcon,
   LogoContainer,
   LogoTitle,
+  SearchIcon,
 };

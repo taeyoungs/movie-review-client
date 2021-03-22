@@ -4,7 +4,7 @@ import P, { TextAlign } from 'components/atoms/P';
 import { MenuButton } from 'products/Menu/WithEmotion';
 import Menu from 'products/Menu';
 import MenuItem from 'products/MenuItem';
-import SearchBarContent, { ISearchProps } from 'products/SearchBarContent';
+import SearchBarContent from 'products/SearchBarContent';
 import {
   Container,
   SearchbarInput,
@@ -15,6 +15,7 @@ import {
 import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
+import { ISearchProps } from 'models/types';
 
 // ToDo: media-query
 // ToDo: 전체 검색 결과 보기

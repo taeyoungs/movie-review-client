@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
-const Container = styled.div<{ isShow: boolean }>`
+const Container = styled.aside<{ isShow: boolean }>`
   inset: 0;
   position: fixed;
   z-index: 101;

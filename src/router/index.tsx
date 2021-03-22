@@ -1,3 +1,4 @@
+import Footer from 'products/Footer';
 import Header from 'products/Header';
 import Loading from 'products/Loading';
 import React, { lazy, Suspense } from 'react';
@@ -20,6 +21,7 @@ const RouterContainer = () => {
           <Route exact path="/reviews" component={Reviews} />
         </Switch>
       </Suspense>
+      <Footer />
     </Router>
   );
 };

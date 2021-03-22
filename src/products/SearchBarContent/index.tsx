@@ -10,18 +10,7 @@ import {
   RatingContainer,
   NoImgContainer,
 } from './WithEmotion';
-
-export interface ISearchProps {
-  id: number;
-  poster_path?: string;
-  profile_path?: string;
-  media_type?: string;
-  title?: string;
-  name?: string;
-  vote_average?: number;
-  release_date?: string;
-  first_air_date?: string;
-}
+import { ISearchProps } from 'models/types';
 
 // ToDo: Link
 
