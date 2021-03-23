@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import P, { TextAlign } from 'components/atoms/P';
+import MenuItem from 'components/atoms/MenuItem';
 import { MenuButton } from 'components/molecules/Menu/WithEmotion';
 import Menu from 'components/molecules/Menu';
-import MenuItem from 'components/atoms/MenuItem';
-import SearchBarItem from 'components/molecules/SearchBarItem';
+import ResultSection from 'components/organisms/ResultSection';
+import Loading from 'products/Loading';
 import {
   Container,
   SearchbarInput,
   RelativeContainer,
   ResultContainer,
-  LoadingContainer,
 } from './WithEmotion';
 import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import { ISearchProps } from 'models/types';
-import Loading from 'products/Loading';
-
-// ToDo: media-query
-// ToDo: 전체 검색 결과 보기
 
 interface IProps {
   multiSearch: Array<ISearchProps>;
@@ -28,7 +23,6 @@ interface IProps {
 const SearchBar: React.FunctionComponent = () => {
   const [title, setTitle] = useState('All');
   const [isOpen, setIsOpen] = useState(false);
-  const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('');
   const [getResults, { loading, data }] = useLazyQuery<IProps>(
     MULTI_SEARCH_QUERY
@@ -54,9 +48,20 @@ const SearchBar: React.FunctionComponent = () => {
     setValue(event.target.value);
   };
 
+  const toggleShadow = () => {
+    const inputContainer = document.querySelector('.input-container');
+    if (inputContainer) {
+      if (!inputContainer.classList.contains('focus-shadow')) {
+        inputContainer.classList.add('focus-shadow');
+      } else {
+        inputContainer.classList.remove('focus-shadow');
+      }
+    }
+  };
+
   return (
     <RelativeContainer>
-      <Container isFocus={isFocus}>
+      <Container className="input-container">
         <div
           style={{ position: 'relative' }}
           onMouseLeave={() => setIsOpen(false)}
@@ -87,8 +92,8 @@ const SearchBar: React.FunctionComponent = () => {
         </div>
         <SearchbarInput
           placeholder="제목 또는 이름으로 검색해보세요."
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
+          onFocus={toggleShadow}
+          onBlur={toggleShadow}
           value={value}
           onChange={handleChange}
         />
@@ -97,24 +102,8 @@ const SearchBar: React.FunctionComponent = () => {
         <ResultContainer>
           {loading ? (
             <Loading />
-          ) : data && data.multiSearch.length > 10 ? (
-            data.multiSearch
-              .slice(0, 9)
-              .map((item) => <SearchBarItem key={item.id} {...item} />)
           ) : (
-            data?.multiSearch.map((item) => (
-              <SearchBarItem key={item.id} {...item} />
-            ))
-          )}
-          {data && data.multiSearch.length === 0 && (
-            <LoadingContainer>
-              <P
-                align={TextAlign.CENTER}
-                color={ColorPalette.Yellow.YELLOW_600}
-              >
-                검색 결과가 존재하지 않습니다.
-              </P>
-            </LoadingContainer>
+            data && <ResultSection multiSearch={data.multiSearch} />
           )}
         </ResultContainer>
       )}

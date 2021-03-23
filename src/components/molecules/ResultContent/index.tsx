@@ -14,7 +14,7 @@ import { ISearchProps } from 'models/types';
 
 // ToDo: Link
 
-const SearchBarContent: React.FC<ISearchProps> = ({
+const ResultContent: React.FC<ISearchProps> = ({
   id,
   poster_path,
   profile_path,
@@ -70,4 +70,4 @@ const SearchBarContent: React.FC<ISearchProps> = ({
   );
 };
 
-export default SearchBarContent;
+export default ResultContent;

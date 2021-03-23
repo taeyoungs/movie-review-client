@@ -1,18 +1,16 @@
 import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
-const Container = styled.div<{ isFocus: boolean }>`
+const Container = styled.div`
   display: none;
   @media (min-width: 600px) {
     display: flex;
     transition: box-shadow 100ms ease-in-out 0s;
     flex-grow: 1;
     border-radius: 0.5em;
-    ${(props) =>
-      props.isFocus &&
-      `
+    &.focus-shadow {
       box-shadow: ${ColorPalette.Yellow.YELLOW_600} 0px 0px 0px 2px;
-      `}
+    }
   }
   @media (min-width: 1024px) {
     margin-left: 0px;
@@ -35,10 +33,12 @@ const SearchbarInput = styled.input`
 `;
 
 const RelativeContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  @media (max-width: 600px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
   @media (min-width: 600px) {
     position: relative;
     flex-grow: 1;
@@ -55,17 +55,4 @@ const ResultContainer = styled.div`
   background: ${ColorPalette.Main.BG_PRIMARY};
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-`;
-
-export {
-  Container,
-  SearchbarInput,
-  RelativeContainer,
-  ResultContainer,
-  LoadingContainer,
-};
+export { Container, SearchbarInput, RelativeContainer, ResultContainer };
