@@ -9,6 +9,8 @@ const LoadingContainer = styled.div`
   bottom: 0;
   right: 0;
   background: #1f1f1f;
+  min-height: 400px;
+  z-index: 49;
 `;
 
 const Spinner = styled.div`

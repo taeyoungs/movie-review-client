@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from 'products/SearchBar';
+import SearchBar from 'components/organisms/SearchBar';
 import Button, { ButtonAppearance } from 'products/Button';
-import SidebarMenu from 'products/SidebarMenu';
+import SidebarMenu from 'components/organisms/SidebarMenu';
 import {
   HeaderContainer,
   MenuContainer,

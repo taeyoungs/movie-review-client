@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import P, { TextAlign } from 'components/atoms/P';
-import { MenuButton } from 'products/Menu/WithEmotion';
-import Menu from 'products/Menu';
-import MenuItem from 'products/MenuItem';
-import SearchBarContent from 'products/SearchBarContent';
+import { MenuButton } from 'components/molecules/Menu/WithEmotion';
+import Menu from 'components/molecules/Menu';
+import MenuItem from 'components/atoms/MenuItem';
+import SearchBarItem from 'components/molecules/SearchBarItem';
 import {
   Container,
   SearchbarInput,
@@ -16,6 +16,7 @@ import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import { ISearchProps } from 'models/types';
+import Loading from 'products/Loading';
 
 // ToDo: media-query
 // ToDo: 전체 검색 결과 보기
@@ -95,16 +96,14 @@ const SearchBar: React.FunctionComponent = () => {
       {value != '' && (
         <ResultContainer>
           {loading ? (
-            <LoadingContainer>
-              <Icon icon="spinner" />
-            </LoadingContainer>
+            <Loading />
           ) : data && data.multiSearch.length > 10 ? (
             data.multiSearch
               .slice(0, 9)
-              .map((item) => <SearchBarContent key={item.id} {...item} />)
+              .map((item) => <SearchBarItem key={item.id} {...item} />)
           ) : (
             data?.multiSearch.map((item) => (
-              <SearchBarContent key={item.id} {...item} />
+              <SearchBarItem key={item.id} {...item} />
             ))
           )}
           {data && data.multiSearch.length === 0 && (

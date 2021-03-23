@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SlidePoster from 'products/SlidePoster';
+import SlidePoster from 'components/molecules/SlidePoster';
 import Icon from 'Icon/Icon';
 import {
   MainPoster,

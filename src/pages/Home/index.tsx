@@ -11,9 +11,9 @@ import {
   HomeScrollSection,
   ScrollDiv,
 } from './WithEmotion';
-import PosterCard from 'products/PosterCard';
-import Trending from 'products/Trending';
-import Swiper from 'products/Swiper';
+import PosterCard from 'components/molecules/PosterCard';
+import TrendingSection from 'components/organisms/TrendingSection';
+import Swiper from 'components/organisms/Swiper';
 import Loading from 'products/Loading';
 import { POPULAR_MOVIES_QUERY, POPULAR_SHOWS_QUERY } from 'queries/Query';
 import { IMovieProps, IShowProps } from 'models/types';
@@ -88,7 +88,7 @@ const Home: React.FunctionComponent = () => {
             ))}
         </ScrollDiv>
       </HomeScrollSection>
-      <Trending />
+      <TrendingSection />
     </Main>
   );
 };

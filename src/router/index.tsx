@@ -1,7 +1,7 @@
-import Footer from 'products/Footer';
-import Header from 'products/Header';
-import Loading from 'products/Loading';
 import React, { lazy, Suspense } from 'react';
+import Footer from 'components/organisms/Footer';
+import Header from 'components/organisms/Header';
+import Loading from 'products/Loading';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 const Home = lazy(() => import('pages/Home'));

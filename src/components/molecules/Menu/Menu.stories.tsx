@@ -5,7 +5,7 @@ import Block, { Direction, Sort } from 'components/molecules/Block';
 import Icon, { IconType } from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import Background from 'products/_common';
-import MenuItem from 'products/MenuItem';
+import MenuItem from 'components/atoms/MenuItem';
 import Button from 'products/Button';
 import useComponentVisible from 'hooks/useComponentVisible';
 import { MenuButton } from './WithEmotion';

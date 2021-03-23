@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { HomeScrollSection, ScrollDiv } from 'pages/Home/WithEmotion';
 import Loading from 'products/Loading';
-import PosterCard from 'products/PosterCard';
+import PosterCard from 'components/molecules/PosterCard';
 import { TRENDING_MOVIES_QUERY, TRENDING_SHOWS_QUERY } from 'queries/Query';
-import { HiddenBox, ToggleBtn, ToggleText } from './WithEmotion';
 import { IMovieProps, IShowProps } from 'models/types';
+import { HiddenBox, ToggleBtn, ToggleText } from './WithEmotion';
 
 const Trending: React.FunctionComponent = () => {
   const [mediaType, setMediaType] = useState(false);
