@@ -8,8 +8,9 @@ const Home = lazy(() => import('pages/Home'));
 const Movies = lazy(() => import('pages/Movies'));
 const Shows = lazy(() => import('pages/Shows'));
 const Reviews = lazy(() => import('pages/Reviews'));
+const Registration = lazy(() => import('pages/Registration'));
 
-const RouterContainer = () => {
+const RouterContainer: React.FunctionComponent = () => {
   return (
     <Router>
       <Header />
@@ -19,6 +20,7 @@ const RouterContainer = () => {
           <Route exact path="/movies" component={Movies} />
           <Route exact path="/shows" component={Shows} />
           <Route exact path="/reviews" component={Reviews} />
+          <Route exact path="/registration" component={Registration} />
         </Switch>
       </Suspense>
       <Footer />

@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
 const Main = styled.main`
-  min-height: 150vh;
   margin-top: 3.5rem;
+  margin-bottom: 100px;
 `;
 
 const Container = styled.article`

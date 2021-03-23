@@ -14,3 +14,5 @@ export { ReactComponent as person } from './person.svg';
 export { ReactComponent as cross } from './cross.svg';
 export { ReactComponent as pause } from './pause.svg';
 export { ReactComponent as play } from './play.svg';
+export { ReactComponent as google } from './google.svg';
+export { ReactComponent as github } from './github.svg';

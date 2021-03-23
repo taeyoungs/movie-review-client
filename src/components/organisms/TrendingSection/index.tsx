@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { HomeScrollSection, ScrollDiv } from 'pages/Home/WithEmotion';
 import Loading from 'products/Loading';
@@ -23,22 +23,24 @@ const Trending: React.FunctionComponent = () => {
     trendingShows: Array<IShowProps>;
   }>(TRENDING_SHOWS_QUERY);
 
-  if ('IntersectionObserver' in window) {
-    const trendingTitle = document.querySelector('.lazy');
-    if (trendingTitle) {
-      const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const trending = entry.target;
-            trending.classList.remove('lazy');
-            getTrendingMovies({ variables: { timeWindow } });
-            imageObserver.unobserve(trendingTitle);
-          }
+  useEffect(() => {
+    if ('IntersectionObserver' in window) {
+      const trendingTitle = document.querySelector('.lazy');
+      if (trendingTitle) {
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const trending = entry.target;
+              trending.classList.remove('lazy');
+              getTrendingMovies({ variables: { timeWindow } });
+              imageObserver.unobserve(trendingTitle);
+            }
+          });
         });
-      });
-      imageObserver.observe(trendingTitle);
+        imageObserver.observe(trendingTitle);
+      }
     }
-  }
+  }, []);
 
   const handleMediaType = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;

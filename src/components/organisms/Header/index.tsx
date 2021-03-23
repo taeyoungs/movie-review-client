@@ -64,7 +64,7 @@ const Header: React.FunctionComponent = () => {
             size={14}
           />
         </SearchIcon>
-        <SLink to="/reviews">
+        <SLink to="/registration">
           <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
         </SLink>
       </MenuContainer>

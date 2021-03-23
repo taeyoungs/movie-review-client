@@ -17,6 +17,7 @@ const PEInput = styled(Input)<IStyleProps>`
   padding: 0.715em 1em;
   color: ${ColorPalette.Main.TEXT_BODY};
   transition: box-shadow 100ms ease-in-out 0s;
+  margin-bottom: 10px;
   &::placeholder {
     font-weight: 600;
   }

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 type IntervalFunction = () => unknown | void;
 
-function useInterval(callback: () => void, delay: number | null) {
+function useInterval(callback: () => void, delay: number | null): void {
   const savedCallback = useRef<IntervalFunction | null>(null);
 
   // Remember the latest callback.

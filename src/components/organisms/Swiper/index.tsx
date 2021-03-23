@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import SlidePoster from 'components/molecules/SlidePoster';
 import Icon from 'Icon/Icon';
 import {
@@ -28,6 +29,8 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
   const [imgSize, setImgSize] = useState<number>(setWidth());
   const [tDuration, setTDuration] = useState(0);
   const [play, setPlay] = useState(true);
+  const location = useLocation();
+
   const handlePrevSwipe = () => {
     if (shows) {
       setTDuration(500);
@@ -54,7 +57,10 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
     }
   };
 
-  useInterval(handleNextSwipe, play ? 10000 : null);
+  useInterval(
+    handleNextSwipe,
+    location.pathname !== '/' ? null : play ? 10000 : null
+  );
 
   const handlePlay = () => {
     if (play) {
