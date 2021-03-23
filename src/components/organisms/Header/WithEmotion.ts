@@ -72,14 +72,17 @@ const SidebarIcon = styled.div`
 `;
 
 const SearchIcon = styled.div`
+  @media (max-width: 600px) {
+    border-radius: 50%;
+    margin-left: auto;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    &:hover {
+      background: ${ColorPalette.Main.ICON_HOVER_COLOR};
+    }
+  }
   @media (min-width: 600px) {
     display: none;
-  }
-  border-radius: 50%;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  &:hover {
-    background: ${ColorPalette.Main.ICON_HOVER_COLOR};
   }
 `;
 

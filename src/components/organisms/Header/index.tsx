@@ -24,6 +24,13 @@ const Header: React.FunctionComponent = () => {
 
   const handleGoBack = () => setIsShow(false);
 
+  const handleOpen = () => {
+    const relativeContainer = document.querySelector('.relative-container');
+    if (relativeContainer) {
+      relativeContainer.classList.add('open');
+    }
+  };
+
   return (
     <HeaderContainer>
       <MenuContainer>
@@ -50,7 +57,7 @@ const Header: React.FunctionComponent = () => {
           </SLink>
         </VisibleMenu>
         <SearchBar />
-        <SearchIcon>
+        <SearchIcon onClick={handleOpen}>
           <Icon
             icon="search"
             color={ColorPalette.Neutral.NEUTRAL_0}

@@ -2,7 +2,13 @@ import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
 const Container = styled.div`
-  display: none;
+  @media (max-width: 600px) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+  }
   @media (min-width: 600px) {
     display: flex;
     transition: box-shadow 100ms ease-in-out 0s;
@@ -17,7 +23,24 @@ const Container = styled.div`
   }
 `;
 
+const MenuContainer = styled.div`
+  position: relative;
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
 const SearchbarInput = styled.input`
+  @media (max-width: 600px) {
+    color: #fff;
+    background: ${ColorPalette.Main.BG_PRIMARY};
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: none;
+  }
   @media (min-width: 600px) {
     padding: 0.715em 1em;
     width: 100%;
@@ -34,10 +57,16 @@ const SearchbarInput = styled.input`
 
 const RelativeContainer = styled.div`
   @media (max-width: 600px) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    display: none;
+    &.open {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: ${ColorPalette.Main.BG_PRIMARY};
+    }
   }
   @media (min-width: 600px) {
     position: relative;
@@ -47,7 +76,7 @@ const RelativeContainer = styled.div`
 
 const ResultContainer = styled.div`
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 0;
   width: 100%;
   z-index: 50;
@@ -55,4 +84,47 @@ const ResultContainer = styled.div`
   background: ${ColorPalette.Main.BG_PRIMARY};
 `;
 
-export { Container, SearchbarInput, RelativeContainer, ResultContainer };
+const MenuButton = styled.div<{ isOpen: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  white-space: nowrap;
+  background: ${ColorPalette.Main.BG_SECONDARY};
+  cursor: pointer;
+  color: ${ColorPalette.Main.BG_PRIMARY};
+  font-size: 12px;
+  padding: 0.5em;
+  & > svg {
+    transition: transform 200ms ease-in-out 0s;
+    padding: 0 0.5em;
+    ${(props) =>
+      props.isOpen
+        ? `transform: rotate3d(1, 0, 0, 180deg)`
+        : `transform: rotate3d(0, 0, 0, 0deg)`}
+  }
+`;
+
+const ExitIcon = styled.div`
+  @media (max-width: 600px) {
+    border-radius: 50%;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    &:hover {
+      background: ${ColorPalette.Main.ICON_HOVER_COLOR};
+    }
+  }
+  @media (min-width: 600px) {
+    display: none;
+  }
+`;
+
+export {
+  Container,
+  SearchbarInput,
+  RelativeContainer,
+  ResultContainer,
+  MenuButton,
+  MenuContainer,
+  ExitIcon,
+};

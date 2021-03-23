@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import MenuItem from 'components/atoms/MenuItem';
-import { MenuButton } from 'components/molecules/Menu/WithEmotion';
 import Menu from 'components/molecules/Menu';
 import ResultSection from 'components/organisms/ResultSection';
 import Loading from 'products/Loading';
@@ -10,6 +9,9 @@ import {
   SearchbarInput,
   RelativeContainer,
   ResultContainer,
+  MenuButton,
+  MenuContainer,
+  ExitIcon,
 } from './WithEmotion';
 import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
@@ -49,7 +51,7 @@ const SearchBar: React.FunctionComponent = () => {
   };
 
   const toggleShadow = () => {
-    const inputContainer = document.querySelector('.input-container');
+    const inputContainer = document.querySelector('.searchbar-container');
     if (inputContainer) {
       if (!inputContainer.classList.contains('focus-shadow')) {
         inputContainer.classList.add('focus-shadow');
@@ -59,13 +61,17 @@ const SearchBar: React.FunctionComponent = () => {
     }
   };
 
+  const handleExit = () => {
+    const inputContainer = document.querySelector('.relative-container');
+    if (inputContainer) {
+      inputContainer.classList.remove('open');
+    }
+  };
+
   return (
-    <RelativeContainer>
-      <Container className="input-container">
-        <div
-          style={{ position: 'relative' }}
-          onMouseLeave={() => setIsOpen(false)}
-        >
+    <RelativeContainer className="relative-container open">
+      <Container className="searchbar-container">
+        <MenuContainer onMouseLeave={() => setIsOpen(false)}>
           <MenuButton onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
             {title}
             <Icon
@@ -89,14 +95,23 @@ const SearchBar: React.FunctionComponent = () => {
               />
             ))}
           </Menu>
-        </div>
+        </MenuContainer>
         <SearchbarInput
+          className="searchbar-input"
           placeholder="제목 또는 이름으로 검색해보세요."
           onFocus={toggleShadow}
           onBlur={toggleShadow}
           value={value}
           onChange={handleChange}
         />
+        <ExitIcon
+          onClick={() => {
+            handleExit();
+            setValue('');
+          }}
+        >
+          <Icon icon="cross" color={ColorPalette.Neutral.NEUTRAL_0} size={14} />
+        </ExitIcon>
       </Container>
       {value != '' && (
         <ResultContainer>

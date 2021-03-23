@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import Menu, { IProps } from '.';
-import Block, { Direction, Sort } from 'components/molecules/Block';
-import Icon, { IconType } from 'Icon/Icon';
-import { ColorPalette } from 'models/color';
-import Background from 'products/_common';
 import MenuItem from 'components/atoms/MenuItem';
+import Block, { Direction, Sort } from 'components/molecules/Block';
+import { MenuButton } from 'components/organisms/SearchBar/WithEmotion';
+import Background from 'products/_common';
 import Button from 'products/Button';
 import useComponentVisible from 'hooks/useComponentVisible';
-import { MenuButton } from './WithEmotion';
+import { ColorPalette } from 'models/color';
+import Icon, { IconType } from 'Icon/Icon';
+import Menu, { IProps } from '.';
 
 export default {
   title: 'Design System/Menu',
