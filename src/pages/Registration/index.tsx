@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Input, { InputAppearance } from 'products/Input';
-import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from 'react-google-login';
+import useSocialAuth from 'hooks/useSocialAuth';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -29,6 +34,7 @@ const FormContainer = styled.form`
   width: 400px;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 `;
 
 const SubmitButton = styled.button`
@@ -43,34 +49,39 @@ const SubmitButton = styled.button`
 `;
 
 const SocialLoginContainer = styled.div`
-  display: flex;
+  & .google-login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 const Notification = styled.h2`
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   padding: 30px 0px 20px;
   text-align: center;
-`;
-
-const SocialLoginButton = styled.button`
-  border: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 50%;
-  height: 40px;
-  cursor: pointer;
-  color: #fff;
-  &:nth-of-type(1) {
-    margin-right: 10px;
-    background-color: #c23321;
-  }
-  &:nth-of-type(2) {
-    background-color: #211f1f;
-  }
+  font-size: 14px;
 `;
 
 const Registration: React.FunctionComponent = () => {
+  const { onSocialAuth } = useSocialAuth();
+
+  function isGoogleLoginResponse(
+    type: GoogleLoginResponse | GoogleLoginResponseOffline
+  ): type is GoogleLoginResponse {
+    return type.hasOwnProperty('tokenId');
+  }
+
+  const handleLogin = async (
+    googleData: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
+    const token = isGoogleLoginResponse(googleData)
+      ? googleData.tokenId
+      : googleData.code;
+    onSocialAuth(token);
+  };
+
   return (
     <Main>
       <LoginContainer>
@@ -91,13 +102,14 @@ const Registration: React.FunctionComponent = () => {
           <SubmitButton>로그인</SubmitButton>
           <Notification>다른 서비스로 로그인</Notification>
           <SocialLoginContainer>
-            <SocialLoginButton>
-              <Icon icon="google" color="#fff" size={20} /> Google 로그인
-            </SocialLoginButton>
-            <SocialLoginButton>
-              <Icon icon="github" color="#fff" size={20} />
-              Github 로그인
-            </SocialLoginButton>
+            <GoogleLogin
+              clientId="252963294721-qn6685fjcoee6ie2a4kc54rmufignsoq.apps.googleusercontent.com"
+              buttonText="Google 로그인"
+              className="google-login-button"
+              onSuccess={handleLogin}
+              onFailure={handleLogin}
+              cookiePolicy={'single_host_origin'}
+            />
           </SocialLoginContainer>
         </FormContainer>
       </LoginContainer>

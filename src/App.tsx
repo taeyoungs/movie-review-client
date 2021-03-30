@@ -12,6 +12,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import RouterContainer from 'router';
 import { Global } from '@emotion/react';
 import reset from 'models/reset';
+import Cookie from 'js-cookie';
 
 interface IDefinition {
   kind: string;
@@ -21,11 +22,13 @@ interface IDefinition {
 const App: React.FunctionComponent = () => {
   const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
   const authMiddleware = new ApolloLink((operation, forward) => {
-    operation.setContext({
+    const token = Cookie.get('token');
+    operation.setContext(({ headers = {} }) => ({
       headers: {
-        authorization: localStorage.getItem('token') || null,
+        ...headers,
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
       },
-    });
+    }));
     return forward(operation);
   });
 

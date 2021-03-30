@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SlidePoster from 'components/molecules/SlidePoster';
 import Icon from 'Icon/Icon';
@@ -26,10 +26,25 @@ interface IProps {
 }
 
 const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
-  const [imgSize, setImgSize] = useState<number>(setWidth());
+  const [imgSize, setImgSize] = useState<number>(0);
   const [tDuration, setTDuration] = useState(0);
   const [play, setPlay] = useState(true);
   const location = useLocation();
+
+  useEffect(() => {
+    setImgSize(setWidth());
+
+    window.addEventListener('resize', () => {
+      setTDuration(0);
+      setImgSize(setWidth());
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setTDuration(0);
+        setImgSize(setWidth());
+      });
+    };
+  }, []);
 
   const handlePrevSwipe = () => {
     if (shows) {
@@ -68,11 +83,6 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
     }
     setPlay((prevState) => !prevState);
   };
-
-  window.addEventListener('resize', () => {
-    setTDuration(0);
-    setImgSize(setWidth());
-  });
 
   const Arrow: React.FC<{ next?: boolean; pause?: boolean }> = ({
     next = false,
