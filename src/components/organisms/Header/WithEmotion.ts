@@ -86,6 +86,11 @@ const SearchIcon = styled.div`
   }
 `;
 
+const AvatarContainer = styled.div`
+  display: flex;
+  margin-left: 10px;
+`;
+
 export {
   HeaderContainer,
   MenuContainer,
@@ -95,4 +100,5 @@ export {
   LogoContainer,
   LogoTitle,
   SearchIcon,
+  AvatarContainer,
 };

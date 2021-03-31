@@ -12,21 +12,24 @@ import {
   LogoTitle,
   LogoContainer,
   SearchIcon,
+  AvatarContainer,
 } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import Cookies from 'js-cookie';
+import Avatar from 'products/Avatar';
+import useGetAvatar from 'hooks/useGetAvatar';
 
 // ToDo: media-query
 // 1024px 600px
 
 const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);
+  const avatar = useGetAvatar();
 
   const handleGoBack = () => setIsShow(false);
 
   const isSigned = Cookies.get('signedin') === 'true' ? true : false;
-  console.log(isSigned);
 
   const handleOpen = () => {
     const relativeContainer = document.querySelector('.relative-container');
@@ -73,9 +76,9 @@ const Header: React.FunctionComponent = () => {
             <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
           </SLink>
         ) : (
-          <SLink to="/registration">
-            <Button appearance={ButtonAppearance.PRIMARY}>로그아웃</Button>
-          </SLink>
+          <AvatarContainer>
+            <Avatar src={avatar} />
+          </AvatarContainer>
         )}
       </MenuContainer>
     </HeaderContainer>

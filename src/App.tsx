@@ -22,17 +22,6 @@ const App: React.FunctionComponent = () => {
     uri: 'http://localhost:4000/graphql',
     credentials: 'include',
   });
-  // const authMiddleware = new ApolloLink((operation, forward) => {
-  //   const token = Cookie.get('token');
-  //   operation.setContext(({ headers = {} }) => ({
-  //     headers: {
-  //       ...headers,
-  //       ...(token ? { authorization: `Bearer ${token}` } : {}),
-  //     },
-  //   }));
-  //   return forward(operation);
-  // });
-  // const httpAuthLink = authMiddleware.concat(httpLink);
 
   const wsLink = new WebSocketLink({
     uri: 'ws://localhost:4000/graphql',

@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 interface IUserProps {
-  name: string;
   avatar: string;
 }
 
@@ -22,7 +21,7 @@ const useSocialAuth = () => {
         if (data) {
           Cookies.set('signedin', 'true');
           // Cookie.set('token', data.socialAuth.token);
-          Cookies.set('user', JSON.stringify(data.socialAuth.user));
+          Cookies.set('avatar', JSON.stringify(data.socialAuth.user.avatar));
           history.push('/');
         }
       },
