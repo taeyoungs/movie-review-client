@@ -15,6 +15,7 @@ import {
 } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
+import Cookies from 'js-cookie';
 
 // ToDo: media-query
 // 1024px 600px
@@ -23,6 +24,9 @@ const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);
 
   const handleGoBack = () => setIsShow(false);
+
+  const isSigned = Cookies.get('signedin') === 'true' ? true : false;
+  console.log(isSigned);
 
   const handleOpen = () => {
     const relativeContainer = document.querySelector('.relative-container');
@@ -64,9 +68,15 @@ const Header: React.FunctionComponent = () => {
             size={14}
           />
         </SearchIcon>
-        <SLink to="/registration">
-          <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
-        </SLink>
+        {!isSigned ? (
+          <SLink to="/registration">
+            <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
+          </SLink>
+        ) : (
+          <SLink to="/registration">
+            <Button appearance={ButtonAppearance.PRIMARY}>로그아웃</Button>
+          </SLink>
+        )}
       </MenuContainer>
     </HeaderContainer>
   );

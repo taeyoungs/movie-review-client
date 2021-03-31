@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ApolloClient,
-  ApolloLink,
   ApolloProvider,
   HttpLink,
   InMemoryCache,
@@ -12,7 +11,6 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import RouterContainer from 'router';
 import { Global } from '@emotion/react';
 import reset from 'models/reset';
-import Cookie from 'js-cookie';
 
 interface IDefinition {
   kind: string;
@@ -20,23 +18,27 @@ interface IDefinition {
 }
 
 const App: React.FunctionComponent = () => {
-  const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
-  const authMiddleware = new ApolloLink((operation, forward) => {
-    const token = Cookie.get('token');
-    operation.setContext(({ headers = {} }) => ({
-      headers: {
-        ...headers,
-        ...(token ? { authorization: `Bearer ${token}` } : {}),
-      },
-    }));
-    return forward(operation);
+  const httpLink = new HttpLink({
+    uri: 'http://localhost:4000/graphql',
+    credentials: 'include',
   });
+  // const authMiddleware = new ApolloLink((operation, forward) => {
+  //   const token = Cookie.get('token');
+  //   operation.setContext(({ headers = {} }) => ({
+  //     headers: {
+  //       ...headers,
+  //       ...(token ? { authorization: `Bearer ${token}` } : {}),
+  //     },
+  //   }));
+  //   return forward(operation);
+  // });
+  // const httpAuthLink = authMiddleware.concat(httpLink);
 
   const wsLink = new WebSocketLink({
     uri: 'ws://localhost:4000/graphql',
     options: { reconnect: true, timeout: 30000 },
   });
-  const httpAuthLink = authMiddleware.concat(httpLink);
+
   const link = split(
     ({ query }) => {
       const { kind, operation }: IDefinition = getMainDefinition(query);
@@ -44,7 +46,7 @@ const App: React.FunctionComponent = () => {
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,
-    httpAuthLink
+    httpLink
   );
 
   const cache = new InMemoryCache({});
