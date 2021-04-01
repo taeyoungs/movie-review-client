@@ -8,6 +8,7 @@ import {
   GoogleLoginResponseOffline,
 } from 'react-google-login';
 import useSocialAuth from 'hooks/useSocialAuth';
+import { useLocation } from 'react-router';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -65,7 +66,10 @@ const Notification = styled.h2`
 `;
 
 const Registration: React.FunctionComponent = () => {
-  const { onSocialAuth } = useSocialAuth();
+  const location: { state: { before: string } } = useLocation();
+  const { onSocialAuth } = useSocialAuth({ path: location.state.before });
+
+  console.log(location);
 
   function isGoogleLoginResponse(
     type: GoogleLoginResponse | GoogleLoginResponseOffline

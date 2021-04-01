@@ -66,11 +66,15 @@ const RelativeContainer = styled.div`
       width: 100%;
       height: 100%;
       background-color: ${ColorPalette.Main.BG_PRIMARY};
+      z-index: 50;
     }
   }
   @media (min-width: 600px) {
     position: relative;
     flex-grow: 1;
+  }
+  @media (min-width: 600px) and (max-width: 1024px) {
+    margin-left: 10px;
   }
 `;
 

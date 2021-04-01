@@ -12,17 +12,18 @@ interface IProps {
   user: IUserProps;
 }
 
-const useSocialAuth = () => {
+const useSocialAuth = (props: { path: string }) => {
   const history = useHistory();
   const [socialAuthMutation] = useMutation<{ socialAuth: IProps }>(
     SOCIAL_AUTH_MUTATION,
     {
       update(cache, { data }) {
         if (data) {
-          Cookies.set('signedin', 'true');
           // Cookie.set('token', data.socialAuth.token);
+          Cookies.set('signedin', 'true');
           Cookies.set('avatar', JSON.stringify(data.socialAuth.user.avatar));
-          history.push('/');
+          // console.log(props.path);
+          history.replace(props.path, { reload: true });
         }
       },
     }

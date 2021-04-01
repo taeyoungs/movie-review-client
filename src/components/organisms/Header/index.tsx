@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import SearchBar from 'components/organisms/SearchBar';
 import Button, { ButtonAppearance } from 'products/Button';
 import SidebarMenu from 'components/organisms/SidebarMenu';
@@ -12,24 +12,28 @@ import {
   LogoTitle,
   LogoContainer,
   SearchIcon,
-  AvatarContainer,
 } from './WithEmotion';
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import Cookies from 'js-cookie';
-import Avatar from 'products/Avatar';
-import useGetAvatar from 'hooks/useGetAvatar';
+import UserMenu from '../UserMenu';
 
 // ToDo: media-query
 // 1024px 600px
 
 const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);
-  const avatar = useGetAvatar();
+  const [isSigned, setIsSigned] = useState(
+    Cookies.get('signedin') === 'true' ? true : false
+  );
+  const location: { state: { reload: boolean } } = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.reload) {
+      setIsSigned(Cookies.get('signedin') === 'true' ? true : false);
+    }
+  }, [location.state]);
 
   const handleGoBack = () => setIsShow(false);
-
-  const isSigned = Cookies.get('signedin') === 'true' ? true : false;
 
   const handleOpen = () => {
     const relativeContainer = document.querySelector('.relative-container');
@@ -72,13 +76,16 @@ const Header: React.FunctionComponent = () => {
           />
         </SearchIcon>
         {!isSigned ? (
-          <SLink to="/registration">
+          <SLink
+            to={(location) => ({
+              pathname: '/registration',
+              state: { before: location.pathname },
+            })}
+          >
             <Button appearance={ButtonAppearance.PRIMARY}>로그인</Button>
           </SLink>
         ) : (
-          <AvatarContainer>
-            <Avatar src={avatar} />
-          </AvatarContainer>
+          <UserMenu />
         )}
       </MenuContainer>
     </HeaderContainer>

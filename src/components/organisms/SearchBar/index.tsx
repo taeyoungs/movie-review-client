@@ -69,7 +69,7 @@ const SearchBar: React.FunctionComponent = () => {
   };
 
   return (
-    <RelativeContainer className="relative-container open">
+    <RelativeContainer className="relative-container">
       <Container className="searchbar-container">
         <MenuContainer onMouseLeave={() => setIsOpen(false)}>
           <MenuButton onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>

@@ -7,7 +7,7 @@ const UlContainer = styled.div<{ isOpen: boolean }>`
   margin-top: 3px;
   margin-bottom: 3px;
   background: ${ColorPalette.Main.BG_SECONDARY};
-  width: 200px;
+  width: 180px;
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -49,6 +49,10 @@ const LiContainer = styled.div`
 const Container = styled.div`
   position: absolute;
   z-index: 50;
+  &.user--menu {
+    top: 35px;
+    right: 0;
+  }
 `;
 
 export { MenuGroup, UlContainer, LiContainer, Container };
