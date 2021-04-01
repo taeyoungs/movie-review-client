@@ -1,6 +1,6 @@
 import React from 'react';
-import { IComponentProps } from 'models/common';
-import EInput from './WithEmotion';
+import Icon from 'Icon/Icon';
+import { Wrapper, EInput, ELabel, InnerWrapper, Error } from './WithEmotion';
 
 export enum InputType {
   BUTTON = 'button',
@@ -20,24 +20,37 @@ export enum InputType {
   TIME = 'time',
 }
 
-interface IProps extends IComponentProps {
+export enum InputAppearance {
+  DEFAULT = 'default',
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  PILL = 'pill',
+}
+
+export enum InputOrientation {
+  HORIZONTAL = 'horizontal',
+  VERTICAL = 'vertical',
+}
+
+export interface IProps {
+  /** label htmlFor를 위한 id 속성 */
   id: string;
-  /** `input`에 들어오는 값 */
+  /** input value */
   value?: string;
-  /** `input`의 타입을 설정합니다. */
-  type?: InputType;
-  /** `input`의 value가 변했을 때 호출할 함수 */
+  /** input의 종류를 설정합니다. */
+  appearance?: InputAppearance;
+  /** label과 input의 정렬 속성을 설정합니다. */
+  orientation?: InputOrientation;
+  /** label 숨김 여부 */
+  hideLabel?: boolean;
+  icon?: 'menu' | 'user' | 'youtube';
+  /** label의 텍스트를 설정합니다. */
+  label: string;
+  /** error 텍스트를 설정합니다. */
+  error?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  /** `input`에서 벗어났을 때 호출할 함수 */
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  /** `input`을 클릭했을 때 호출할 함수 */
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  /** `input` focus 이후 키보드 자판을 눌렀을 때 호출할 함수 */
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  /** `input` focus 이후 키보드 자판에서 손가락을 땔 때 호출할 함수 */
-  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  /** 이벤트 캡처링을 설정합니다. */
-  isCapturing?: boolean;
+  type?: InputType;
   placeholder?: string;
   disabled?: boolean;
 }
@@ -45,38 +58,41 @@ interface IProps extends IComponentProps {
 const Input: React.FC<IProps> = ({
   id,
   value,
-  type = 'text',
-  isCapturing = false,
+  appearance = InputAppearance.DEFAULT,
+  orientation = InputOrientation.VERTICAL,
+  hideLabel = false,
+  icon,
+  label = 'Label',
   onChange,
   onBlur,
-  onFocus,
-  onKeyDown,
-  onKeyUp,
-  className,
-  placeholder = 'Placeholder',
-  disabled = false,
+  type = InputType.TEXT,
+  error,
+  placeholder,
+  disabled,
 }) => {
-  const changeEvent = isCapturing ? { onChangeCapture: onChange } : onChange;
-  const blurEvent = isCapturing ? { onBlurCapture: onBlur } : onBlur;
-  const focusEvent = isCapturing ? { onFocusCapture: onFocus } : onFocus;
-  const keyDownEvent = isCapturing
-    ? { onKeyDownCapture: onKeyDown }
-    : onKeyDown;
-  const keyUpEvent = isCapturing ? { onKeyUpCapture: onKeyUp } : onKeyUp;
   return (
-    <EInput
-      id={id}
-      className={className}
-      type={type}
-      value={value}
-      {...changeEvent}
-      {...blurEvent}
-      {...focusEvent}
-      {...keyDownEvent}
-      {...keyUpEvent}
-      placeholder={placeholder}
-      disabled={disabled}
-    />
+    <Wrapper orientation={orientation}>
+      {hideLabel ? null : (
+        <ELabel orientation={orientation} htmlFor={id}>
+          {label}
+        </ELabel>
+      )}
+      <InnerWrapper orientation={orientation} error={error}>
+        {icon ? <Icon icon={icon} /> : null}
+        <EInput
+          id={id}
+          value={value}
+          appearance={appearance}
+          onChange={onChange}
+          onBlur={onBlur}
+          error={error}
+          placeholder={placeholder}
+          disabled={disabled}
+          type={type}
+        />
+        <Error error={error}>{error}</Error>
+      </InnerWrapper>
+    </Wrapper>
   );
 };
 

@@ -131,6 +131,13 @@ const reset = css`
   a {
     text-decoration: none;
   }
+  input {
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
 `;
 
 export default reset;

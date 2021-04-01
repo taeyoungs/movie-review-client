@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import Input, { InputAppearance } from 'products/Input';
+import Input, { InputAppearance, InputType } from 'components/atoms/Input';
 import { ColorPalette } from 'models/color';
 import {
   GoogleLogin,
@@ -67,9 +67,12 @@ const Notification = styled.h2`
 
 const Registration: React.FunctionComponent = () => {
   const location: { state: { before: string } } = useLocation();
-  const { onSocialAuth } = useSocialAuth({ path: location.state.before });
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [error1, setError1] = useState('');
+  const [error2, setError2] = useState('');
 
-  console.log(location);
+  const { onSocialAuth } = useSocialAuth({ path: location.state.before });
 
   function isGoogleLoginResponse(
     type: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -86,6 +89,40 @@ const Registration: React.FunctionComponent = () => {
     onSocialAuth(token);
   };
 
+  const handleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
+  };
+
+  const handlePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPw(event.target.value);
+  };
+
+  const handleError1 = () => {
+    if (id === '') {
+      setError1('아이디를 입력해주세요.');
+    } else {
+      setError1('');
+    }
+  };
+
+  const handleError2 = () => {
+    if (pw === '') {
+      setError2('비밀번호를 입력해주세요.');
+    } else {
+      setError2('');
+    }
+  };
+
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+
+    handleError1();
+    handleError2();
+
+    if (error1 || error2) return false;
+    else return true;
+  };
+
   return (
     <Main>
       <LoginContainer>
@@ -96,14 +133,23 @@ const Registration: React.FunctionComponent = () => {
             label="아이디"
             placeholder="아이디를 입력해주세요."
             appearance={InputAppearance.PRIMARY}
+            value={id}
+            onChange={handleIdChange}
+            error={error1}
+            onBlur={handleError1}
           />
           <Input
             id="password"
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
             appearance={InputAppearance.PRIMARY}
+            value={pw}
+            onChange={handlePwChange}
+            type={InputType.PASSWORD}
+            error={error2}
+            onBlur={handleError2}
           />
-          <SubmitButton>로그인</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>로그인</SubmitButton>
           <Notification>다른 서비스로 로그인</Notification>
           <SocialLoginContainer>
             <GoogleLogin
