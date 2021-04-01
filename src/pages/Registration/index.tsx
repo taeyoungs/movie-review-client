@@ -9,6 +9,7 @@ import {
 } from 'react-google-login';
 import useSocialAuth from 'hooks/useSocialAuth';
 import { useLocation } from 'react-router';
+import useLocalSignIn from 'hooks/useLocalSignIn';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -18,7 +19,8 @@ const Main = styled.main`
 `;
 
 const LoginContainer = styled.section`
-  min-width: 1024px;
+  max-width: 1024px;
+  margin: 0 auto;
   height: 100%;
   background-color: #fff;
   display: flex;
@@ -27,15 +29,33 @@ const LoginContainer = styled.section`
   justify-content: center;
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
+const FormTypeContainer = styled.div`
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  & h2:nth-of-type(1) {
+    border-right: 1px solid #e5e5e5;
+  }
+`;
+
+const SignType = styled.h2<{ selected: boolean }>`
+  width: 50%;
+  text-align: center;
+  font-size: 22px;
+  padding: 15px 0;
+  cursor: pointer;
+  color: ${(props) =>
+    props.selected ? '#000' : ColorPalette.Neutral.NEUTRAL_400};
+  &:hover {
+    color: ${ColorPalette.Main.CTA_PRIMARY};
+  }
 `;
 
 const FormContainer = styled.form`
   width: 400px;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
 `;
 
 const SubmitButton = styled.button`
@@ -71,8 +91,10 @@ const Registration: React.FunctionComponent = () => {
   const [pw, setPw] = useState('');
   const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const { onSocialAuth } = useSocialAuth({ path: location.state.before });
+  const { onLocalSignIn } = useLocalSignIn({ path: location.state.before });
 
   function isGoogleLoginResponse(
     type: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -120,14 +142,23 @@ const Registration: React.FunctionComponent = () => {
     handleError2();
 
     if (error1 || error2) return false;
-    else return true;
+    else {
+      onLocalSignIn(id, pw);
+    }
   };
 
   return (
     <Main>
       <LoginContainer>
-        <Title>로그인</Title>
         <FormContainer>
+          <FormTypeContainer>
+            <SignType selected={isSignUp} onClick={() => setIsSignUp(true)}>
+              회원가입
+            </SignType>
+            <SignType selected={!isSignUp} onClick={() => setIsSignUp(false)}>
+              로그인
+            </SignType>
+          </FormTypeContainer>
           <Input
             id="user-id"
             label="아이디"
@@ -149,7 +180,11 @@ const Registration: React.FunctionComponent = () => {
             error={error2}
             onBlur={handleError2}
           />
-          <SubmitButton onClick={handleSubmit}>로그인</SubmitButton>
+          {isSignUp ? (
+            <SubmitButton onClick={handleSubmit}>회원가입</SubmitButton>
+          ) : (
+            <SubmitButton onClick={handleSubmit}>로그인</SubmitButton>
+          )}
           <Notification>다른 서비스로 로그인</Notification>
           <SocialLoginContainer>
             <GoogleLogin

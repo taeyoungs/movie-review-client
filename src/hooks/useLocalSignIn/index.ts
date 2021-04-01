@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
-import { SOCIAL_AUTH_MUTATION } from 'queries/Mutation';
+import { LOCAL_SIGN_IN } from 'queries/Mutation';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { IUserProps } from 'models/types';
 
-const useSocialAuth = (props: { path: string }) => {
+const useLocalSignIn = (props: { path: string }) => {
   const history = useHistory();
-  const [socialAuthMutation] = useMutation<{ socialAuth: IUserProps }>(
-    SOCIAL_AUTH_MUTATION,
+  const [localSignInMutation] = useMutation<{ socialAuth: IUserProps }>(
+    LOCAL_SIGN_IN,
     {
       update(cache, { data }) {
         if (data) {
@@ -22,11 +22,11 @@ const useSocialAuth = (props: { path: string }) => {
     }
   );
 
-  const onSocialAuth = useCallback((token: string) => {
-    socialAuthMutation({ variables: { token } });
+  const onLocalSignIn = useCallback((id: string, pw: string) => {
+    localSignInMutation({ variables: { id, pw } });
   }, []);
 
-  return { onSocialAuth };
+  return { onLocalSignIn };
 };
 
-export default useSocialAuth;
+export default useLocalSignIn;
