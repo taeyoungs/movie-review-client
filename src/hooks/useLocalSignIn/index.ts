@@ -7,14 +7,18 @@ import { IUserProps } from 'models/types';
 
 const useLocalSignIn = (props: { path: string }) => {
   const history = useHistory();
-  const [localSignInMutation] = useMutation<{ socialAuth: IUserProps }>(
+  const [localSignInMutation] = useMutation<{ localLogin: IUserProps }>(
     LOCAL_SIGN_IN,
     {
       update(cache, { data }) {
         if (data) {
           // Cookie.set('token', data.socialAuth.token);
           Cookies.set('signedin', 'true');
-          Cookies.set('avatar', JSON.stringify(data.socialAuth.avatar));
+          if (data.localLogin.avatar) {
+            Cookies.set('avatar', data.localLogin.avatar);
+          } else {
+            Cookies.set('login', data.localLogin.login);
+          }
           // console.log(props.path);
           history.replace(props.path, { reload: true });
         }
@@ -22,8 +26,13 @@ const useLocalSignIn = (props: { path: string }) => {
     }
   );
 
-  const onLocalSignIn = useCallback((id: string, pw: string) => {
-    localSignInMutation({ variables: { id, pw } });
+  const onLocalSignIn = useCallback(async (id: string, pw: string) => {
+    try {
+      await localSignInMutation({ variables: { id, pw } });
+      return null;
+    } catch (error) {
+      return error.message;
+    }
   }, []);
 
   return { onLocalSignIn };

@@ -12,6 +12,16 @@ export const LOCAL_SIGN_IN = gql`
   mutation LocalSignIn($id: String!, $pw: String!) {
     localLogin(login: $id, password: $pw) {
       avatar
+      login
+    }
+  }
+`;
+
+export const LOCAL_SIGN_UP = gql`
+  mutation LocalSignUp($id: String!, $pw: String!) {
+    localSignUp(login: $id, password: $pw) {
+      avatar
+      login
     }
   }
 `;

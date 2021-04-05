@@ -10,6 +10,7 @@ import {
 import useSocialAuth from 'hooks/useSocialAuth';
 import { useLocation } from 'react-router';
 import useLocalSignIn from 'hooks/useLocalSignIn';
+import useLocalSignUp from 'hooks/useLocalSignUp';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -85,6 +86,12 @@ const Notification = styled.h2`
   font-size: 14px;
 `;
 
+const ErrorMsg = styled.div`
+  color: #db3e3e;
+  font-size: 14px;
+  margin-bottom: 10px;
+`;
+
 const Registration: React.FunctionComponent = () => {
   const location: { state: { before: string } } = useLocation();
   const [id, setId] = useState('');
@@ -92,9 +99,11 @@ const Registration: React.FunctionComponent = () => {
   const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [gqlError, setGqlError] = useState('');
 
   const { onSocialAuth } = useSocialAuth({ path: location.state.before });
   const { onLocalSignIn } = useLocalSignIn({ path: location.state.before });
+  const { onLocalSignUp } = useLocalSignUp({ path: location.state.before });
 
   function isGoogleLoginResponse(
     type: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -135,15 +144,31 @@ const Registration: React.FunctionComponent = () => {
     }
   };
 
-  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
     e.preventDefault();
 
     handleError1();
     handleError2();
 
-    if (error1 || error2) return false;
-    else {
-      onLocalSignIn(id, pw);
+    if (id !== '' && pw !== '') {
+      const error = await onLocalSignIn(id, pw);
+      setGqlError(error);
+    }
+  };
+
+  const handleSignUp: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    handleError1();
+    handleError2();
+
+    if (id !== '' && pw !== '') {
+      const error = await onLocalSignUp(id, pw);
+      setGqlError(error);
     }
   };
 
@@ -152,13 +177,30 @@ const Registration: React.FunctionComponent = () => {
       <LoginContainer>
         <FormContainer>
           <FormTypeContainer>
-            <SignType selected={isSignUp} onClick={() => setIsSignUp(true)}>
+            <SignType
+              selected={isSignUp}
+              onClick={() => {
+                setIsSignUp(true);
+                setPw('');
+                setGqlError('');
+                setId('');
+              }}
+            >
               회원가입
             </SignType>
-            <SignType selected={!isSignUp} onClick={() => setIsSignUp(false)}>
+            <SignType
+              selected={!isSignUp}
+              onClick={() => {
+                setIsSignUp(false);
+                setPw('');
+                setGqlError('');
+                setId('');
+              }}
+            >
               로그인
             </SignType>
           </FormTypeContainer>
+          {gqlError && <ErrorMsg>❗ {gqlError}</ErrorMsg>}
           <Input
             id="user-id"
             label="아이디"
@@ -181,7 +223,7 @@ const Registration: React.FunctionComponent = () => {
             onBlur={handleError2}
           />
           {isSignUp ? (
-            <SubmitButton onClick={handleSubmit}>회원가입</SubmitButton>
+            <SubmitButton onClick={handleSignUp}>회원가입</SubmitButton>
           ) : (
             <SubmitButton onClick={handleSubmit}>로그인</SubmitButton>
           )}

@@ -19,7 +19,7 @@ const AvatarContainer = styled.div`
 
 const UserMenu: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const avatar = useGetAvatar();
+  const { avatar, login } = useGetAvatar();
   const history = useHistory();
   const itemTitleList = ['프로필', '로그아웃'];
 
@@ -28,13 +28,14 @@ const UserMenu: React.FunctionComponent = () => {
   const handleLogout = () => {
     Cookies.remove('signedin');
     Cookies.remove('avatar');
+    Cookies.remove('login');
     Cookies.remove('jwt');
     history.go(0);
   };
   return (
     <UserMenuContainer>
       <AvatarContainer onClick={() => setIsOpen((prevState) => !prevState)}>
-        <Avatar src={avatar} />
+        {avatar ? <Avatar src={avatar} /> : <Avatar username={login} />}
       </AvatarContainer>
       <Menu isOpen={isOpen} className="user--menu">
         {itemTitleList.map((item, index) => (

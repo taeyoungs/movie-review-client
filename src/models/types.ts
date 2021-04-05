@@ -28,4 +28,5 @@ export interface ISearchProps {
 
 export interface IUserProps {
   avatar: string;
+  login: string;
 }
