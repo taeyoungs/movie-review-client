@@ -60,7 +60,12 @@ const Home: React.FunctionComponent = () => {
           ) : (
             movieData &&
             movieData.movies.map((movie) => (
-              <PosterCard key={movie.id} {...movie} isDark />
+              <PosterCard
+                key={movie.id}
+                {...movie}
+                isDark
+                href={`/movies/${movie.id}`}
+              />
             ))
           )}
         </ScrollDiv>

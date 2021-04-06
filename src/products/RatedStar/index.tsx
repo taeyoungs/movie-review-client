@@ -47,8 +47,13 @@ const RatedStar: React.FC<IProps> = ({
   for (let i = 1; i <= 10; i++) {
     const rev = i % 2 == 0;
     emptyStars.push(
-      <HalfStar reverse={rev} onMouseOver={() => setTempRating(i)}>
-        <Icon icon="star" size={20} color={ColorPalette.Neutral.NEUTRAL_300} />
+      <HalfStar key={i} reverse={rev} onMouseOver={() => setTempRating(i)}>
+        <Icon
+          icon="star"
+          size={40}
+          color={ColorPalette.Neutral.NEUTRAL_300}
+          style={{ height: '40px' }}
+        />
       </HalfStar>
     );
   }
@@ -58,12 +63,18 @@ const RatedStar: React.FC<IProps> = ({
     const rev = i % 2 == 0;
     colorStars.push(
       <HalfStar
+        key={i}
         reverse={rev}
         onMouseOver={() => setTempRating(i)}
         onClick={() => handleClick && handleClick(i)}
         onMouseOut={() => setTempRating(0)}
       >
-        <Icon icon="star" size={20} color={ColorPalette.Yellow.YELLOW_600} />
+        <Icon
+          icon="star"
+          size={40}
+          color={ColorPalette.Yellow.YELLOW_600}
+          style={{ height: '40px' }}
+        />
       </HalfStar>
     );
   }

@@ -23,7 +23,7 @@ const ColorStars = styled.div<{ w: number }>`
 const HalfStar = styled.div<{ reverse?: boolean }>`
   display: inline-block;
   overflow: hidden;
-  width: 10px;
+  width: 20px;
   ${(props) =>
     props.reverse &&
     `

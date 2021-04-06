@@ -63,3 +63,28 @@ export const TRENDING_SHOWS_QUERY = gql`
     }
   }
 `;
+
+export const MOVIE_DETAIL_QUERY = gql`
+  query MovieDetail($id: String!) {
+    movie(id: $id) {
+      poster_path
+      backdrop_path
+      overview
+      vote_average
+      vote_count
+      title
+      tagline
+      release_date
+      runtime
+      genres {
+        id
+        name
+      }
+      videos {
+        key
+        id
+        name
+      }
+    }
+  }
+`;

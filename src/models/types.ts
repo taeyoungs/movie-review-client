@@ -1,3 +1,14 @@
+interface IGenre {
+  id: number;
+  name: string;
+}
+
+interface IVideo {
+  id: string;
+  key: string;
+  name: string;
+}
+
 export interface IShowProps {
   id: number;
   poster_path: string;
@@ -12,6 +23,12 @@ export interface IMovieProps {
   title: string;
   vote_average: number;
   release_date: string;
+  backdrop_path: string;
+  genres: IGenre[];
+  vote_count: number;
+  runtime: number;
+  videos: IVideo[];
+  tagline: string;
 }
 
 export interface ISearchProps {
