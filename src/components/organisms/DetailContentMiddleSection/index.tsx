@@ -235,21 +235,21 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
     <VideoContainer>
       <DetailVideo
         type={0}
-        videoUrl={movie.videos[0].key}
-        name={movie.videos[0].name}
+        videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
+        name={movie.videos.length > 0 ? movie.videos[0].name : null}
       />
       <MiddleRoundedContent>
         <InfoSectionContainer>
           <InfoSectionInner>
             <DetailVideo
               type={1}
-              videoUrl={movie.videos[0].key}
-              name={movie.videos[0].name}
+              videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
+              name={movie.videos.length > 0 ? movie.videos[0].name : null}
             />
             <DetailVideo
               type={2}
-              videoUrl={movie.videos[0].key}
-              name={movie.videos[0].name}
+              videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
+              name={movie.videos.length > 0 ? movie.videos[0].name : null}
             />
           </InfoSectionInner>
         </InfoSectionContainer>

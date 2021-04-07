@@ -54,6 +54,7 @@ const ReuseVideoBlock = styled.div`
 const Video = styled.div`
   height: 0;
   padding-top: 56.25%;
+  background-color: #e5e5e5;
   position: relative;
 `;
 
@@ -78,8 +79,8 @@ const VideoSection = styled.section`
 `;
 
 interface IProps {
-  videoUrl: string;
-  name: string;
+  videoUrl: string | null;
+  name: string | null;
   type: number;
 }
 
@@ -89,17 +90,19 @@ const DetailVideo: React.FC<IProps> = ({ videoUrl, name, type = 0 }) => {
       <ReuseVideoBlock>
         <VideoSection>
           <Video>
-            <YoutubIFrame
-              width="900"
-              height="506"
-              src={`https://www.youtube.com/embed/${videoUrl}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></YoutubIFrame>
+            {videoUrl && (
+              <YoutubIFrame
+                width="900"
+                height="506"
+                src={`https://www.youtube.com/embed/${videoUrl}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></YoutubIFrame>
+            )}
           </Video>
-          <VideoTitle>{name}</VideoTitle>
+          <VideoTitle>{name ? name : '준비 중입니다.'}</VideoTitle>
         </VideoSection>
       </ReuseVideoBlock>
     </DetailVideoSection>
