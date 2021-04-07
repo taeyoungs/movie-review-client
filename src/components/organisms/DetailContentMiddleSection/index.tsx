@@ -85,6 +85,10 @@ const VideoThumbnail = styled.span<{ url: string }>`
   background-repeat: no-repeat;
   inset: 0;
   background-size: cover;
+  &.lazy {
+    background-image: none;
+    background-color: #e5e5e5;
+  }
 `;
 
 const ThumnailBlur = styled.div`
@@ -185,6 +189,22 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
       } else {
         setListSize(2);
       }
+
+      if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('.lazy');
+
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const image = entry.target;
+              image.classList.remove('lazy');
+              imageObserver.unobserve(image);
+            }
+          });
+        });
+
+        lazyImages.forEach((img) => imageObserver.observe(img));
+      }
     }
   }, [movie]);
 
@@ -278,6 +298,7 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
                             <VideoThumbnailContainer>
                               <VideoThumbnail
                                 url={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+                                className="lazy"
                               ></VideoThumbnail>
                               <ThumnailBlur>
                                 <Icon icon="play" color="#fff" size={20} />

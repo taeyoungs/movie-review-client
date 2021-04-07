@@ -125,10 +125,18 @@ const DetailContentTopSection: React.FC<IProps> = ({ movie }) => {
                     </ArticleOverview>
                   </ArticleOverviewWrapper>
                 </InfoArticle>
+                <DivideBorder />
               </InfoSectionInner>
             </InfoSectionContainer>
           </InfoSection>
-          <DivideBorder />
+
+          <InfoSection>
+            <InfoSectionContainer>
+              <InfoSectionInner>
+                <HeaderTitle>출연/제작</HeaderTitle>
+              </InfoSectionInner>
+            </InfoSectionContainer>
+          </InfoSection>
         </TopRoundedContent>
       </Content>
     </ContentContainer>
