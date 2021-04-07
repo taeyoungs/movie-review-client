@@ -29,6 +29,7 @@ export interface IMovieProps {
   runtime: number;
   videos: IVideo[];
   tagline: string;
+  overview: string;
 }
 
 export interface ISearchProps {

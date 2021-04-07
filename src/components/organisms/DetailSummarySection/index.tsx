@@ -108,6 +108,7 @@ const Tagline = styled.div`
   margin: 15px 0 0;
   color: #fff;
   font-size: 14px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   @media (min-width: 720px) {
     text-align: left;
     padding: 0 0 10px 18px;
@@ -217,7 +218,7 @@ const HoverNotification = styled.div`
   font-weight: 400;
   line-height: 20px;
   margin: 0 0 10px;
-  padding: 0 0 0 8px;
+  padding: 0 0 0 4px;
   color: rgba(0, 0, 0, 0.5);
 `;
 
