@@ -64,7 +64,7 @@ const Home: React.FunctionComponent = () => {
                 key={movie.id}
                 {...movie}
                 isDark
-                href={`/movies/${movie.id}`}
+                href={`/movie/${movie.id}`}
               />
             ))
           )}

@@ -168,7 +168,7 @@ const ArrowButton = styled.div`
   width: 32px;
   height: 32px;
   background-color: #fff;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   display: flex;
   align-items: center;

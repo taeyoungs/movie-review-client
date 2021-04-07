@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
-import { MOVIE_DETAIL_QUERY } from 'queries/Query';
+import { CASTS_QUERY, MOVIE_DETAIL_QUERY } from 'queries/Query';
 import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
-import { IMovieProps } from 'models/types';
+import { ICastProps, IMovieProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 import Loading from 'products/Loading';
@@ -44,18 +44,30 @@ const Detail: React.FunctionComponent = () => {
       },
     }
   );
+  const { loading: castLoading, data: castData } = useQuery<{
+    casts: Array<ICastProps>;
+  }>(CASTS_QUERY, {
+    variables: {
+      id: location.pathname.split('/')[2],
+      mediaType: location.pathname.split('/')[1],
+    },
+  });
 
   return (
     <Main>
-      {loading ? (
+      {loading && castLoading ? (
         <Loading />
       ) : (
-        data && (
+        data &&
+        castData && (
           <>
             <DetailSummarySection movie={data.movie} />
             <ContentSection>
               <Inner>
-                <DetailContentTopSection movie={data.movie} />
+                <DetailContentTopSection
+                  movie={data.movie}
+                  casts={castData.casts}
+                />
                 <DetailContentMiddleSection movie={data.movie} />
               </Inner>
             </ContentSection>

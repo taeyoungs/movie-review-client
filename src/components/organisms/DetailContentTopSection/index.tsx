@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { IMovieProps } from 'models/types';
+import { ICastProps, IMovieProps } from 'models/types';
 import { ColorPalette } from 'models/color';
+import ContentCastSection from 'components/organisms/ContentCastSection';
 
 const ContentContainer = styled.div`
   @media (min-width: 720px) {
@@ -83,15 +84,16 @@ const ArticleOverview = styled.div`
 
 const DivideBorder = styled.hr`
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #f0f0f0;
   margin: 20px 0 0;
 `;
 
 interface IProps {
   movie: IMovieProps;
+  casts: ICastProps[];
 }
 
-const DetailContentTopSection: React.FC<IProps> = ({ movie }) => {
+const DetailContentTopSection: React.FC<IProps> = ({ movie, casts }) => {
   return (
     <ContentContainer>
       <Content>
@@ -129,14 +131,7 @@ const DetailContentTopSection: React.FC<IProps> = ({ movie }) => {
               </InfoSectionInner>
             </InfoSectionContainer>
           </InfoSection>
-
-          <InfoSection>
-            <InfoSectionContainer>
-              <InfoSectionInner>
-                <HeaderTitle>출연/제작</HeaderTitle>
-              </InfoSectionInner>
-            </InfoSectionContainer>
-          </InfoSection>
+          <ContentCastSection casts={casts} />
         </TopRoundedContent>
       </Content>
     </ContentContainer>

@@ -88,3 +88,14 @@ export const MOVIE_DETAIL_QUERY = gql`
     }
   }
 `;
+
+export const CASTS_QUERY = gql`
+  query Casts($id: String!, $mediaType: String!) {
+    casts(id: $id, media_type: $mediaType) {
+      id
+      name
+      character
+      profile_path
+    }
+  }
+`;

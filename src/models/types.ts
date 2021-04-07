@@ -48,3 +48,10 @@ export interface IUserProps {
   avatar: string;
   login: string;
 }
+
+export interface ICastProps {
+  id: string;
+  name: string;
+  character: string;
+  profile_path?: string;
+}

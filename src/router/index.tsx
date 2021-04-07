@@ -23,10 +23,10 @@ const RouterContainer: React.FunctionComponent = () => {
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/movies" component={Movies} />
-          <Route exact path="/movies/:id" component={Detail} />
-          <Route exact path="/shows" component={Shows} />
-          <Route exact path="/reviews" component={Reviews} />
+          <Route exact path="/movie" component={Movies} />
+          <Route exact path="/movie/:id" component={Detail} />
+          <Route exact path="/tv" component={Shows} />
+          <Route exact path="/review" component={Reviews} />
           <Route exact path="/registration" component={Registration} />
           <Redirect from="*" to="/" />
         </Switch>
