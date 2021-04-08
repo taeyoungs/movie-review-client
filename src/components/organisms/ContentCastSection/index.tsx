@@ -180,6 +180,12 @@ const ArrowButton = styled.div`
   justify-content: center;
 `;
 
+const DivideBorder = styled.hr`
+  border: 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 20px 0 0;
+`;
+
 interface IProps {
   casts: ICastProps[];
 }
@@ -268,6 +274,7 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
                     </CastItem>
                   ))}
                 </Cast>
+                <DivideBorder />
               </CastInner>
             </InfoSectionContainer>
           </CastSwiper>

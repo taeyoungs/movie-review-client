@@ -2,11 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
-import { CASTS_QUERY, MOVIE_DETAIL_QUERY } from 'queries/Query';
+import { CASTS_QUERY, MOVIE_DETAIL_QUERY, REVIEWS_QUERY } from 'queries/Query';
 import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
-import { ICastProps, IMovieProps } from 'models/types';
-import { ColorPalette } from 'models/color';
+import { ICastProps, IMovieProps, IReviewProps } from 'models/types';
 import Icon from 'Icon/Icon';
 import Loading from 'products/Loading';
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
@@ -53,13 +52,24 @@ const Detail: React.FunctionComponent = () => {
     },
   });
 
+  const { loading: reviewLoading, data: reviewData } = useQuery<{
+    reviews: Array<IReviewProps>;
+  }>(REVIEWS_QUERY, {
+    variables: {
+      id: location.pathname.split('/')[2],
+      size: 20,
+      skip: 0,
+    },
+  });
+
   return (
     <Main>
-      {loading && castLoading ? (
+      {loading && castLoading && reviewLoading ? (
         <Loading />
       ) : (
         data &&
-        castData && (
+        castData &&
+        reviewData && (
           <>
             <DetailSummarySection movie={data.movie} />
             <ContentSection>
@@ -67,6 +77,7 @@ const Detail: React.FunctionComponent = () => {
                 <DetailContentTopSection
                   movie={data.movie}
                   casts={castData.casts}
+                  reviews={reviewData.reviews}
                 />
                 <DetailContentMiddleSection movie={data.movie} />
               </Inner>

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { ICastProps, IMovieProps } from 'models/types';
+import { ICastProps, IMovieProps, IReviewProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import ContentCastSection from 'components/organisms/ContentCastSection';
+import ContentReviewSection from '../ContentReviewSection';
 
 const ContentContainer = styled.div`
   @media (min-width: 720px) {
@@ -25,6 +26,7 @@ const Content = styled.div`
 
 const TopRoundedContent = styled.div`
   background-color: #fff;
+  overflow: hidden;
   @media (min-width: 1024px) {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
@@ -91,9 +93,14 @@ const DivideBorder = styled.hr`
 interface IProps {
   movie: IMovieProps;
   casts: ICastProps[];
+  reviews: IReviewProps[];
 }
 
-const DetailContentTopSection: React.FC<IProps> = ({ movie, casts }) => {
+const DetailContentTopSection: React.FC<IProps> = ({
+  movie,
+  casts,
+  reviews,
+}) => {
   return (
     <ContentContainer>
       <Content>
@@ -132,6 +139,7 @@ const DetailContentTopSection: React.FC<IProps> = ({ movie, casts }) => {
             </InfoSectionContainer>
           </InfoSection>
           <ContentCastSection casts={casts} />
+          <ContentReviewSection reviews={reviews} />
         </TopRoundedContent>
       </Content>
     </ContentContainer>

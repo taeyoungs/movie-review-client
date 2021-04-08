@@ -99,3 +99,21 @@ export const CASTS_QUERY = gql`
     }
   }
 `;
+
+export const REVIEWS_QUERY = gql`
+  query Reviews($id: String!, $size: Int!, $skip: Int!) {
+    reviews(id: $id, size: $size, skip: $skip) {
+      id
+      content
+      writerId
+      movieTitle
+      rating
+      likeCount
+      isLike
+      writer {
+        name
+        avatar
+      }
+    }
+  }
+`;

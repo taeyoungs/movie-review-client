@@ -55,3 +55,19 @@ export interface ICastProps {
   character: string;
   profile_path?: string;
 }
+
+export interface IWriterProps {
+  name: string;
+  avatar: string;
+}
+
+export interface IReviewProps {
+  id: number;
+  content: string;
+  writerId: number;
+  movieTitle: string;
+  rating: number;
+  likeCount: number;
+  isLike: false;
+  writer: IWriterProps;
+}
