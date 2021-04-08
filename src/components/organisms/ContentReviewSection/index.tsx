@@ -268,9 +268,9 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
     window.addEventListener('resize', () => {
       setTransformWidth(0);
       if (window.innerWidth >= 720) {
-        setListSize(6);
+        setListSize(2);
       } else {
-        setListSize(3);
+        setListSize(1);
       }
     });
   })(window);

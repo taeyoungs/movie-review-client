@@ -41,6 +41,8 @@ const ReuseVideoBlock = styled.div`
   align-items: center;
   background-color: #fff;
   overflow: hidden;
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
   @media (min-width: 720px) {
     width: 420px;
     border: 1px solid #e5e5e5;

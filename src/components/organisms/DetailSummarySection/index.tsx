@@ -6,11 +6,14 @@ import RatedStar from 'products/RatedStar';
 
 const SummarySection = styled.section`
   background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  @media (min-width: 720px) {
+    border-bottom: 1px solid #e5e5e5;
+  }
 `;
 
 const PosterContainer = styled.div`
   position: relative;
+  padding: 44px 0px 20px;
   @media (min-width: 720px) {
     padding: 300px 0 0;
   }
@@ -73,9 +76,15 @@ const Backdrop = styled.div<{ url: string }>`
     `https://image.tmdb.org/t/p/original/${props.url}`});
   background-size: cover;
   background-position: center;
+  width: 100%;
   height: 100%;
+  filter: blur(8px);
   @media (min-width: 720px) {
+    top: auto;
+    left: auto;
+    height: 100%;
     width: 825px;
+    filter: none;
   }
   @media (min-width: 1024px) {
     width: 768px;
@@ -89,7 +98,9 @@ const Backdrop = styled.div<{ url: string }>`
 `;
 
 const TaglineAndPoster = styled.div`
-  padding-left: 8px;
+  @media (min-width: 1024px) {
+    padding: 0 8px;
+  }
 `;
 
 const TaglineContainer = styled.div`
@@ -120,10 +131,18 @@ const Tagline = styled.div`
 `;
 
 const LazyLoadingPoster = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  width: 128px;
+  height: 184px;
+  border-radius: 3px;
+  margin: 0 auto;
+  background-color: #e5e5e5;
   @media (min-width: 720px) {
+    position: absolute;
+    top: -24px;
+    left: 0px;
     width: 153px;
     height: 221px;
   }
@@ -147,7 +166,9 @@ const SummaryContainer = styled.div`
 `;
 
 const Summary = styled.div`
-  padding: 0 0 0 8px;
+  @media (min-width: 1024px) {
+    padding: 0 8px;
+  }
 `;
 
 const SummaryInner = styled.div`
@@ -194,13 +215,16 @@ const SummaryContent = styled.div`
 const SummaryRating = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
   margin-top: 14px;
+  padding: 7px 0;
   @media (min-width: 1024px) {
+    justify-content: flex-start;
     font-size: 17px;
     font-weight: 400;
     line-height: 22px;

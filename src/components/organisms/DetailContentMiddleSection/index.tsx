@@ -60,7 +60,7 @@ const VideoListItem = styled.li`
   display: inline-block;
   padding: 0 5px;
   vertical-align: top;
-  width: 100%;
+  width: 50%;
   @media (min-width: 720px) {
     width: 25%;
   }
@@ -104,10 +104,17 @@ const ThumnailBlur = styled.div`
 `;
 
 const VideoTitleContainer = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: -0.4px;
   line-height: 20px;
   color: ${ColorPalette.Main.TEXT_BODY};
+  @media (min-width: 720px) {
+    font-size: 12px;
+  }
+`;
+
+const VideoTitleMargin = styled.div`
+  margin: 8px 0 0;
 `;
 
 const VideoTitleWrapper = styled.div`
@@ -173,6 +180,20 @@ const ArrowButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const DivideBorder = styled.hr`
+  border: 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 20px 0 0;
+`;
+
+const EmptyVideo = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
@@ -310,13 +331,18 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
                               </ThumnailBlur>
                             </VideoThumbnailContainer>
                             <VideoTitleContainer>
-                              <VideoTitleWrapper>
-                                <VideoTitle>{video.name}</VideoTitle>
-                              </VideoTitleWrapper>
+                              <VideoTitleMargin>
+                                <VideoTitleWrapper>
+                                  <VideoTitle>{video.name}</VideoTitle>
+                                </VideoTitleWrapper>
+                              </VideoTitleMargin>
                             </VideoTitleContainer>
                           </a>
                         </VideoListItem>
                       ))}
+                      {movie.videos.length === 0 && (
+                        <EmptyVideo>등록된 동영상이 없습니다. 😳</EmptyVideo>
+                      )}
                     </VideoList>
                   </InfoSectionInner>
                 </InfoSectionContainer>
@@ -341,6 +367,11 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
               </ArrowButton>
             </ArrowButtonBlock>
           </VideoListContainer>
+          <InfoSectionContainer>
+            <InfoSectionInner>
+              <DivideBorder />
+            </InfoSectionInner>
+          </InfoSectionContainer>
         </VideoListSection>
       </MiddleRoundedContent>
     </VideoContainer>

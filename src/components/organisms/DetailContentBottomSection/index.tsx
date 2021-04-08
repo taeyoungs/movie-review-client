@@ -29,7 +29,13 @@ const BottomRoundedContent = styled.div`
   }
 `;
 
-const WorksSection = styled.section``;
+const WorksSection = styled.section`
+  padding: 8px 0 0;
+  margin-botton: 0px;
+  @media (min-width: 720px) {
+    margin-bottom: 30px;
+  }
+`;
 
 const InfoSectionContainer = styled.div`
   display: block;
