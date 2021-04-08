@@ -215,6 +215,12 @@ const ArrowButton = styled.div`
   justify-content: center;
 `;
 
+const DivideBorder = styled.hr`
+  border: 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 20px 0 0;
+`;
+
 interface IProps {
   reviews: IReviewProps[];
 }
@@ -290,7 +296,7 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
               <InfoSectionInner>
                 <ReviewList ref={reviewListRef}>
                   {reviews.map((review) => (
-                    <ReviewItem>
+                    <ReviewItem key={review.id}>
                       <ReviewItemInner>
                         <ReviewWriter>
                           <ReviewWriterInfo>
@@ -353,6 +359,11 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
           </ArrowButton>
         </ArrowButtonBlock>
       </ReviewContainer>
+      <InfoSectionContainer>
+        <InfoSectionInner>
+          <DivideBorder />
+        </InfoSectionInner>
+      </InfoSectionContainer>
     </InfoSection>
   );
 };

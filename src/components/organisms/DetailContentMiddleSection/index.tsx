@@ -197,6 +197,11 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const image = entry.target;
+              const src = image.getAttribute('data-src');
+              if (src) {
+                image.setAttribute('src', src);
+                image.setAttribute('style', 'opacity: 1');
+              }
               image.classList.remove('lazy');
               imageObserver.unobserve(image);
             }

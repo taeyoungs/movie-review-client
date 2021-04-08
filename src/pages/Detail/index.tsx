@@ -2,13 +2,23 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
-import { CASTS_QUERY, MOVIE_DETAIL_QUERY, REVIEWS_QUERY } from 'queries/Query';
+import {
+  CASTS_QUERY,
+  MOVIE_DETAIL_QUERY,
+  REVIEWS_QUERY,
+  SIMILARWORKS_QUERY,
+} from 'queries/Query';
 import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
-import { ICastProps, IMovieProps, IReviewProps } from 'models/types';
-import Icon from 'Icon/Icon';
-import Loading from 'products/Loading';
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
+import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
+import Loading from 'products/Loading';
+import {
+  ICastProps,
+  IMovieProps,
+  IReviewProps,
+  ISimilarWorkProps,
+} from 'models/types';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -61,15 +71,24 @@ const Detail: React.FunctionComponent = () => {
       skip: 0,
     },
   });
+  const { loading: similarWorksLoading, data: similarWorksData } = useQuery<{
+    similarWorks: Array<ISimilarWorkProps>;
+  }>(SIMILARWORKS_QUERY, {
+    variables: {
+      id: location.pathname.split('/')[2],
+      mediaType: location.pathname.split('/')[1],
+    },
+  });
 
   return (
     <Main>
-      {loading && castLoading && reviewLoading ? (
+      {loading && castLoading && reviewLoading && similarWorksLoading ? (
         <Loading />
       ) : (
         data &&
         castData &&
-        reviewData && (
+        reviewData &&
+        similarWorksData && (
           <>
             <DetailSummarySection movie={data.movie} />
             <ContentSection>
@@ -80,6 +99,10 @@ const Detail: React.FunctionComponent = () => {
                   reviews={reviewData.reviews}
                 />
                 <DetailContentMiddleSection movie={data.movie} />
+                <DetailContentBottomSection
+                  similarWorks={similarWorksData.similarWorks}
+                  mediaType={location.pathname.split('/')[1]}
+                />
               </Inner>
             </ContentSection>
           </>

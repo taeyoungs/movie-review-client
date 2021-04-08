@@ -71,3 +71,10 @@ export interface IReviewProps {
   isLike: false;
   writer: IWriterProps;
 }
+
+export interface ISimilarWorkProps {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+}

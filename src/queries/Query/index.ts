@@ -117,3 +117,14 @@ export const REVIEWS_QUERY = gql`
     }
   }
 `;
+
+export const SIMILARWORKS_QUERY = gql`
+  query SimilarWorks($id: String!, $mediaType: String!) {
+    similarWorks(id: $id, media_type: $mediaType) {
+      id
+      title
+      poster_path
+      vote_average
+    }
+  }
+`;
