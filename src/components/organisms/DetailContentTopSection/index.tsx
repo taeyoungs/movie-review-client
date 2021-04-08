@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { ICastProps, IMovieProps, IReviewProps } from 'models/types';
 import { ColorPalette } from 'models/color';
@@ -73,7 +73,7 @@ const ArticleSummary = styled.div`
 const ArticleOverviewWrapper = styled.div`
   word-break: break-all;
   overflow: hidden;
-  max-height: 72px;
+  max-height: 200px;
   margin: 0;
 `;
 
@@ -90,6 +90,20 @@ const DivideBorder = styled.hr`
   margin: 20px 0 0;
 `;
 
+const OverviewButtonWrapper = styled.div`
+  margin-top: 10px;
+  text-align: right;
+`;
+
+const OverviewButton = styled.span`
+  font-size: 14px;
+  font-weight: 700;
+  color: #f1c40f;
+
+  cursor: pointer;
+  display: inline-block;
+`;
+
 interface IProps {
   movie: IMovieProps;
   casts: ICastProps[];
@@ -101,6 +115,12 @@ const DetailContentTopSection: React.FC<IProps> = ({
   casts,
   reviews,
 }) => {
+  const [fullOverview, setFullOverview] = useState(false);
+
+  const handleOverview = () => {
+    setFullOverview((prevState) => !prevState);
+  };
+
   return (
     <ContentContainer>
       <Content>
@@ -129,10 +149,21 @@ const DetailContentTopSection: React.FC<IProps> = ({
                     •&nbsp;{movie.runtime}분
                   </ArticleSummary>
                   <ArticleOverviewWrapper>
-                    <ArticleOverview>
-                      {movie.overview.slice(0, 130) + ' ...'}
-                    </ArticleOverview>
+                    {movie.overview.length > 0 && (
+                      <ArticleOverview>
+                        {fullOverview
+                          ? movie.overview
+                          : movie.overview.slice(0, 130) + ' ...'}
+                      </ArticleOverview>
+                    )}
                   </ArticleOverviewWrapper>
+                  {movie.overview.length > 0 && (
+                    <OverviewButtonWrapper>
+                      <OverviewButton onClick={handleOverview}>
+                        {fullOverview ? '접기' : '펼치기'}
+                      </OverviewButton>
+                    </OverviewButtonWrapper>
+                  )}
                 </InfoArticle>
                 <DivideBorder />
               </InfoSectionInner>

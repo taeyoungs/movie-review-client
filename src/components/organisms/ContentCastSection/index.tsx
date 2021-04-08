@@ -196,14 +196,12 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
   const castListRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (casts) {
-      if (window.innerWidth >= 720) {
-        setListSize(6);
-      } else {
-        setListSize(3);
-      }
+    if (window.innerWidth >= 720) {
+      setListSize(6);
+    } else {
+      setListSize(3);
     }
-  }, [casts]);
+  }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
     let width = 0;

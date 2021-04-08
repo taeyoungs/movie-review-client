@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { ISimilarWorkProps } from 'models/types';
 import { Link } from 'react-router-dom';
+import { ISimilarWorkProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 

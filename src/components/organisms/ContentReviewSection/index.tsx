@@ -231,14 +231,12 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
   const reviewListRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (reviews) {
-      if (window.innerWidth >= 720) {
-        setListSize(2);
-      } else {
-        setListSize(1);
-      }
+    if (window.innerWidth >= 720) {
+      setListSize(2);
+    } else {
+      setListSize(1);
     }
-  }, [reviews]);
+  }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
     let width = 0;
