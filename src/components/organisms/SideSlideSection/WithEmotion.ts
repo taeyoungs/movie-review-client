@@ -4,15 +4,7 @@ import { ColorPalette } from 'models/color';
 const SlideContainer = styled.div`
   grid-column: span 1;
   display: none;
-  margin-top: 10px;
-  margin-left: 10px;
-  & .slide-title {
-    color: ${ColorPalette.Main.CTA_PRIMARY};
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
+  padding: 10px 5px 0;
   @media (min-width: 1024px) {
     display: block;
   }
@@ -20,23 +12,18 @@ const SlideContainer = styled.div`
 
 const UpNextItem = styled.figure`
   display: flex;
-  align-items: center;
-  margin: 8px;
-  cursor: pointer;
-  & figcaption {
-    margin-left: 20px;
-  }
+  padding: 0 16px;
+  width: 100%;
+  flex: 0 0 148px;
+  overflow: hidden;
+  position: relative;
   & figcaption p:nth-of-type(1) {
     color: white;
     margin-bottom: 10px;
     font-size: 16px;
   }
-  & figcaption p:nth-of-type(2) {
-    font-size: 12px;
-    color: ${ColorPalette.Main.CTA_PRIMARY};
-  }
-  &:hover {
-    opacity: 0.8;
+  @media screen and (min-width: 1024px) and (max-width: 1280px) {
+    flex: 0 0 113px;
   }
 `;
 
@@ -50,12 +37,12 @@ const UpNext = styled.div`
 `;
 
 const UpNextPoster = styled.img`
-  @media screen and (min-width: 1024px) and (max-width: 1280px) {
-    width: 70px;
-  }
-  @media (min-width: 1280px) {
-    width: 95px;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 `;
 
 export { SlideContainer, UpNextItem, UpNext, UpNextPoster };

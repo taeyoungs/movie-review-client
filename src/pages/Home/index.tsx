@@ -43,10 +43,7 @@ const Home: React.FunctionComponent = () => {
                   setActiveIndex={setActiveIndex}
                   shows={showData.shows}
                 />
-                <SideSlideSection
-                  shows={showData.shows}
-                  activeIndex={activeIndex}
-                />
+                <SideSlideSection activeIndex={activeIndex} />
               </>
             )
           )}
