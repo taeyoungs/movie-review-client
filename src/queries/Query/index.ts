@@ -128,3 +128,29 @@ export const SIMILARWORKS_QUERY = gql`
     }
   }
 `;
+
+export const DETAIL_QUERY = gql`
+  query Detail($id: String!, $mediaType: String!) {
+    detail(id: $id, media_type: $mediaType) {
+      id
+      title
+      poster_path
+      backdrop_path
+      vote_average
+      vote_count
+      overview
+      tagline
+      release_date
+      runtime
+      genres {
+        id
+        name
+      }
+      videos {
+        key
+        id
+        name
+      }
+    }
+  }
+`;

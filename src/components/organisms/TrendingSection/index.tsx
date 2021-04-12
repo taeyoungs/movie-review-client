@@ -96,7 +96,12 @@ const Trending: React.FunctionComponent = () => {
           ) : (
             shows &&
             shows.trendingShows.map((show) => (
-              <PosterCard key={show.id} {...show} isDark />
+              <PosterCard
+                key={show.id}
+                {...show}
+                isDark
+                href={`/tv/${show.id}`}
+              />
             ))
           )
         ) : movieLoading ? (
@@ -104,7 +109,12 @@ const Trending: React.FunctionComponent = () => {
         ) : (
           movies &&
           movies.trendingMovies.map((movie) => (
-            <PosterCard key={movie.id} {...movie} isDark />
+            <PosterCard
+              key={movie.id}
+              {...movie}
+              isDark
+              href={`/movie/${movie.id}`}
+            />
           ))
         )}
       </ScrollDiv>

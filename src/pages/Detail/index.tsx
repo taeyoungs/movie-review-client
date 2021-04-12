@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
 import {
   CASTS_QUERY,
-  MOVIE_DETAIL_QUERY,
+  DETAIL_QUERY,
   REVIEWS_QUERY,
   SIMILARWORKS_QUERY,
 } from 'queries/Query';
@@ -45,14 +45,12 @@ const Inner = styled.div`
 
 const Detail: React.FunctionComponent = () => {
   const location = useLocation();
-  const { loading, data } = useQuery<{ movie: IMovieProps }>(
-    MOVIE_DETAIL_QUERY,
-    {
-      variables: {
-        id: location.pathname.split('/')[2],
-      },
-    }
-  );
+  const { loading, data } = useQuery<{ detail: IMovieProps }>(DETAIL_QUERY, {
+    variables: {
+      id: location.pathname.split('/')[2],
+      mediaType: location.pathname.split('/')[1],
+    },
+  });
   const { loading: castLoading, data: castData } = useQuery<{
     casts: Array<ICastProps>;
   }>(CASTS_QUERY, {
@@ -90,15 +88,15 @@ const Detail: React.FunctionComponent = () => {
         reviewData &&
         similarWorksData && (
           <>
-            <DetailSummarySection movie={data.movie} />
+            <DetailSummarySection movie={data.detail} />
             <ContentSection>
               <Inner>
                 <DetailContentTopSection
-                  movie={data.movie}
+                  movie={data.detail}
                   casts={castData.casts}
                   reviews={reviewData.reviews}
                 />
-                <DetailContentMiddleSection movie={data.movie} />
+                <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection
                   similarWorks={similarWorksData.similarWorks}
                   mediaType={location.pathname.split('/')[1]}

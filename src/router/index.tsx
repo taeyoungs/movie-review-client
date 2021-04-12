@@ -26,6 +26,7 @@ const RouterContainer: React.FunctionComponent = () => {
           <Route exact path="/movie" component={Movies} />
           <Route exact path="/movie/:id" component={Detail} />
           <Route exact path="/tv" component={Shows} />
+          <Route exact path="/tv/:id" component={Detail} />
           <Route exact path="/review" component={Reviews} />
           <Route exact path="/registration" component={Registration} />
           <Redirect from="*" to="/" />

@@ -22,8 +22,20 @@ const ResultSection: React.FC<IProps> = ({ multiSearch }) => {
       {multiSearch.length > 10
         ? multiSearch
             .slice(0, 9)
-            .map((item) => <ResultContent key={item.id} {...item} />)
-        : multiSearch.map((item) => <ResultContent key={item.id} {...item} />)}
+            .map((item) => (
+              <ResultContent
+                key={item.id}
+                {...item}
+                media_type={item.title ? 'movie' : 'tv'}
+              />
+            ))
+        : multiSearch.map((item) => (
+            <ResultContent
+              key={item.id}
+              {...item}
+              media_type={item.title ? 'movie' : 'tv'}
+            />
+          ))}
       {multiSearch.length === 0 && (
         <LoadingContainer>
           <P align={TextAlign.CENTER} color={ColorPalette.Yellow.YELLOW_600}>
