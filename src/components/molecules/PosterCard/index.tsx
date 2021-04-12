@@ -1,9 +1,9 @@
 import React from 'react';
 import P from 'components/atoms/P';
-import Icon from 'Icon/Icon';
-import Link from 'products/Link';
+import Link from 'components/molecules/Link';
 import { Content, Poster, Rating, RBlock } from './WithEmotion';
 import { ColorPalette } from 'models/color';
+import Icon from 'Icon/Icon';
 
 export interface IProps {
   poster_path?: string;

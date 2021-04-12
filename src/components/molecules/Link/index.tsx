@@ -28,16 +28,15 @@ const Link: React.FC<IProps> = ({
   href = '#',
   onClick,
 }) => {
+  const props = {
+    ...(secondary && { secondary: 'true' }),
+    ...(tertiary && { tertiary: 'true' }),
+    ...(isTitle && { isTitle: 'true' }),
+    ...(containIcon && { containIcon: 'true' }),
+    ...(underline && { underline: 'true' }),
+  };
   return (
-    <EPLink
-      secondary={secondary}
-      tertiary={tertiary}
-      underline={underline}
-      containIcon={containIcon}
-      isTitle={isTitle}
-      href={href}
-      onClick={onClick}
-    >
+    <EPLink {...props} to={href} onClick={onClick}>
       {children}
     </EPLink>
   );

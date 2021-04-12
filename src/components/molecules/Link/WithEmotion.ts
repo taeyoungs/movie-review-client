@@ -1,9 +1,23 @@
 import styled from '@emotion/styled';
-import A from 'components/molecules/A';
+import { Link } from 'react-router-dom';
 import { ColorPalette } from 'models/color';
-import { IProps } from '.';
 
-const EPLink = styled(A)<IProps>`
+interface ILinkProps {
+  secondary?: string;
+  tertiary?: string;
+  isTitle?: string;
+  underline?: string;
+  containIcon?: string;
+}
+
+const EPLink = styled(Link)<ILinkProps>`
+  outline: none,
+  border: none,
+  color: inherit,
+  text-decoration: none,
+  cursor: pointer,
+  width: 100%,
+  height: auto,
   color: ${ColorPalette.Main.CTA_PRIMARY};
   text-decoration: none;
   &:hover {
