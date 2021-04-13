@@ -151,6 +151,11 @@ export const DETAIL_QUERY = gql`
         id
         name
       }
+      userReview {
+        id
+        content
+        rating
+      }
     }
   }
 `;

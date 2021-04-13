@@ -25,3 +25,14 @@ export const LOCAL_SIGN_UP = gql`
     }
   }
 `;
+
+export const UPDATE_REVIEW = gql`
+  mutation UpdateReview($data: ReviewUpdateInput!, $where: Int!) {
+    updateOneReview(data: $data, where: $where) {
+      id
+      content
+      rating
+      wrtierId
+    }
+  }
+`;

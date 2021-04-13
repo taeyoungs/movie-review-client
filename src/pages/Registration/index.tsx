@@ -234,7 +234,7 @@ const Registration: React.FunctionComponent = () => {
               buttonText="Google 로그인"
               className="google-login-button"
               onSuccess={handleLogin}
-              onFailure={handleLogin}
+              onFailure={() => null}
               cookiePolicy={'single_host_origin'}
             />
           </SocialLoginContainer>

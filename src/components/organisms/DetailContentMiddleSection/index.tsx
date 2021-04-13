@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import DetailVideo from 'components/molecules/DetailVideo';
-import { IMovieProps } from 'models/types';
+import { IDetailProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 
 interface IProps {
-  movie: IMovieProps;
+  movie: IDetailProps;
 }
 
 const VideoContainer = styled.div`
@@ -22,12 +22,16 @@ const VideoContainer = styled.div`
 `;
 
 const MiddleRoundedContent = styled.div`
+  background-color: #fff;
+  overflow: hidden;
+  @media (min-width: 720px) and (max-width: 1024px) {
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+  }
   @media (min-width: 1024px) {
     border: 1px solid #e5e5e5;
     border-radius: 6px;
   }
-  background-color: #fff;
-  overflow: hidden;
 `;
 
 const VideoListSection = styled.section`

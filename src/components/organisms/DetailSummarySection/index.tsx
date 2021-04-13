@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { IMovieProps } from 'models/types';
+import { IDetailProps } from 'models/types';
 import Icon from 'Icon/Icon';
 import RatedStar from 'products/RatedStar';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { DETAIL_QUERY } from 'queries/Query';
+import { UPDATE_REVIEW } from 'queries/Mutation';
 
 const SummarySection = styled.section`
   background-color: #fff;
@@ -254,10 +257,30 @@ const HoverNotification = styled.div`
 `;
 
 interface IProps {
-  movie: IMovieProps;
+  movie: IDetailProps;
 }
 
 const DetailSummarySection: React.FC<IProps> = ({ movie }) => {
+  const [rating, setRating] = useState(movie.userReview?.rating || 0);
+  const [content, setContent] = useState('');
+  // const client = useApolloClient();
+  // function handleClick(i: Number) {
+  // }
+  /*
+  const [mutation, { data, error }] = useMutation(UPDATE_REVIEW, {
+    variables: {
+      data: {
+        id: movie.id,
+        content,
+        rating,
+      },
+      where: {
+        id: movie.userReview.id,
+      },
+    },
+  });
+  */
+
   return (
     <SummarySection>
       <PosterContainer>
@@ -311,7 +334,7 @@ const DetailSummarySection: React.FC<IProps> = ({ movie }) => {
                 <HoverNotification>
                   재밌게 보셨다면 평점을 남겨보세요.
                 </HoverNotification>
-                <RatedStar isHover />
+                <RatedStar isHover rating={rating} />
               </SummaryHoverRating>
             </SummaryInner>
           </Summary>

@@ -24,12 +24,26 @@ export interface IMovieProps {
   vote_average: number;
   release_date: string;
   backdrop_path: string;
+  vote_count: number;
+  runtime: number;
+  tagline: string;
+  overview: string;
+}
+
+export interface IDetailProps {
+  id: number;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  release_date: string;
+  backdrop_path: string;
   genres: IGenre[];
   vote_count: number;
   runtime: number;
   videos: IVideo[];
   tagline: string;
   overview: string;
+  userReview: IReviewProps;
 }
 
 export interface ISearchProps {

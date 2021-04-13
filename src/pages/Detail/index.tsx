@@ -15,7 +15,7 @@ import DetailContentBottomSection from 'components/organisms/DetailContentBottom
 import Loading from 'products/Loading';
 import {
   ICastProps,
-  IMovieProps,
+  IDetailProps,
   IReviewProps,
   ISimilarWorkProps,
 } from 'models/types';
@@ -45,7 +45,7 @@ const Inner = styled.div`
 
 const Detail: React.FunctionComponent = () => {
   const location = useLocation();
-  const { loading, data } = useQuery<{ detail: IMovieProps }>(DETAIL_QUERY, {
+  const { loading, data } = useQuery<{ detail: IDetailProps }>(DETAIL_QUERY, {
     variables: {
       id: location.pathname.split('/')[2],
       mediaType: location.pathname.split('/')[1],

@@ -20,6 +20,13 @@ const ContentContainer = styled.div`
 const BottomRoundedContent = styled.div`
   background-color: #fff;
   overflow: hidden;
+  @media (min-width: 720px) and (max-width: 1024px) {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+  }
   @media (min-width: 1024px) {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;

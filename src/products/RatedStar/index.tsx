@@ -82,7 +82,7 @@ const RatedStar: React.FC<IProps> = ({
   return (
     <EmptyStars isHover={isHover}>
       {emptyStars}
-      <ColorStars w={calculateStar(tempRating != 0 ? tempRating : rating)}>
+      <ColorStars w={calculateStar(tempRating !== 0 ? tempRating : rating)}>
         {colorStars}
       </ColorStars>
     </EmptyStars>
