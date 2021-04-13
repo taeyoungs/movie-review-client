@@ -27,7 +27,7 @@ const ResultContent: React.FC<ISearchProps> = ({
   first_air_date,
 }) => {
   return (
-    <a href={`/${media_type}/${id}`}>
+    <Link to={`/${media_type}/${id}`}>
       <ItemContainer>
         <PosterContainer>
           {poster_path || profile_path ? (
@@ -69,7 +69,7 @@ const ResultContent: React.FC<ISearchProps> = ({
           )}
         </ContentContainer>
       </ItemContainer>
-    </a>
+    </Link>
   );
 };
 

@@ -68,6 +68,12 @@ const SearchBar: React.FunctionComponent = () => {
     }
   };
 
+  const handleResultClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (e.target) {
+      setValue('');
+    }
+  };
+
   return (
     <RelativeContainer className="relative-container">
       <Container className="searchbar-container">
@@ -114,7 +120,7 @@ const SearchBar: React.FunctionComponent = () => {
         </ExitIcon>
       </Container>
       {value != '' && (
-        <ResultContainer>
+        <ResultContainer onClick={handleResultClick}>
           {loading ? (
             <Loading />
           ) : (

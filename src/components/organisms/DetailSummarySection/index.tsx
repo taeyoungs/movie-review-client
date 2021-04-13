@@ -223,6 +223,13 @@ const SummaryRating = styled.div`
   line-height: 20px;
   margin-top: 14px;
   padding: 7px 0;
+  @media (min-width: 720px) {
+    justify-content: flex-start;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.5px;
+    padding: 8px 0;
+  }
   @media (min-width: 1024px) {
     justify-content: flex-start;
     font-size: 17px;
