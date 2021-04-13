@@ -138,6 +138,10 @@ const ScrollDiv = styled.div`
   }
 `;
 
+const SectionInner = styled.div`
+  padding: 0 0 0 30px;
+`;
+
 export {
   Main,
   Container,
@@ -150,4 +154,5 @@ export {
   ArrowBtn,
   HomeScrollSection,
   ScrollDiv,
+  SectionInner,
 };

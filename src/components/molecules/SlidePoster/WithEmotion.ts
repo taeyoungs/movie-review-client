@@ -37,15 +37,10 @@ const Content = styled.figcaption`
   bottom: -15px;
   left: 30%;
   color: white;
+  padding: 0 30px 0 0;
   & p:nth-of-type(1) {
     font-size: 30px;
     margin-bottom: 10px;
-  }
-  & p:nth-of-type(2) {
-    line-height: 20px;
-    font-size: 14px;
-    color: lightgrey;
-    margin-right: 30px;
   }
 `;
 

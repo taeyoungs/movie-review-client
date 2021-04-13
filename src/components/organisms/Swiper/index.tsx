@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SlidePoster from 'components/molecules/SlidePoster';
-import Icon from 'Icon/Icon';
 import {
   MainPoster,
   SwiperContainer,
@@ -17,6 +16,7 @@ import {
 import useInterval from 'hooks/useInterval';
 import { ColorPalette } from 'models/color';
 import { IShowProps } from 'models/types';
+import Icon from 'Icon/Icon';
 import { setWidth } from 'utils';
 
 interface IProps {

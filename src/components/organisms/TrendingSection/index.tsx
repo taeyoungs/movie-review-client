@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { HomeScrollSection, ScrollDiv } from 'pages/Home/WithEmotion';
+import {
+  HomeScrollSection,
+  ScrollDiv,
+  SectionInner,
+} from 'pages/Home/WithEmotion';
 import Loading from 'products/Loading';
 import PosterCard from 'components/molecules/PosterCard';
 import { TRENDING_MOVIES_QUERY, TRENDING_SHOWS_QUERY } from 'queries/Query';
@@ -66,58 +70,60 @@ const Trending: React.FunctionComponent = () => {
 
   return (
     <HomeScrollSection>
-      <h2>
-        <span className="lazy">트렌딩</span>
-        <HiddenBox
-          type="checkbox"
-          name="media-type"
-          id="media-type"
-          onChange={handleMediaType}
-        />
-        <ToggleBtn htmlFor="media-type">
-          <ToggleText>영화</ToggleText>
-          <ToggleText>TV</ToggleText>
-        </ToggleBtn>
-        <HiddenBox
-          type="checkbox"
-          name="time-window"
-          id="time-window"
-          onChange={handleTimeWindow}
-        />
-        <ToggleBtn htmlFor="time-window">
-          <ToggleText>오늘</ToggleText>
-          <ToggleText>이번 주</ToggleText>
-        </ToggleBtn>
-      </h2>
-      <ScrollDiv>
-        {mediaType ? (
-          showLoading ? (
+      <SectionInner>
+        <h2>
+          <span className="lazy">트렌딩</span>
+          <HiddenBox
+            type="checkbox"
+            name="media-type"
+            id="media-type"
+            onChange={handleMediaType}
+          />
+          <ToggleBtn htmlFor="media-type">
+            <ToggleText>영화</ToggleText>
+            <ToggleText>TV</ToggleText>
+          </ToggleBtn>
+          <HiddenBox
+            type="checkbox"
+            name="time-window"
+            id="time-window"
+            onChange={handleTimeWindow}
+          />
+          <ToggleBtn htmlFor="time-window">
+            <ToggleText>오늘</ToggleText>
+            <ToggleText>이번 주</ToggleText>
+          </ToggleBtn>
+        </h2>
+        <ScrollDiv>
+          {mediaType ? (
+            showLoading ? (
+              <Loading />
+            ) : (
+              shows &&
+              shows.trendingShows.map((show) => (
+                <PosterCard
+                  key={show.id}
+                  {...show}
+                  isDark
+                  href={`/tv/${show.id}`}
+                />
+              ))
+            )
+          ) : movieLoading ? (
             <Loading />
           ) : (
-            shows &&
-            shows.trendingShows.map((show) => (
+            movies &&
+            movies.trendingMovies.map((movie) => (
               <PosterCard
-                key={show.id}
-                {...show}
+                key={movie.id}
+                {...movie}
                 isDark
-                href={`/tv/${show.id}`}
+                href={`/movie/${movie.id}`}
               />
             ))
-          )
-        ) : movieLoading ? (
-          <Loading />
-        ) : (
-          movies &&
-          movies.trendingMovies.map((movie) => (
-            <PosterCard
-              key={movie.id}
-              {...movie}
-              isDark
-              href={`/movie/${movie.id}`}
-            />
-          ))
-        )}
-      </ScrollDiv>
+          )}
+        </ScrollDiv>
+      </SectionInner>
     </HomeScrollSection>
   );
 };

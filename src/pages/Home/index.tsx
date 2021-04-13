@@ -6,6 +6,7 @@ import {
   GridContainer,
   HomeScrollSection,
   ScrollDiv,
+  SectionInner,
 } from './WithEmotion';
 import PosterCard from 'components/molecules/PosterCard';
 import Swiper from 'components/organisms/Swiper';
@@ -50,22 +51,24 @@ const Home: React.FunctionComponent = () => {
         </GridContainer>
       </Container>
       <HomeScrollSection>
-        <h2>박스오피스</h2>
-        <ScrollDiv>
-          {movieLoading ? (
-            <Loading />
-          ) : (
-            movieData &&
-            movieData.movies.map((movie) => (
-              <PosterCard
-                key={movie.id}
-                {...movie}
-                isDark
-                href={`/movie/${movie.id}`}
-              />
-            ))
-          )}
-        </ScrollDiv>
+        <SectionInner>
+          <h2>박스오피스</h2>
+          <ScrollDiv>
+            {movieLoading ? (
+              <Loading />
+            ) : (
+              movieData &&
+              movieData.movies.map((movie) => (
+                <PosterCard
+                  key={movie.id}
+                  {...movie}
+                  isDark
+                  href={`/movie/${movie.id}`}
+                />
+              ))
+            )}
+          </ScrollDiv>
+        </SectionInner>
       </HomeScrollSection>
       <TrendingSection />
     </Main>

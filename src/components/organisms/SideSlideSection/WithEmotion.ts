@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { ColorPalette } from 'models/color';
 
 const SlideContainer = styled.div`
   grid-column: span 1;
