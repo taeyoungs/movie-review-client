@@ -201,6 +201,25 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
     } else {
       setListSize(3);
     }
+
+    window.addEventListener('resize', () => {
+      setTransformWidth(0);
+      if (window.innerWidth >= 720) {
+        setListSize(6);
+      } else {
+        setListSize(3);
+      }
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setTransformWidth(0);
+        if (window.innerWidth >= 720) {
+          setListSize(6);
+        } else {
+          setListSize(3);
+        }
+      });
+    };
   }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -229,16 +248,6 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
     }
   };
 
-  (function (window) {
-    window.addEventListener('resize', () => {
-      setTransformWidth(0);
-      if (window.innerWidth >= 720) {
-        setListSize(6);
-      } else {
-        setListSize(3);
-      }
-    });
-  })(window);
   return (
     <InfoSection>
       <InfoSectionContainer>

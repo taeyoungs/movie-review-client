@@ -236,6 +236,24 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
     } else {
       setListSize(1);
     }
+    window.addEventListener('resize', () => {
+      setTransformWidth(0);
+      if (window.innerWidth >= 720) {
+        setListSize(2);
+      } else {
+        setListSize(1);
+      }
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setTransformWidth(0);
+        if (window.innerWidth >= 720) {
+          setListSize(2);
+        } else {
+          setListSize(1);
+        }
+      });
+    };
   }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -264,16 +282,6 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
     }
   };
 
-  (function (window) {
-    window.addEventListener('resize', () => {
-      setTransformWidth(0);
-      if (window.innerWidth >= 720) {
-        setListSize(2);
-      } else {
-        setListSize(1);
-      }
-    });
-  })(window);
   return (
     <InfoSection>
       <InfoSectionContainer>

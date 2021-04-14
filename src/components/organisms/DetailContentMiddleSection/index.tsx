@@ -206,7 +206,37 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
   const videoListRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (movie) {
+    if (window.innerWidth >= 1024) {
+      setListSize(2);
+    } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+      setListSize(4);
+    } else {
+      setListSize(2);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const lazyImages = document.querySelectorAll('.lazy');
+
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const image = entry.target;
+            const src = image.getAttribute('data-src');
+            if (src) {
+              image.setAttribute('src', src);
+              image.setAttribute('style', 'opacity: 1');
+            }
+            image.classList.remove('lazy');
+            imageObserver.unobserve(image);
+          }
+        });
+      });
+
+      lazyImages.forEach((img) => imageObserver.observe(img));
+    }
+
+    window.addEventListener('resize', () => {
+      setTransformWidth(0);
       if (window.innerWidth >= 1024) {
         setListSize(2);
       } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
@@ -214,29 +244,21 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
       } else {
         setListSize(2);
       }
+    });
 
-      if ('IntersectionObserver' in window) {
-        const lazyImages = document.querySelectorAll('.lazy');
-
-        const imageObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const image = entry.target;
-              const src = image.getAttribute('data-src');
-              if (src) {
-                image.setAttribute('src', src);
-                image.setAttribute('style', 'opacity: 1');
-              }
-              image.classList.remove('lazy');
-              imageObserver.unobserve(image);
-            }
-          });
-        });
-
-        lazyImages.forEach((img) => imageObserver.observe(img));
-      }
-    }
-  }, [movie]);
+    return () => {
+      window.removeEventListener('resize', () => {
+        setTransformWidth(0);
+        if (window.innerWidth >= 1024) {
+          setListSize(2);
+        } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+          setListSize(4);
+        } else {
+          setListSize(2);
+        }
+      });
+    };
+  }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
     let width = 0;
@@ -267,19 +289,6 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
       }
     }
   };
-
-  (function (window) {
-    window.addEventListener('resize', () => {
-      setTransformWidth(0);
-      if (window.innerWidth >= 1024) {
-        setListSize(2);
-      } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-        setListSize(4);
-      } else {
-        setListSize(2);
-      }
-    });
-  })(window);
 
   return (
     <VideoContainer>

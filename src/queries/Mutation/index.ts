@@ -36,3 +36,9 @@ export const UPDATE_REVIEW = gql`
     }
   }
 `;
+
+export const LOGOUT = gql`
+  mutation {
+    logout
+  }
+`;

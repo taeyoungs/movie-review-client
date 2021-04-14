@@ -5,7 +5,9 @@ import useGetAvatar from 'hooks/useGetAvatar';
 import Menu from 'components/molecules/Menu';
 import MenuItem from 'components/atoms/MenuItem';
 import Cookies from 'js-cookie';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { LOGOUT } from 'queries/Mutation';
 
 const UserMenuContainer = styled.div`
   position: relative;
@@ -22,6 +24,7 @@ const UserMenu: React.FunctionComponent = () => {
   const { avatar, login } = useGetAvatar();
   const history = useHistory();
   const itemTitleList = ['프로필', '로그아웃'];
+  const [logout] = useMutation(LOGOUT);
 
   // ToDo: 프로필로 이동
 
@@ -29,7 +32,7 @@ const UserMenu: React.FunctionComponent = () => {
     Cookies.remove('signedin');
     Cookies.remove('avatar');
     Cookies.remove('login');
-    Cookies.remove('jwt');
+    logout();
     history.go(0);
   };
   return (
