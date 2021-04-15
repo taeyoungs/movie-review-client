@@ -151,11 +151,16 @@ export const DETAIL_QUERY = gql`
         id
         name
       }
-      userReview {
-        id
-        content
-        rating
-      }
+    }
+  }
+`;
+
+export const GET_USER_REVIEW_QUERY = gql`
+  query GetUserReview($movieId: String!) {
+    getUserReview(movieId: $movieId) {
+      id
+      content
+      rating
     }
   }
 `;

@@ -24,7 +24,10 @@ export const Basic = Template.bind({});
 Basic.args = { rating: 0 };
 
 export const WithRating = (): JSX.Element => {
-  return <RatedStar rating={3.5} />;
+  function handleClick() {
+    console.log('star');
+  }
+  return <RatedStar rating={3.5} handleClick={handleClick} />;
 };
 
 export const HoverRating = (): JSX.Element => {

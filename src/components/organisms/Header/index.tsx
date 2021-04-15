@@ -18,9 +18,6 @@ import { ColorPalette } from 'models/color';
 import Cookies from 'js-cookie';
 import UserMenu from '../UserMenu';
 
-// ToDo: media-query
-// 1024px 600px
-
 const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);
   const [isSigned, setIsSigned] = useState(

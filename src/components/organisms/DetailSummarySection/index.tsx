@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { IDetailProps } from 'models/types';
-import Icon from 'Icon/Icon';
 import RatedStar from 'products/RatedStar';
-import { useApolloClient, useMutation } from '@apollo/client';
-import { DETAIL_QUERY } from 'queries/Query';
-import { UPDATE_REVIEW } from 'queries/Mutation';
+import { useMutation } from '@apollo/client';
+import { CREATE_REVIEW, UPDATE_REVIEW } from 'queries/Mutation';
+import { IDetailProps, IReviewProps } from 'models/types';
+import Cookie from 'js-cookie';
+import Icon from 'Icon/Icon';
+import { GET_USER_REVIEW_QUERY } from 'queries/Query';
 
 const SummarySection = styled.section`
   background-color: #fff;
@@ -258,28 +259,51 @@ const HoverNotification = styled.div`
 
 interface IProps {
   movie: IDetailProps;
+  handleToggleLogin: () => void;
+  userReview: IReviewProps | null;
 }
 
-const DetailSummarySection: React.FC<IProps> = ({ movie }) => {
-  const [rating, setRating] = useState(movie.userReview?.rating || 0);
-  const [content, setContent] = useState('');
-  // const client = useApolloClient();
-  // function handleClick(i: Number) {
-  // }
-  /*
-  const [mutation, { data, error }] = useMutation(UPDATE_REVIEW, {
+const DetailSummarySection: React.FC<IProps> = ({
+  movie,
+  handleToggleLogin,
+  userReview,
+}) => {
+  const [rating, setRating] = useState(0);
+
+  const [createReviewMutation] = useMutation(CREATE_REVIEW, {
     variables: {
-      data: {
-        id: movie.id,
-        content,
-        rating,
-      },
-      where: {
-        id: movie.userReview.id,
-      },
+      movieTitle: movie.title,
+      movieId: `${movie.id}`,
+      rating,
+    },
+    refetchQueries: [
+      { query: GET_USER_REVIEW_QUERY, variables: { movieId: `${movie.id}` } },
+    ],
+  });
+  const [updateReviewMutation] = useMutation(UPDATE_REVIEW, {
+    variables: {
+      rating,
+      ...(userReview && { reviewId: userReview.id }),
     },
   });
-  */
+
+  useEffect(() => {
+    if (!userReview && rating !== 0) {
+      createReviewMutation();
+    }
+    if (userReview && rating !== 0) {
+      updateReviewMutation();
+    }
+  }, [rating]);
+
+  function handleClick(i: number) {
+    const isSigned = Cookie.get('signedin');
+    if (Boolean(isSigned)) {
+      setRating(i);
+    } else {
+      handleToggleLogin();
+    }
+  }
 
   return (
     <SummarySection>
@@ -334,7 +358,11 @@ const DetailSummarySection: React.FC<IProps> = ({ movie }) => {
                 <HoverNotification>
                   재밌게 보셨다면 평점을 남겨보세요.
                 </HoverNotification>
-                <RatedStar isHover rating={rating} />
+                <RatedStar
+                  isHover
+                  rating={userReview?.rating || 0}
+                  handleClick={handleClick}
+                />
               </SummaryHoverRating>
             </SummaryInner>
           </Summary>

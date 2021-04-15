@@ -6,7 +6,7 @@ import { ColorPalette } from 'models/color';
 export interface IProps {
   rating?: number;
   isHover?: boolean;
-  handleClick?(i: number): void;
+  handleClick(i: number): void;
 }
 
 function calculateStar(rating: number): number {
@@ -43,6 +43,7 @@ const RatedStar: React.FC<IProps> = ({
   handleClick,
 }) => {
   const [tempRating, setTempRating] = useState(0);
+
   const emptyStars = [];
   for (let i = 1; i <= 10; i++) {
     const rev = i % 2 == 0;
@@ -66,7 +67,7 @@ const RatedStar: React.FC<IProps> = ({
         key={i}
         reverse={rev}
         onMouseOver={() => setTempRating(i)}
-        onClick={() => handleClick && handleClick(i)}
+        onClick={() => handleClick(i)}
         onMouseOut={() => setTempRating(0)}
       >
         <Icon

@@ -43,7 +43,6 @@ export interface IDetailProps {
   videos: IVideo[];
   tagline: string;
   overview: string;
-  userReview: IReviewProps;
 }
 
 export interface ISearchProps {

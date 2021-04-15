@@ -97,7 +97,7 @@ const ArrowBtn = styled.button<{ next: boolean }>`
 const HomeScrollSection = styled.section`
   width: 100%;
   padding-top: 15px;
-  margin: 0px 0px 20px 30px;
+  margin: 0 0 20px 0;
   @media (min-width: 1024px) {
     max-width: 1024px;
     margin: 0px auto 20px;

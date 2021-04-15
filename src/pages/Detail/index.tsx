@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
 import {
   CASTS_QUERY,
   DETAIL_QUERY,
+  GET_USER_REVIEW_QUERY,
   REVIEWS_QUERY,
   SIMILARWORKS_QUERY,
 } from 'queries/Query';
@@ -12,6 +13,7 @@ import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
 import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
+import ToggleLogin from 'components/organisms/ToggleLogin';
 import Loading from 'products/Loading';
 import {
   ICastProps,
@@ -44,7 +46,11 @@ const Inner = styled.div`
 `;
 
 const Detail: React.FunctionComponent = () => {
-  const location = useLocation();
+  const [toggleLogin, setToggleLogin] = useState(false);
+  const location: {
+    state: { reload: boolean };
+    pathname: string;
+  } = useLocation();
   const { loading, data } = useQuery<{ detail: IDetailProps }>(DETAIL_QUERY, {
     variables: {
       id: location.pathname.split('/')[2],
@@ -77,10 +83,36 @@ const Detail: React.FunctionComponent = () => {
       mediaType: location.pathname.split('/')[1],
     },
   });
+  const { loading: userReviewLoading, data: userReview, refetch } = useQuery<{
+    getUserReview: IReviewProps;
+  }>(GET_USER_REVIEW_QUERY, {
+    variables: {
+      movieId: location.pathname.split('/')[2],
+    },
+  });
+
+  useEffect(() => {
+    if (location.state && location.state.reload) {
+      refetch();
+    }
+  }, []);
+
+  const handleToggleLogin = () => {
+    setToggleLogin((prevState) => !prevState);
+    if (!toggleLogin) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  };
 
   return (
     <Main>
-      {loading && castLoading && reviewLoading && similarWorksLoading ? (
+      {loading &&
+      castLoading &&
+      reviewLoading &&
+      similarWorksLoading &&
+      userReviewLoading ? (
         <Loading />
       ) : (
         data &&
@@ -88,13 +120,18 @@ const Detail: React.FunctionComponent = () => {
         reviewData &&
         similarWorksData && (
           <>
-            <DetailSummarySection movie={data.detail} />
+            <DetailSummarySection
+              movie={data.detail}
+              handleToggleLogin={handleToggleLogin}
+              userReview={userReview?.getUserReview || null}
+            />
             <ContentSection>
               <Inner>
                 <DetailContentTopSection
                   movie={data.detail}
                   casts={castData.casts}
                   reviews={reviewData.reviews}
+                  userReview={userReview?.getUserReview || null}
                 />
                 <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection
@@ -106,6 +143,12 @@ const Detail: React.FunctionComponent = () => {
           </>
         )
       )}
+      <ToggleLogin
+        toggleLogin={toggleLogin}
+        handleToggleLogin={handleToggleLogin}
+        message="평가하시려면 로그인이 필요합니다. 로그인하고 별점을
+        기록해보세요."
+      />
     </Main>
   );
 };

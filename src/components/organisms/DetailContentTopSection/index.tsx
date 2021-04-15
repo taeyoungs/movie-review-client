@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { ICastProps, IDetailProps, IReviewProps } from 'models/types';
-import { ColorPalette } from 'models/color';
 import ContentCastSection from 'components/organisms/ContentCastSection';
 import ContentReviewSection from 'components/organisms/ContentReviewSection';
-import Cookie from 'js-cookie';
 import Avatar, { AvatarSize } from 'products/Avatar';
+import { ICastProps, IDetailProps, IReviewProps } from 'models/types';
+import { ColorPalette } from 'models/color';
+import Cookie from 'js-cookie';
 
 const ContentContainer = styled.div`
   @media (min-width: 720px) {
@@ -237,12 +237,14 @@ interface IProps {
   movie: IDetailProps;
   casts: ICastProps[];
   reviews: IReviewProps[];
+  userReview: IReviewProps | null;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
   movie,
   casts,
   reviews,
+  userReview,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
   const avatarUrl = Cookie.get('avatar');
@@ -254,14 +256,14 @@ const DetailContentTopSection: React.FC<IProps> = ({
 
   return (
     <ContentContainer>
-      {movie.userReview && (
+      {userReview && (
         <ReviewBtnContainer>
           <ReviewBtnInner>
             <InfoSectionContainer>
               <InfoSectionInner>
                 <ReviewBtnSection>
                   <ReviewBtnSectionInner>
-                    {movie.userReview.content.length === 0 ? (
+                    {userReview.content.length === 0 ? (
                       <>
                         <ReviewNotification>
                           이 작품에 대한 평가를 글로 남겨보세요.
@@ -278,7 +280,7 @@ const DetailContentTopSection: React.FC<IProps> = ({
                           username={username}
                         />
                         <UserReviewContent>
-                          {movie.userReview.content}
+                          {userReview.content}
                         </UserReviewContent>
                         <UserReviewMenu>
                           <UserReviewMenuItem>

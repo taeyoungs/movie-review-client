@@ -26,13 +26,26 @@ export const LOCAL_SIGN_UP = gql`
   }
 `;
 
-export const UPDATE_REVIEW = gql`
-  mutation UpdateReview($data: ReviewUpdateInput!, $where: Int!) {
-    updateOneReview(data: $data, where: $where) {
+export const CREATE_REVIEW = gql`
+  mutation CreateReview(
+    $movieId: String!
+    $movieTitle: String!
+    $rating: Float!
+  ) {
+    createReview(movieId: $movieId, movieTitle: $movieTitle, rating: $rating) {
       id
       content
       rating
-      wrtierId
+    }
+  }
+`;
+
+export const UPDATE_REVIEW = gql`
+  mutation UpdateReview($content: String, $rating: Float, $reviewId: Int!) {
+    updateReview(content: $content, rating: $rating, reviewId: $reviewId) {
+      id
+      content
+      rating
     }
   }
 `;
