@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import DetailVideo from 'components/molecules/DetailVideo';
+import GridInner from 'components/molecules/GridInner';
 import { IDetailProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
@@ -130,22 +131,7 @@ const VideoTitleWrapper = styled.div`
 
 const VideoTitle = styled.div`
   white-space: pre-wrap;
-`;
-
-const InfoSectionContainer = styled.div`
-  display: block;
-`;
-
-const InfoSectionInner = styled.div`
-  margin: 0 20px;
-`;
-
-const HeaderTitle = styled.h2`
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
+  line-height: 18px;
 `;
 
 const ArrowButtonBlock = styled.div<{ dir: string; displayNone: boolean }>`
@@ -298,26 +284,20 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
         name={movie.videos.length > 0 ? movie.videos[0].name : null}
       />
       <MiddleRoundedContent>
-        <InfoSectionContainer>
-          <InfoSectionInner>
-            <DetailVideo
-              type={1}
-              videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
-              name={movie.videos.length > 0 ? movie.videos[0].name : null}
-            />
-            <DetailVideo
-              type={2}
-              videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
-              name={movie.videos.length > 0 ? movie.videos[0].name : null}
-            />
-          </InfoSectionInner>
-        </InfoSectionContainer>
+        <GridInner>
+          <DetailVideo
+            type={1}
+            videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
+            name={movie.videos.length > 0 ? movie.videos[0].name : null}
+          />
+          <DetailVideo
+            type={2}
+            videoUrl={movie.videos.length > 0 ? movie.videos[0].key : null}
+            name={movie.videos.length > 0 ? movie.videos[0].name : null}
+          />
+        </GridInner>
         <VideoListSection>
-          <InfoSectionContainer>
-            <InfoSectionInner>
-              <HeaderTitle>동영상</HeaderTitle>
-            </InfoSectionInner>
-          </InfoSectionContainer>
+          <GridInner title>동영상</GridInner>
           <VideoListContainer>
             <VideoListExposure>
               <VideoSwiper
@@ -325,40 +305,38 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
                   transform: `translateX(-${transformWidth}px)`,
                 }}
               >
-                <InfoSectionContainer>
-                  <InfoSectionInner>
-                    <VideoList ref={videoListRef}>
-                      {movie.videos.map((video) => (
-                        <VideoListItem key={video.id}>
-                          <a
-                            href={`https://www.youtube.com/watch?v=${video.key}`}
-                            target="_blank"
-                          >
-                            <VideoThumbnailContainer>
-                              <VideoThumbnail
-                                url={`https://img.youtube.com/vi/${video.key}/0.jpg`}
-                                className="lazy"
-                              ></VideoThumbnail>
-                              <ThumnailBlur>
-                                <Icon icon="play" color="#fff" size={20} />
-                              </ThumnailBlur>
-                            </VideoThumbnailContainer>
-                            <VideoTitleContainer>
-                              <VideoTitleMargin>
-                                <VideoTitleWrapper>
-                                  <VideoTitle>{video.name}</VideoTitle>
-                                </VideoTitleWrapper>
-                              </VideoTitleMargin>
-                            </VideoTitleContainer>
-                          </a>
-                        </VideoListItem>
-                      ))}
-                      {movie.videos.length === 0 && (
-                        <EmptyVideo>등록된 동영상이 없습니다. 😳</EmptyVideo>
-                      )}
-                    </VideoList>
-                  </InfoSectionInner>
-                </InfoSectionContainer>
+                <GridInner>
+                  <VideoList ref={videoListRef}>
+                    {movie.videos.map((video) => (
+                      <VideoListItem key={video.id}>
+                        <a
+                          href={`https://www.youtube.com/watch?v=${video.key}`}
+                          target="_blank"
+                        >
+                          <VideoThumbnailContainer>
+                            <VideoThumbnail
+                              url={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+                              className="lazy"
+                            ></VideoThumbnail>
+                            <ThumnailBlur>
+                              <Icon icon="play" color="#fff" size={20} />
+                            </ThumnailBlur>
+                          </VideoThumbnailContainer>
+                          <VideoTitleContainer>
+                            <VideoTitleMargin>
+                              <VideoTitleWrapper>
+                                <VideoTitle>{video.name}</VideoTitle>
+                              </VideoTitleWrapper>
+                            </VideoTitleMargin>
+                          </VideoTitleContainer>
+                        </a>
+                      </VideoListItem>
+                    ))}
+                    {movie.videos.length === 0 && (
+                      <EmptyVideo>등록된 동영상이 없습니다. 😳</EmptyVideo>
+                    )}
+                  </VideoList>
+                </GridInner>
               </VideoSwiper>
             </VideoListExposure>
             <ArrowButtonBlock
@@ -380,11 +358,9 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
               </ArrowButton>
             </ArrowButtonBlock>
           </VideoListContainer>
-          <InfoSectionContainer>
-            <InfoSectionInner>
-              <DivideBorder />
-            </InfoSectionInner>
-          </InfoSectionContainer>
+          <GridInner>
+            <DivideBorder />
+          </GridInner>
         </VideoListSection>
       </MiddleRoundedContent>
     </VideoContainer>

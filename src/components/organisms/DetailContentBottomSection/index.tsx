@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import GridInner from 'components/molecules/GridInner';
 import { ISimilarWorkProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
@@ -42,22 +43,6 @@ const WorksSection = styled.section`
   @media (min-width: 720px) {
     margin-bottom: 30px;
   }
-`;
-
-const InfoSectionContainer = styled.div`
-  display: block;
-`;
-
-const InfoSectionInner = styled.div`
-  margin: 0 20px;
-`;
-
-const HeaderTitle = styled.h2`
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
 `;
 
 const WorkList = styled.ul`
@@ -167,46 +152,40 @@ const DetailContentBottomSection: React.FC<IProps> = ({
     <ContentContainer>
       <BottomRoundedContent>
         <WorksSection>
-          <InfoSectionContainer>
-            <InfoSectionInner>
-              <HeaderTitle>비슷한 작품</HeaderTitle>
-            </InfoSectionInner>
-          </InfoSectionContainer>
-          <InfoSectionContainer>
-            <InfoSectionInner>
-              <WorkList>
-                {similarWorks.map((work) => (
-                  <WorkItem key={work.id}>
-                    <WorkLink to={{ pathname: `/${mediaType}/${work.id}` }}>
-                      <WorkPosterPadding>
-                        <WorkPosterWrapper>
-                          {work.poster_path && (
-                            <Poster
-                              alt={work.title}
-                              className="lazy"
-                              data-src={`https://image.tmdb.org/t/p/w500${work.poster_path}`}
-                            />
-                          )}
-                        </WorkPosterWrapper>
-                      </WorkPosterPadding>
-                      <WorkInfo>
-                        <WorkTitle>{work.title}</WorkTitle>
-                        <div>
-                          <WorkVote>
-                            <Icon icon="star" color="#f1c40f" size={14} />
-                            &nbsp;{work.vote_average}
-                          </WorkVote>
-                          <WorkType>
-                            {mediaType === 'movie' ? '영화' : 'TV 프로그램'}
-                          </WorkType>
-                        </div>
-                      </WorkInfo>
-                    </WorkLink>
-                  </WorkItem>
-                ))}
-              </WorkList>
-            </InfoSectionInner>
-          </InfoSectionContainer>
+          <GridInner title>비슷한 작품</GridInner>
+          <GridInner>
+            <WorkList>
+              {similarWorks.map((work) => (
+                <WorkItem key={work.id}>
+                  <WorkLink to={{ pathname: `/${mediaType}/${work.id}` }}>
+                    <WorkPosterPadding>
+                      <WorkPosterWrapper>
+                        {work.poster_path && (
+                          <Poster
+                            alt={work.title}
+                            className="lazy"
+                            data-src={`https://image.tmdb.org/t/p/w500${work.poster_path}`}
+                          />
+                        )}
+                      </WorkPosterWrapper>
+                    </WorkPosterPadding>
+                    <WorkInfo>
+                      <WorkTitle>{work.title}</WorkTitle>
+                      <div>
+                        <WorkVote>
+                          <Icon icon="star" color="#f1c40f" size={14} />
+                          &nbsp;{work.vote_average}
+                        </WorkVote>
+                        <WorkType>
+                          {mediaType === 'movie' ? '영화' : 'TV 프로그램'}
+                        </WorkType>
+                      </div>
+                    </WorkInfo>
+                  </WorkLink>
+                </WorkItem>
+              ))}
+            </WorkList>
+          </GridInner>
         </WorksSection>
       </BottomRoundedContent>
     </ContentContainer>

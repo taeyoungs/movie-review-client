@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import GridInner from 'components/molecules/GridInner';
 import { ICastProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
@@ -10,18 +11,6 @@ const InfoSection = styled.section`
 
 const InfoSectionContainer = styled.div`
   display: block;
-`;
-
-const InfoSectionInner = styled.div`
-  margin: 0 20px;
-`;
-
-const HeaderTitle = styled.h2`
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
 `;
 
 const CastContainer = styled.div`
@@ -250,11 +239,7 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
 
   return (
     <InfoSection>
-      <InfoSectionContainer>
-        <InfoSectionInner>
-          <HeaderTitle>출연/제작</HeaderTitle>
-        </InfoSectionInner>
-      </InfoSectionContainer>
+      <GridInner title>출연/제작</GridInner>
       <CastContainer>
         <CastExposure>
           <CastSwiper

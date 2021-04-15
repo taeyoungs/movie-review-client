@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import RatedStar from 'products/RatedStar';
 import { useMutation } from '@apollo/client';
 import { CREATE_REVIEW, UPDATE_REVIEW } from 'queries/Mutation';
+import { GET_USER_REVIEW_QUERY } from 'queries/Query';
 import { IDetailProps, IReviewProps } from 'models/types';
 import Cookie from 'js-cookie';
 import Icon from 'Icon/Icon';
-import { GET_USER_REVIEW_QUERY } from 'queries/Query';
 
 const SummarySection = styled.section`
   background-color: #fff;

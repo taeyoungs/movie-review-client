@@ -2,28 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Avatar, { AvatarSize } from 'products/Avatar';
+import GridInner from 'components/molecules/GridInner';
 import { IReviewProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 
 const InfoSection = styled.section`
   padding: 8px 0 0;
-`;
-
-const InfoSectionContainer = styled.div`
-  display: block;
-`;
-
-const InfoSectionInner = styled.div`
-  margin: 0 20px;
-`;
-
-const HeaderTitle = styled.h2`
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
 `;
 
 const ReviewContainer = styled.div`
@@ -284,13 +269,9 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
 
   return (
     <InfoSection>
-      <InfoSectionContainer>
-        <InfoSectionInner>
-          <HeaderTitle>
-            리뷰<ReviewCount>{reviews.length}</ReviewCount>
-          </HeaderTitle>
-        </InfoSectionInner>
-      </InfoSectionContainer>
+      <GridInner title>
+        리뷰<ReviewCount>{reviews.length}</ReviewCount>
+      </GridInner>
       <ReviewContainer>
         <ReviewExposure>
           <ReviewSwiper
@@ -298,52 +279,50 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
               transform: `translateX(-${transformWidth}px)`,
             }}
           >
-            <InfoSectionContainer>
-              <InfoSectionInner>
-                <ReviewList ref={reviewListRef}>
-                  {reviews.map((review) => (
-                    <ReviewItem key={review.id}>
-                      <ReviewItemInner>
-                        <ReviewWriter>
-                          <ReviewWriterInfo>
-                            <Avatar
-                              size={AvatarSize.SMALL}
-                              src={review.writer.avatar}
-                              username={review.writer.name}
-                            />
-                            <ReviewWriterName>
-                              {review.writer.name}
-                            </ReviewWriterName>
-                          </ReviewWriterInfo>
-                          <ReviewWriterRating>
-                            <Icon size={14} icon="star" color="#f1c40f" />
-                            <span>&nbsp;{review.rating}</span>
-                          </ReviewWriterRating>
-                        </ReviewWriter>
-                        <ReviewContent>
-                          <ReviewLink to="#">
-                            <ReviewContentOverview>
-                              {review.content.length > 110
-                                ? review.content.slice(0, 110) + ' ...'
-                                : review.content}
-                            </ReviewContentOverview>
-                          </ReviewLink>
-                        </ReviewContent>
-                        <ReviewLikeComment>
-                          <ReviewIsLike isLike={review.isLike}>👍</ReviewIsLike>
-                          <em>{review.likeCount}</em>
-                          <span>📝</span>
-                          <em>0</em>
-                        </ReviewLikeComment>
-                      </ReviewItemInner>
-                    </ReviewItem>
-                  ))}
-                  {reviews.length === 0 && (
-                    <EmptyReview>등록된 리뷰가 없습니다. 😳</EmptyReview>
-                  )}
-                </ReviewList>
-              </InfoSectionInner>
-            </InfoSectionContainer>
+            <GridInner>
+              <ReviewList ref={reviewListRef}>
+                {reviews.map((review) => (
+                  <ReviewItem key={review.id}>
+                    <ReviewItemInner>
+                      <ReviewWriter>
+                        <ReviewWriterInfo>
+                          <Avatar
+                            size={AvatarSize.SMALL}
+                            src={review.writer.avatar}
+                            username={review.writer.name}
+                          />
+                          <ReviewWriterName>
+                            {review.writer.name}
+                          </ReviewWriterName>
+                        </ReviewWriterInfo>
+                        <ReviewWriterRating>
+                          <Icon size={14} icon="star" color="#f1c40f" />
+                          <span>&nbsp;{review.rating}</span>
+                        </ReviewWriterRating>
+                      </ReviewWriter>
+                      <ReviewContent>
+                        <ReviewLink to="#">
+                          <ReviewContentOverview>
+                            {review.content.length > 110
+                              ? review.content.slice(0, 110) + ' ...'
+                              : review.content}
+                          </ReviewContentOverview>
+                        </ReviewLink>
+                      </ReviewContent>
+                      <ReviewLikeComment>
+                        <ReviewIsLike isLike={review.isLike}>👍</ReviewIsLike>
+                        <em>{review.likeCount}</em>
+                        <span>📝</span>
+                        <em>0</em>
+                      </ReviewLikeComment>
+                    </ReviewItemInner>
+                  </ReviewItem>
+                ))}
+                {reviews.length === 0 && (
+                  <EmptyReview>등록된 리뷰가 없습니다. 😳</EmptyReview>
+                )}
+              </ReviewList>
+            </GridInner>
           </ReviewSwiper>
         </ReviewExposure>
         <ArrowButtonBlock
@@ -365,11 +344,9 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
           </ArrowButton>
         </ArrowButtonBlock>
       </ReviewContainer>
-      <InfoSectionContainer>
-        <InfoSectionInner>
-          <DivideBorder />
-        </InfoSectionInner>
-      </InfoSectionContainer>
+      <GridInner>
+        <DivideBorder />
+      </GridInner>
     </InfoSection>
   );
 };

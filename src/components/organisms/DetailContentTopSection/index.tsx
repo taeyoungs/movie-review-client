@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import ContentCastSection from 'components/organisms/ContentCastSection';
 import ContentReviewSection from 'components/organisms/ContentReviewSection';
+import GridInner from 'components/molecules/GridInner';
 import Avatar, { AvatarSize } from 'products/Avatar';
 import { ICastProps, IDetailProps, IReviewProps } from 'models/types';
 import { ColorPalette } from 'models/color';
@@ -47,22 +48,6 @@ const TopRoundedContent = styled.div`
 
 const InfoSection = styled.section`
   padding: 8px 0 0;
-`;
-
-const InfoSectionContainer = styled.div`
-  display: block;
-`;
-
-const InfoSectionInner = styled.div`
-  margin: 0 20px;
-`;
-
-const HeaderTitle = styled.h2`
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
 `;
 
 const InfoArticle = styled.article`
@@ -259,91 +244,83 @@ const DetailContentTopSection: React.FC<IProps> = ({
       {userReview && (
         <ReviewBtnContainer>
           <ReviewBtnInner>
-            <InfoSectionContainer>
-              <InfoSectionInner>
-                <ReviewBtnSection>
-                  <ReviewBtnSectionInner>
-                    {userReview.content.length === 0 ? (
-                      <>
-                        <ReviewNotification>
-                          이 작품에 대한 평가를 글로 남겨보세요.
-                        </ReviewNotification>
-                        <ReviewBtnWrapper>
-                          <ReviewBtn>리뷰 남기기</ReviewBtn>
-                        </ReviewBtnWrapper>
-                      </>
-                    ) : (
-                      <>
-                        <Avatar
-                          src={avatarUrl}
-                          size={AvatarSize.LARGE}
-                          username={username}
-                        />
-                        <UserReviewContent>
-                          {userReview.content}
-                        </UserReviewContent>
-                        <UserReviewMenu>
-                          <UserReviewMenuItem>
-                            <MenuItemBtn>삭제</MenuItemBtn>
-                          </UserReviewMenuItem>
-                          <UserReviewMenuItem>
-                            <MenuItemBtn>수정</MenuItemBtn>
-                          </UserReviewMenuItem>
-                        </UserReviewMenu>
-                      </>
-                    )}
-                  </ReviewBtnSectionInner>
-                </ReviewBtnSection>
-              </InfoSectionInner>
-            </InfoSectionContainer>
+            <GridInner>
+              <ReviewBtnSection>
+                <ReviewBtnSectionInner>
+                  {userReview.content.length === 0 ? (
+                    <>
+                      <ReviewNotification>
+                        이 작품에 대한 평가를 글로 남겨보세요.
+                      </ReviewNotification>
+                      <ReviewBtnWrapper>
+                        <ReviewBtn>리뷰 남기기</ReviewBtn>
+                      </ReviewBtnWrapper>
+                    </>
+                  ) : (
+                    <>
+                      <Avatar
+                        src={avatarUrl}
+                        size={AvatarSize.LARGE}
+                        username={username}
+                      />
+                      <UserReviewContent>
+                        {userReview.content}
+                      </UserReviewContent>
+                      <UserReviewMenu>
+                        <UserReviewMenuItem>
+                          <MenuItemBtn>삭제</MenuItemBtn>
+                        </UserReviewMenuItem>
+                        <UserReviewMenuItem>
+                          <MenuItemBtn>수정</MenuItemBtn>
+                        </UserReviewMenuItem>
+                      </UserReviewMenu>
+                    </>
+                  )}
+                </ReviewBtnSectionInner>
+              </ReviewBtnSection>
+            </GridInner>
           </ReviewBtnInner>
         </ReviewBtnContainer>
       )}
       <Content>
         <TopRoundedContent>
           <InfoSection>
-            <InfoSectionContainer>
-              <InfoSectionInner>
-                <HeaderTitle>기본 정보</HeaderTitle>
-              </InfoSectionInner>
-            </InfoSectionContainer>
-            <InfoSectionContainer>
-              <InfoSectionInner>
-                <InfoArticle>
-                  <ArticleSummary>
-                    {movie.title}
-                    <br />
-                    {movie.release_date.slice(0, 4)}
-                    &nbsp;•&nbsp;
-                    {movie.genres
-                      .map((genre, i) =>
-                        i !== movie.genres.length - 1
-                          ? `${genre.name}/`
-                          : genre.name
-                      )
-                      .join('')}
-                    •&nbsp;{movie.runtime}분
-                  </ArticleSummary>
-                  <ArticleOverviewWrapper>
-                    {movie.overview.length > 0 && (
-                      <ArticleOverview>
-                        {fullOverview
-                          ? movie.overview
-                          : movie.overview.slice(0, 130) + ' ...'}
-                      </ArticleOverview>
-                    )}
-                  </ArticleOverviewWrapper>
+            <GridInner title>기본 정보</GridInner>
+            <GridInner>
+              <InfoArticle>
+                <ArticleSummary>
+                  {movie.title}
+                  <br />
+                  {movie.release_date.slice(0, 4)}
+                  &nbsp;•&nbsp;
+                  {movie.genres
+                    .map((genre, i) =>
+                      i !== movie.genres.length - 1
+                        ? `${genre.name}/`
+                        : genre.name
+                    )
+                    .join('')}
+                  •&nbsp;{movie.runtime}분
+                </ArticleSummary>
+                <ArticleOverviewWrapper>
                   {movie.overview.length > 0 && (
-                    <OverviewButtonWrapper>
-                      <OverviewButton onClick={handleOverview}>
-                        {fullOverview ? '접기' : '펼치기'}
-                      </OverviewButton>
-                    </OverviewButtonWrapper>
+                    <ArticleOverview>
+                      {fullOverview
+                        ? movie.overview
+                        : movie.overview.slice(0, 130) + ' ...'}
+                    </ArticleOverview>
                   )}
-                </InfoArticle>
-                <DivideBorder />
-              </InfoSectionInner>
-            </InfoSectionContainer>
+                </ArticleOverviewWrapper>
+                {movie.overview.length > 0 && (
+                  <OverviewButtonWrapper>
+                    <OverviewButton onClick={handleOverview}>
+                      {fullOverview ? '접기' : '펼치기'}
+                    </OverviewButton>
+                  </OverviewButtonWrapper>
+                )}
+              </InfoArticle>
+              <DivideBorder />
+            </GridInner>
           </InfoSection>
           <ContentCastSection casts={casts} />
           <ContentReviewSection reviews={reviews} />
