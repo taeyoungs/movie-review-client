@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Avatar from 'products/Avatar';
 import useGetAvatar from 'hooks/useGetAvatar';
@@ -23,9 +23,10 @@ const UserMenu: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { avatar, login } = useGetAvatar();
   const history = useHistory();
-  const itemTitleList = ['프로필', '로그아웃'];
   const [logout] = useMutation(LOGOUT);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  const itemTitleList = ['프로필', '로그아웃'];
   // ToDo: 프로필로 이동
 
   const handleLogout = () => {
@@ -36,7 +37,7 @@ const UserMenu: React.FunctionComponent = () => {
     history.go(0);
   };
   return (
-    <UserMenuContainer>
+    <UserMenuContainer ref={containerRef}>
       <AvatarContainer onClick={() => setIsOpen((prevState) => !prevState)}>
         {avatar ? <Avatar src={avatar} /> : <Avatar username={login} />}
       </AvatarContainer>

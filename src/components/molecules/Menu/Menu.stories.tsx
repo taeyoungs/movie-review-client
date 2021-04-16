@@ -4,7 +4,7 @@ import MenuItem from 'components/atoms/MenuItem';
 import Block, { Direction, Sort } from 'components/molecules/Block';
 import { MenuButton } from 'components/organisms/SearchBar/WithEmotion';
 import Background from 'products/_common';
-import Button from 'products/Button';
+import Button from 'components/atoms/Button';
 import useComponentVisible from 'hooks/useComponentVisible';
 import { ColorPalette } from 'models/color';
 import Icon, { IconType } from 'Icon/Icon';

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import UserMenu from 'components/molecules/UserMenu';
 import SearchBar from 'components/organisms/SearchBar';
-import Button, { ButtonAppearance } from 'products/Button';
+import Button, { ButtonAppearance } from 'components/atoms/Button';
 import SidebarMenu from 'components/organisms/SidebarMenu';
 import {
   HeaderContainer,
@@ -16,7 +17,6 @@ import {
 import Icon from 'Icon/Icon';
 import { ColorPalette } from 'models/color';
 import Cookies from 'js-cookie';
-import UserMenu from '../UserMenu';
 
 const Header: React.FunctionComponent = () => {
   const [isShow, setIsShow] = useState(false);

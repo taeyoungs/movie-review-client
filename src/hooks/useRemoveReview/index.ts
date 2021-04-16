@@ -1,4 +1,3 @@
-import React from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_REVIEW } from 'queries/Mutation';
 import { REVIEWS_QUERY } from 'queries/Query';
