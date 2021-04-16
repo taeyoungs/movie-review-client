@@ -156,6 +156,7 @@ const Detail: React.FunctionComponent = () => {
                   userReview={userReview?.getUserReview || null}
                   handleToggleReview={handleToggleReview}
                   handleToggleNotifi={handleToggleNotifi}
+                  handleToggleLogin={handleToggleLogin}
                 />
                 <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection
@@ -170,8 +171,7 @@ const Detail: React.FunctionComponent = () => {
       <ToggleLogin
         toggleLogin={toggleLogin}
         handleToggleLogin={handleToggleLogin}
-        message="평가하시려면 로그인이 필요합니다. 로그인하고 별점을
-        기록해보세요."
+        message="로그인이 필요한 기능입니다. 로그인 또는 회원가입을 진행해주세요."
       />
       {userReview?.getUserReview && (
         <ToggleReview

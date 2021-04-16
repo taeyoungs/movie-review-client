@@ -55,3 +55,13 @@ export const LOGOUT = gql`
     logout
   }
 `;
+
+export const TOGGLE_LIKE_REVIEW = gql`
+  mutation ToggleLikeReview($reviewId: Int!) {
+    toggleLikeReview(reviewId: $reviewId) {
+      id
+      isLike
+      likeCount
+    }
+  }
+`;

@@ -226,6 +226,7 @@ interface IProps {
   userReview: IReviewProps | null;
   handleToggleReview: () => void;
   handleToggleNotifi: () => void;
+  handleToggleLogin: () => void;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
@@ -235,6 +236,7 @@ const DetailContentTopSection: React.FC<IProps> = ({
   userReview,
   handleToggleReview,
   handleToggleNotifi,
+  handleToggleLogin,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
   const avatarUrl = Cookie.get('avatar');
@@ -334,7 +336,10 @@ const DetailContentTopSection: React.FC<IProps> = ({
             </GridInner>
           </InfoSection>
           <ContentCastSection casts={casts} />
-          <ContentReviewSection reviews={reviews} />
+          <ContentReviewSection
+            reviews={reviews}
+            handleToggleLogin={handleToggleLogin}
+          />
         </TopRoundedContent>
       </Content>
     </ContentContainer>
