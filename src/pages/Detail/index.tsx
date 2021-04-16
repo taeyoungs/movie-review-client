@@ -22,6 +22,7 @@ import {
   ISimilarWorkProps,
 } from 'models/types';
 import ToggleReview from 'components/organisms/ToggleReview';
+import ToggleNotification from 'components/organisms/ToggleNotification';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -49,6 +50,7 @@ const Inner = styled.div`
 const Detail: React.FunctionComponent = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   const [toggleReview, setToggleReview] = useState(false);
+  const [toggleNotifi, setToggleNotifi] = useState(false);
   const location: {
     state: { reload: boolean };
     pathname: string;
@@ -117,6 +119,15 @@ const Detail: React.FunctionComponent = () => {
     }
   };
 
+  const handleToggleNotifi = () => {
+    setToggleNotifi((prevState) => !prevState);
+    if (!toggleNotifi) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  };
+
   return (
     <Main>
       {loading &&
@@ -144,6 +155,7 @@ const Detail: React.FunctionComponent = () => {
                   reviews={reviewData.reviews}
                   userReview={userReview?.getUserReview || null}
                   handleToggleReview={handleToggleReview}
+                  handleToggleNotifi={handleToggleNotifi}
                 />
                 <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection
@@ -168,6 +180,14 @@ const Detail: React.FunctionComponent = () => {
           userReview={userReview.getUserReview}
         />
       )}
+      {userReview?.getUserReview &&
+        userReview?.getUserReview.content.length > 0 && (
+          <ToggleNotification
+            handleToggleNotifi={handleToggleNotifi}
+            toggleNotifi={toggleNotifi}
+            userReview={userReview.getUserReview}
+          />
+        )}
     </Main>
   );
 };

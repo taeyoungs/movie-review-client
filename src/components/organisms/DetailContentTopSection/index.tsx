@@ -225,6 +225,7 @@ interface IProps {
   reviews: IReviewProps[];
   userReview: IReviewProps | null;
   handleToggleReview: () => void;
+  handleToggleNotifi: () => void;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
@@ -233,6 +234,7 @@ const DetailContentTopSection: React.FC<IProps> = ({
   reviews,
   userReview,
   handleToggleReview,
+  handleToggleNotifi,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
   const avatarUrl = Cookie.get('avatar');
@@ -273,7 +275,9 @@ const DetailContentTopSection: React.FC<IProps> = ({
                       </UserReviewContent>
                       <UserReviewMenu>
                         <UserReviewMenuItem>
-                          <MenuItemBtn>삭제</MenuItemBtn>
+                          <MenuItemBtn onClick={handleToggleNotifi}>
+                            삭제
+                          </MenuItemBtn>
                         </UserReviewMenuItem>
                         <UserReviewMenuItem>
                           <MenuItemBtn onClick={handleToggleReview}>
