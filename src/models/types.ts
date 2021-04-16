@@ -79,6 +79,7 @@ export interface IReviewProps {
   content: string;
   writerId: number;
   movieTitle: string;
+  movieId: string;
   rating: number;
   likeCount: number;
   isLike: false;

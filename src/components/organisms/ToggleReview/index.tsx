@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import Icon from 'Icon/Icon';
-import { IReviewProps } from 'models/types';
+import { useMutation } from '@apollo/client';
 import GridInner from 'components/molecules/GridInner';
+import { UPDATE_REVIEW } from 'queries/Mutation';
+import { IReviewProps } from 'models/types';
+import Icon from 'Icon/Icon';
+import useAddReview from 'hooks/useAddReview';
 
 const ReviewContainer = styled.div<{ toggleReview: boolean }>`
   display: ${(props) => (props.toggleReview ? 'block' : 'none')};
@@ -148,6 +151,29 @@ const ToggleReview: React.FC<IProps> = ({
     }
   };
 
+  const [updateReviewMutation] = useMutation(UPDATE_REVIEW, {
+    variables: {
+      content,
+      reviewId: userReview.id,
+    },
+  });
+
+  const { mutate: addReviewMutation } = useAddReview({
+    movieId: userReview.movieId,
+    content,
+    reviewId: userReview.id,
+  });
+
+  const handleUpdateReview = () => {
+    updateReviewMutation();
+    handleToggleReview();
+  };
+
+  const handleAddReview = () => {
+    addReviewMutation();
+    handleToggleReview();
+  };
+
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   };
@@ -163,7 +189,14 @@ const ToggleReview: React.FC<IProps> = ({
             </ReviewHeaderInner>
             <ReviewTitle>{userReview.movieTitle}</ReviewTitle>
             <ReviewHeaderInner>
-              <WriteButton contentLen={content.length}>
+              <WriteButton
+                contentLen={content.length}
+                onClick={
+                  userReview.content.length === 0
+                    ? handleAddReview
+                    : handleUpdateReview
+                }
+              >
                 {userReview.content.length === 0 ? '리뷰 작성' : '리뷰 수정'}
               </WriteButton>
             </ReviewHeaderInner>

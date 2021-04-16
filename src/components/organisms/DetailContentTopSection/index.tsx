@@ -215,7 +215,8 @@ const MenuItemBtn = styled.button`
   margin: 0px;
   cursor: pointer;
   color: #8c8c8c;
-  font-family: 'Nanum Gothic';
+  font-family: 'Nanum Gothic', sans-serif;
+  outline: none;
 `;
 
 interface IProps {

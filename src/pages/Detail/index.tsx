@@ -161,7 +161,7 @@ const Detail: React.FunctionComponent = () => {
         message="평가하시려면 로그인이 필요합니다. 로그인하고 별점을
         기록해보세요."
       />
-      {userReview && (
+      {userReview?.getUserReview && (
         <ToggleReview
           toggleReview={toggleReview}
           handleToggleReview={handleToggleReview}

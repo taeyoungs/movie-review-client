@@ -107,6 +107,7 @@ export const REVIEWS_QUERY = gql`
       content
       writerId
       movieTitle
+      movieId
       rating
       likeCount
       isLike
@@ -162,6 +163,7 @@ export const GET_USER_REVIEW_QUERY = gql`
       content
       rating
       movieTitle
+      movieId
     }
   }
 `;
