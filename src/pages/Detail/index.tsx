@@ -21,6 +21,7 @@ import {
   IReviewProps,
   ISimilarWorkProps,
 } from 'models/types';
+import ToggleReview from 'components/organisms/ToggleReview';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -47,6 +48,7 @@ const Inner = styled.div`
 
 const Detail: React.FunctionComponent = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
+  const [toggleReview, setToggleReview] = useState(false);
   const location: {
     state: { reload: boolean };
     pathname: string;
@@ -106,6 +108,15 @@ const Detail: React.FunctionComponent = () => {
     }
   };
 
+  const handleToggleReview = () => {
+    setToggleReview((prevState) => !prevState);
+    if (!toggleReview) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  };
+
   return (
     <Main>
       {loading &&
@@ -132,6 +143,7 @@ const Detail: React.FunctionComponent = () => {
                   casts={castData.casts}
                   reviews={reviewData.reviews}
                   userReview={userReview?.getUserReview || null}
+                  handleToggleReview={handleToggleReview}
                 />
                 <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection
@@ -149,6 +161,13 @@ const Detail: React.FunctionComponent = () => {
         message="평가하시려면 로그인이 필요합니다. 로그인하고 별점을
         기록해보세요."
       />
+      {userReview && (
+        <ToggleReview
+          toggleReview={toggleReview}
+          handleToggleReview={handleToggleReview}
+          userReview={userReview.getUserReview}
+        />
+      )}
     </Main>
   );
 };

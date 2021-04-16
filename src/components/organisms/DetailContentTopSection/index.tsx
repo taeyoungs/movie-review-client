@@ -223,6 +223,7 @@ interface IProps {
   casts: ICastProps[];
   reviews: IReviewProps[];
   userReview: IReviewProps | null;
+  handleToggleReview: () => void;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
@@ -230,6 +231,7 @@ const DetailContentTopSection: React.FC<IProps> = ({
   casts,
   reviews,
   userReview,
+  handleToggleReview,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
   const avatarUrl = Cookie.get('avatar');
@@ -253,7 +255,9 @@ const DetailContentTopSection: React.FC<IProps> = ({
                         이 작품에 대한 평가를 글로 남겨보세요.
                       </ReviewNotification>
                       <ReviewBtnWrapper>
-                        <ReviewBtn>리뷰 남기기</ReviewBtn>
+                        <ReviewBtn onClick={handleToggleReview}>
+                          리뷰 남기기
+                        </ReviewBtn>
                       </ReviewBtnWrapper>
                     </>
                   ) : (
@@ -271,7 +275,9 @@ const DetailContentTopSection: React.FC<IProps> = ({
                           <MenuItemBtn>삭제</MenuItemBtn>
                         </UserReviewMenuItem>
                         <UserReviewMenuItem>
-                          <MenuItemBtn>수정</MenuItemBtn>
+                          <MenuItemBtn onClick={handleToggleReview}>
+                            수정
+                          </MenuItemBtn>
                         </UserReviewMenuItem>
                       </UserReviewMenu>
                     </>

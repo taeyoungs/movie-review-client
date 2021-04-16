@@ -161,6 +161,7 @@ export const GET_USER_REVIEW_QUERY = gql`
       id
       content
       rating
+      movieTitle
     }
   }
 `;
