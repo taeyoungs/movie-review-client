@@ -70,7 +70,11 @@ const Detail: React.FunctionComponent = () => {
     },
   });
 
-  const { loading: reviewLoading, data: reviewData } = useQuery<{
+  const {
+    loading: reviewLoading,
+    data: reviewData,
+    refetch: refetchReview,
+  } = useQuery<{
     reviews: Array<IReviewProps>;
   }>(REVIEWS_QUERY, {
     variables: {
@@ -87,7 +91,11 @@ const Detail: React.FunctionComponent = () => {
       mediaType: location.pathname.split('/')[1],
     },
   });
-  const { loading: userReviewLoading, data: userReview, refetch } = useQuery<{
+  const {
+    loading: userReviewLoading,
+    data: userReview,
+    refetch: refetchUserReview,
+  } = useQuery<{
     getUserReview: IReviewProps;
   }>(GET_USER_REVIEW_QUERY, {
     variables: {
@@ -97,7 +105,8 @@ const Detail: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (location.state && location.state.reload) {
-      refetch();
+      refetchUserReview();
+      refetchReview();
     }
   }, []);
 

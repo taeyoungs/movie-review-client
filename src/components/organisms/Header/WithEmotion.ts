@@ -7,11 +7,12 @@ const HeaderContainer = styled.header`
   width: 100%;
   height: 3.5rem;
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   padding: 0.25rem;
   background: #1f1f1f;
+  z-index: 9;
 `;
 
 const MenuContainer = styled.div`

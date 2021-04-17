@@ -167,3 +167,20 @@ export const GET_USER_REVIEW_QUERY = gql`
     }
   }
 `;
+
+export const GET_REVIEW_QUERY = gql`
+  query GetReview($reviewId: String!) {
+    getReview(reviewId: $reviewId) {
+      id
+      content
+      writerId
+      rating
+      likeCount
+      isLike
+      writer {
+        name
+        avatar
+      }
+    }
+  }
+`;
