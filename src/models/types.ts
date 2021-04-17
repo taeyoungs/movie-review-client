@@ -47,14 +47,11 @@ export interface IDetailProps {
 
 export interface ISearchProps {
   id: number;
+  title: string;
+  media_type: string;
   poster_path?: string;
-  profile_path?: string;
-  media_type?: string;
-  title?: string;
-  name?: string;
   vote_average?: number;
   release_date?: string;
-  first_air_date?: string;
 }
 
 export interface IUserProps {

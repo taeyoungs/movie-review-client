@@ -78,7 +78,7 @@ const RelativeContainer = styled.div`
   }
 `;
 
-const ResultContainer = styled.div`
+const ResultContainer = styled.ul`
   position: absolute;
   top: 50px;
   left: 0;
@@ -86,6 +86,8 @@ const ResultContainer = styled.div`
   z-index: 50;
   border-radius: 0.5em;
   background: ${ColorPalette.Main.BG_PRIMARY};
+  max-height: 600px;
+  overflow: auto;
 `;
 
 const MenuButton = styled.div<{ isOpen: boolean }>`

@@ -68,7 +68,7 @@ const SearchBar: React.FunctionComponent = () => {
     }
   };
 
-  const handleResultClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleResultClick: React.MouseEventHandler<HTMLUListElement> = (e) => {
     if (e.target) {
       setValue('');
     }

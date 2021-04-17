@@ -15,27 +15,17 @@ import { Link } from 'react-router-dom';
 
 // ToDo: Link
 
-const ResultContent: React.FC<ISearchProps> = ({
-  id,
-  poster_path,
-  profile_path,
-  media_type,
-  title,
-  name,
-  vote_average,
-  release_date,
-  first_air_date,
-}) => {
+interface IProps {
+  multiSearch: ISearchProps;
+}
+
+const ResultContent: React.FC<IProps> = ({ multiSearch }) => {
   return (
-    <Link to={`/${media_type}/${id}`}>
+    <Link to={`/${multiSearch.media_type}/${multiSearch.id}`}>
       <ItemContainer>
         <PosterContainer>
-          {poster_path || profile_path ? (
-            <Poster
-              imgPath={`https://image.tmdb.org/t/p/w220_and_h330_face${
-                poster_path || profile_path
-              }`}
-            ></Poster>
+          {multiSearch.poster_path ? (
+            <Poster imgPath={multiSearch.poster_path}></Poster>
           ) : (
             <NoImgContainer>
               <Icon icon="logo" size={50} />
@@ -44,9 +34,10 @@ const ResultContent: React.FC<ISearchProps> = ({
         </PosterContainer>
         <ContentContainer>
           <P color={ColorPalette.Neutral.NEUTRAL_0} weight={600} size={16}>
-            {title || name}
+            {multiSearch.title}
           </P>
-          {vote_average != null && (
+          {(multiSearch.media_type === 'movie' ||
+            multiSearch.media_type === 'tv') && (
             <RatingContainer>
               <Icon
                 size={12}
@@ -58,13 +49,13 @@ const ResultContent: React.FC<ISearchProps> = ({
                 size={12}
                 color={ColorPalette.Neutral.NEUTRAL_300}
               >
-                {vote_average}
+                {multiSearch.vote_average ? multiSearch.vote_average : 0}
               </P>
             </RatingContainer>
           )}
-          {(release_date || first_air_date) && (
+          {multiSearch.release_date && (
             <P size={12} color={ColorPalette.Neutral.NEUTRAL_300}>
-              {release_date || first_air_date || 'Preparing'}
+              {multiSearch.release_date || 'Preparing'}
             </P>
           )}
         </ContentContainer>

@@ -19,7 +19,8 @@ const PosterContainer = styled.div`
 `;
 
 const Poster = styled.div<{ imgPath?: string }>`
-  background: url(${(props) => props.imgPath});
+  background: url(${(props) =>
+    `https://image.tmdb.org/t/p/w220_and_h330_face${props.imgPath}`});
   background-size: cover;
   background-position: center;
   width: 100%;
