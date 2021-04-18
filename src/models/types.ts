@@ -66,6 +66,13 @@ export interface ICastProps {
   profile_path?: string;
 }
 
+export interface IPersonProps {
+  id: number;
+  name: string;
+  known_for_department: string;
+  profile_path?: string;
+}
+
 export interface IWriterProps {
   name: string;
   avatar: string;
@@ -83,9 +90,10 @@ export interface IReviewProps {
   writer: IWriterProps;
 }
 
-export interface ISimilarWorkProps {
+export interface IWorkProps {
   id: number;
   title: string;
   poster_path: string;
   vote_average: number;
+  media_type?: string;
 }

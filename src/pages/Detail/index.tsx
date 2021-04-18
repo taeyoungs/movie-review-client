@@ -19,7 +19,7 @@ import {
   ICastProps,
   IDetailProps,
   IReviewProps,
-  ISimilarWorkProps,
+  IWorkProps,
 } from 'models/types';
 import ToggleReview from 'components/organisms/ToggleReview';
 import ToggleNotification from 'components/organisms/ToggleNotification';
@@ -84,7 +84,7 @@ const Detail: React.FunctionComponent = () => {
     },
   });
   const { loading: similarWorksLoading, data: similarWorksData } = useQuery<{
-    similarWorks: Array<ISimilarWorkProps>;
+    similarWorks: Array<IWorkProps>;
   }>(SIMILARWORKS_QUERY, {
     variables: {
       id: location.pathname.split('/')[2],

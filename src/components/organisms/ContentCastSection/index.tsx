@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import { ICastProps } from 'models/types';
@@ -43,10 +44,6 @@ const Cast = styled.ul`
 
 const CastItem = styled.li`
   padding-right: 15px;
-  width: 100%;
-  display: flex;
-  height: 76px;
-  align-items: center;
   @media (min-width: 720px) {
     width: 50%;
   }
@@ -175,6 +172,13 @@ const DivideBorder = styled.hr`
   margin: 20px 0 0;
 `;
 
+const ELink = styled(Link)`
+  width: 100%;
+  display: flex;
+  height: 76px;
+  align-items: center;
+`;
+
 interface IProps {
   casts: ICastProps[];
 }
@@ -252,17 +256,19 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
                 <Cast ref={castListRef}>
                   {casts.map((cast) => (
                     <CastItem key={cast.id}>
-                      <PersonContainer>
-                        <PersonInner>
-                          <Person url={cast.profile_path}></Person>
-                        </PersonInner>
-                      </PersonContainer>
-                      <PersonInfoContainer className="info-container">
-                        <PersonInfoInner>
-                          <Name>{cast.name}</Name>
-                          <Character>{cast.character}</Character>
-                        </PersonInfoInner>
-                      </PersonInfoContainer>
+                      <ELink to={`/person/${cast.id}`}>
+                        <PersonContainer>
+                          <PersonInner>
+                            <Person url={cast.profile_path}></Person>
+                          </PersonInner>
+                        </PersonContainer>
+                        <PersonInfoContainer className="info-container">
+                          <PersonInfoInner>
+                            <Name>{cast.name}</Name>
+                            <Character>{cast.character}</Character>
+                          </PersonInfoInner>
+                        </PersonInfoContainer>
+                      </ELink>
                     </CastItem>
                   ))}
                 </Cast>
