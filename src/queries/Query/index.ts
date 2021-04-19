@@ -196,11 +196,14 @@ export const GET_PERSON_QUERY = gql`
 export const GET_PERSON_CREDITS_QUERY = gql`
   query GetPersonCredits($personId: String!, $page: Int!) {
     getPersonCredits(personId: $personId, page: $page) {
-      id
-      title
-      vote_average
-      poster_path
-      media_type
+      credits {
+        id
+        title
+        vote_average
+        poster_path
+        media_type
+      }
+      totalCount
     }
   }
 `;

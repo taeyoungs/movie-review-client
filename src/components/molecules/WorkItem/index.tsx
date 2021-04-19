@@ -28,7 +28,7 @@ const WorkPosterWrapper = styled.div<{ title: string; isPoster: boolean }>`
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   background-color: #f0f0f0;
-  transition: 300ms;
+  transition: all 300ms;
   ${(props) =>
     !props.isPoster &&
     `

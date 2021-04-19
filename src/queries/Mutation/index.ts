@@ -65,3 +65,15 @@ export const TOGGLE_LIKE_REVIEW = gql`
     }
   }
 `;
+
+export const GET_MORE_CREDITS = gql`
+  mutation GetMoreCredits($personId: String!, $page: Int!) {
+    getMoreCredits(personId: $personId, page: $page) {
+      id
+      title
+      vote_average
+      poster_path
+      media_type
+    }
+  }
+`;
