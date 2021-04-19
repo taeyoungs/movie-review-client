@@ -12,7 +12,6 @@ import Icon from 'Icon/Icon';
 
 const Main = styled.main`
   padding-top: 3.5rem;
-  padding-bottom: 56px;
   @media (min-width: 720px) {
     padding-bottom: unset;
   }
