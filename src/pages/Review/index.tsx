@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
@@ -112,6 +112,10 @@ const Review: React.FunctionComponent = () => {
       },
     }
   );
+
+  useEffect(() => {
+    document.body.style.backgroundColor = '#fff';
+  }, []);
 
   const handleGoBack = () => {
     history.goBack();

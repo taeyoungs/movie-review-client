@@ -3,7 +3,6 @@ import { ColorPalette } from 'models/color';
 
 const Main = styled.main`
   margin-top: 3.5rem;
-  margin-bottom: 100px;
 `;
 
 const Container = styled.article`

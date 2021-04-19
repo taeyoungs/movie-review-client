@@ -14,6 +14,9 @@ import DetailContentTopSection from 'components/organisms/DetailContentTopSectio
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
 import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
 import ToggleLogin from 'components/organisms/ToggleLogin';
+import ToggleReview from 'components/organisms/ToggleReview';
+import ToggleNotification from 'components/organisms/ToggleNotification';
+import Footer from 'components/organisms/Footer';
 import Loading from 'products/Loading';
 import {
   ICastProps,
@@ -21,8 +24,6 @@ import {
   IReviewProps,
   IWorkProps,
 } from 'models/types';
-import ToggleReview from 'components/organisms/ToggleReview';
-import ToggleNotification from 'components/organisms/ToggleNotification';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -174,6 +175,7 @@ const Detail: React.FunctionComponent = () => {
                 />
               </Inner>
             </ContentSection>
+            <Footer />
           </>
         )
       )}

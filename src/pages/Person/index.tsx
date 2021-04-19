@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import PersonSection from 'components/organisms/PersonSection';
+import Footer from 'components/organisms/Footer';
 import Loading from 'products/Loading';
 import { GET_PERSON_CREDITS_QUERY, GET_PERSON_QUERY } from 'queries/Query';
 import { IPersonProps, IWorkProps } from 'models/types';
@@ -42,11 +43,14 @@ const Person: React.FunctionComponent = () => {
       ) : (
         personData &&
         creditData && (
-          <PersonSection
-            person={personData.getPerson}
-            credits={creditData.getPersonCredits.credits}
-            totalCount={creditData.getPersonCredits.totalCount}
-          />
+          <>
+            <PersonSection
+              person={personData.getPerson}
+              credits={creditData.getPersonCredits.credits}
+              totalCount={creditData.getPersonCredits.totalCount}
+            />
+            <Footer />
+          </>
         )
       )}
     </Main>

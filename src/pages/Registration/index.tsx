@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Input, { InputAppearance, InputType } from 'components/atoms/Input';
-import { ColorPalette } from 'models/color';
+import Footer from 'components/organisms/Footer';
 import {
   GoogleLogin,
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from 'react-google-login';
 import useSocialAuth from 'hooks/useSocialAuth';
-import { useLocation } from 'react-router';
 import useLocalSignIn from 'hooks/useLocalSignIn';
 import useLocalSignUp from 'hooks/useLocalSignUp';
+import { ColorPalette } from 'models/color';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -240,6 +241,7 @@ const Registration: React.FunctionComponent = () => {
           </SocialLoginContainer>
         </FormContainer>
       </LoginContainer>
+      <Footer />
     </Main>
   );
 };

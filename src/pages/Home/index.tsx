@@ -12,6 +12,7 @@ import PosterCard from 'components/molecules/PosterCard';
 import Swiper from 'components/organisms/Swiper';
 import SideSlideSection from 'components/organisms/SideSlideSection';
 import TrendingSection from 'components/organisms/TrendingSection';
+import Footer from 'components/organisms/Footer';
 import Loading from 'products/Loading';
 import { POPULAR_MOVIES_QUERY, POPULAR_SHOWS_QUERY } from 'queries/Query';
 import { IMovieProps, IShowProps } from 'models/types';
@@ -71,6 +72,7 @@ const Home: React.FunctionComponent = () => {
         </SectionInner>
       </HomeScrollSection>
       <TrendingSection />
+      <Footer />
     </Main>
   );
 };

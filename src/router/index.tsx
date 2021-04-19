@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
 import Loading from 'products/Loading';
 import {
@@ -36,7 +35,6 @@ const RouterContainer: React.FunctionComponent = () => {
           <Redirect from="*" to="/" />
         </Switch>
       </Suspense>
-      <Footer />
     </Router>
   );
 };
