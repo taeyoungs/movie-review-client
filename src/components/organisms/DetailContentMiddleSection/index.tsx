@@ -221,29 +221,29 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
       lazyImages.forEach((img) => imageObserver.observe(img));
     }
 
-    window.addEventListener('resize', () => {
-      setTransformWidth(0);
-      if (window.innerWidth >= 1024) {
-        setListSize(2);
-      } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-        setListSize(4);
-      } else {
-        setListSize(2);
-      }
-    });
+    // window.addEventListener('resize', () => {
+    //   setTransformWidth(0);
+    //   if (window.innerWidth >= 1024) {
+    //     setListSize(2);
+    //   } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+    //     setListSize(4);
+    //   } else {
+    //     setListSize(2);
+    //   }
+    // });
 
-    return () => {
-      window.removeEventListener('resize', () => {
-        setTransformWidth(0);
-        if (window.innerWidth >= 1024) {
-          setListSize(2);
-        } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-          setListSize(4);
-        } else {
-          setListSize(2);
-        }
-      });
-    };
+    // return () => {
+    //   window.removeEventListener('resize', () => {
+    //     setTransformWidth(0);
+    //     if (window.innerWidth >= 1024) {
+    //       setListSize(2);
+    //     } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+    //       setListSize(4);
+    //     } else {
+    //       setListSize(2);
+    //     }
+    //   });
+    // };
   }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {

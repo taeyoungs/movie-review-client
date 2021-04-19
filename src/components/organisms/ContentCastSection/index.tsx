@@ -44,6 +44,7 @@ const Cast = styled.ul`
 
 const CastItem = styled.li`
   padding-right: 15px;
+  width: 100%;
   @media (min-width: 720px) {
     width: 50%;
   }
@@ -195,24 +196,14 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
       setListSize(3);
     }
 
-    window.addEventListener('resize', () => {
-      setTransformWidth(0);
-      if (window.innerWidth >= 720) {
-        setListSize(6);
-      } else {
-        setListSize(3);
-      }
-    });
-    return () => {
-      window.removeEventListener('resize', () => {
-        setTransformWidth(0);
-        if (window.innerWidth >= 720) {
-          setListSize(6);
-        } else {
-          setListSize(3);
-        }
-      });
-    };
+    // window.addEventListener('resize', () => {
+    //   setTransformWidth(0);
+    //   if (window.innerWidth >= 720) {
+    //     setListSize(6);
+    //   } else {
+    //     setListSize(3);
+    //   }
+    // });
   }, []);
 
   const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
