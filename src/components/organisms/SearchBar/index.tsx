@@ -12,6 +12,7 @@ import {
   MenuButton,
   MenuContainer,
   ExitIcon,
+  Wrapper,
 } from './WithEmotion';
 import { MULTI_SEARCH_QUERY } from 'queries/Query';
 import Icon, { IconType } from 'Icon/Icon';
@@ -71,6 +72,7 @@ const SearchBar: React.FunctionComponent = () => {
   const handleResultClick: React.MouseEventHandler<HTMLUListElement> = (e) => {
     if (e.target) {
       setValue('');
+      handleExit();
     }
   };
 
@@ -120,13 +122,15 @@ const SearchBar: React.FunctionComponent = () => {
         </ExitIcon>
       </Container>
       {value != '' && (
-        <ResultContainer onClick={handleResultClick}>
-          {loading ? (
-            <Loading />
-          ) : (
-            data && <ResultSection multiSearch={data.multiSearch} />
-          )}
-        </ResultContainer>
+        <Wrapper>
+          <ResultContainer onClick={handleResultClick}>
+            {loading ? (
+              <Loading />
+            ) : (
+              data && <ResultSection multiSearch={data.multiSearch} />
+            )}
+          </ResultContainer>
+        </Wrapper>
       )}
     </RelativeContainer>
   );

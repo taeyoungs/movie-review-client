@@ -20,7 +20,7 @@ const MenuContainer = styled.div`
   align-items: center;
   margin: 0px;
   width: 100vw;
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     padding: 0px 0.75rem;
   }
   @media (min-width: 1024px) {
@@ -73,7 +73,7 @@ const SidebarIcon = styled.div`
 `;
 
 const SearchIcon = styled.div`
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     border-radius: 50%;
     margin-left: auto;
     padding: 0.6rem 1rem;
@@ -82,7 +82,7 @@ const SearchIcon = styled.div`
       background: ${ColorPalette.Main.ICON_HOVER_COLOR};
     }
   }
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     display: none;
   }
 `;

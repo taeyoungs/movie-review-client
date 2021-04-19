@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
 
 const Container = styled.div`
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
     padding: 0 10px;
   }
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     display: flex;
     transition: box-shadow 100ms ease-in-out 0s;
     flex-grow: 1;
@@ -25,13 +25,13 @@ const Container = styled.div`
 
 const MenuContainer = styled.div`
   position: relative;
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     display: none;
   }
 `;
 
 const SearchbarInput = styled.input`
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     color: #fff;
     background: ${ColorPalette.Main.BG_PRIMARY};
     margin: 0;
@@ -41,7 +41,7 @@ const SearchbarInput = styled.input`
     border: 0;
     outline: none;
   }
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     padding: 0.715em 1em;
     width: 100%;
     color: ${ColorPalette.Main.TEXT_BODY};
@@ -56,7 +56,7 @@ const SearchbarInput = styled.input`
 `;
 
 const RelativeContainer = styled.div`
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     display: none;
     &.open {
       display: block;
@@ -69,23 +69,29 @@ const RelativeContainer = styled.div`
       z-index: 50;
     }
   }
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     position: relative;
     flex-grow: 1;
   }
-  @media (min-width: 600px) and (max-width: 1024px) {
+  @media (min-width: 720px) and (max-width: 1024px) {
     margin-left: 10px;
   }
 `;
 
-const ResultContainer = styled.ul`
+const Wrapper = styled.div`
   position: absolute;
   top: 50px;
   left: 0;
   width: 100%;
-  z-index: 50;
-  border-radius: 0.5em;
   background: ${ColorPalette.Main.BG_PRIMARY};
+  @media (min-width: 720px) {
+    border-radius: 0.5em;
+  }
+`;
+
+const ResultContainer = styled.ul`
+  width: 100%;
+  z-index: 50;
   max-height: 600px;
   overflow: auto;
 `;
@@ -112,7 +118,7 @@ const MenuButton = styled.div<{ isOpen: boolean }>`
 `;
 
 const ExitIcon = styled.div`
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     border-radius: 50%;
     padding: 0.6rem 1rem;
     cursor: pointer;
@@ -120,7 +126,7 @@ const ExitIcon = styled.div`
       background: ${ColorPalette.Main.ICON_HOVER_COLOR};
     }
   }
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     display: none;
   }
 `;
@@ -133,4 +139,5 @@ export {
   MenuButton,
   MenuContainer,
   ExitIcon,
+  Wrapper,
 };
