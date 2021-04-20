@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
@@ -13,6 +13,7 @@ import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
 import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
+import ContentUserReviewSection from 'components/organisms/ContentUserReviewSection';
 import ToggleLogin from 'components/organisms/ToggleLogin';
 import ToggleReview from 'components/organisms/ToggleReview';
 import ToggleNotification from 'components/organisms/ToggleNotification';
@@ -111,32 +112,38 @@ const Detail: React.FunctionComponent = () => {
     }
   }, []);
 
-  const handleToggleLogin = () => {
-    setToggleLogin((prevState) => !prevState);
-    if (!toggleLogin) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  };
+  const handleToggleLogin = useCallback(() => {
+    setToggleLogin((prevState) => {
+      if (!prevState) {
+        document.body.style.overflowY = 'hidden';
+      } else {
+        document.body.style.overflowY = 'auto';
+      }
+      return !prevState;
+    });
+  }, []);
 
-  const handleToggleReview = () => {
-    setToggleReview((prevState) => !prevState);
-    if (!toggleReview) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  };
+  const handleToggleReview = useCallback(() => {
+    setToggleReview((prevState) => {
+      if (!prevState) {
+        document.body.style.overflowY = 'hidden';
+      } else {
+        document.body.style.overflowY = 'auto';
+      }
+      return !prevState;
+    });
+  }, []);
 
-  const handleToggleNotifi = () => {
-    setToggleNotifi((prevState) => !prevState);
-    if (!toggleNotifi) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  };
+  const handleToggleNotifi = useCallback(() => {
+    setToggleNotifi((prevState) => {
+      if (!prevState) {
+        document.body.style.overflowY = 'hidden';
+      } else {
+        document.body.style.overflowY = 'auto';
+      }
+      return !prevState;
+    });
+  }, []);
 
   return (
     <Main>
@@ -161,12 +168,18 @@ const Detail: React.FunctionComponent = () => {
               <Inner>
                 <DetailContentTopSection
                   movie={data.detail}
-                  casts={castData.casts}
-                  reviews={reviewData.reviews}
-                  userReview={userReview?.getUserReview || null}
-                  handleToggleReview={handleToggleReview}
-                  handleToggleNotifi={handleToggleNotifi}
+                  userReview={
+                    userReview?.getUserReview ? (
+                      <ContentUserReviewSection
+                        userReview={userReview.getUserReview}
+                        handleToggleNotifi={handleToggleNotifi}
+                        handleToggleReview={handleToggleReview}
+                      />
+                    ) : null
+                  }
                   handleToggleLogin={handleToggleLogin}
+                  reviews={reviewData.reviews}
+                  casts={castData.casts}
                 />
                 <DetailContentMiddleSection movie={data.detail} />
                 <DetailContentBottomSection

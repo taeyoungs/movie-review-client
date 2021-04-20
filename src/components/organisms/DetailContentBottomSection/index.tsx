@@ -88,4 +88,4 @@ const DetailContentBottomSection: React.FC<IProps> = ({
   );
 };
 
-export default DetailContentBottomSection;
+export default React.memo(DetailContentBottomSection);

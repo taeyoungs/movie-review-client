@@ -201,4 +201,4 @@ const ContentReviewSection: React.FC<IProps> = ({
   );
 };
 
-export default ContentReviewSection;
+export default React.memo(ContentReviewSection);

@@ -291,4 +291,4 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
   );
 };
 
-export default ContentCastSection;
+export default React.memo(ContentCastSection);

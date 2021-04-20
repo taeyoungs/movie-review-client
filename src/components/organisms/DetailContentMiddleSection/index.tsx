@@ -6,10 +6,6 @@ import { IDetailProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 
-interface IProps {
-  movie: IDetailProps;
-}
-
 const VideoContainer = styled.div`
   @media (min-width: 720px) {
     float: left;
@@ -185,6 +181,10 @@ const EmptyVideo = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+interface IProps {
+  movie: IDetailProps;
+}
 
 const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
   const [transformWidth, setTransformWidth] = useState(0);
@@ -367,4 +367,4 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
   );
 };
 
-export default DetailContentMiddleSection;
+export default React.memo(DetailContentMiddleSection);
