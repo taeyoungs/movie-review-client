@@ -158,7 +158,6 @@ const DetailContentTopSection: React.FC<IProps> = ({
               <DivideBorder />
             </GridInner>
           </InfoSection>
-          {/* {castSection} */}
           <ContentCastSection casts={casts} />
           <ContentReviewSection reviews={reviews} />
         </TopRoundedContent>

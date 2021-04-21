@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
@@ -206,31 +206,34 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
     // });
   }, []);
 
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    let width = 0;
-    if (castListRef.current) {
-      width = castListRef.current.clientWidth;
-    }
-    if (e.currentTarget.parentElement) {
-      const dir = e.currentTarget.parentElement.getAttribute('dir');
-      if (dir === 'left') {
-        setTransformWidth((prevState) => prevState - width);
-        if (window.innerWidth >= 720) {
-          setListSize((prevState) => prevState - 6);
-        } else {
-          setListSize((prevState) => prevState - 3);
+  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      let width = 0;
+      if (castListRef.current) {
+        width = castListRef.current.clientWidth;
+      }
+      if (e.currentTarget.parentElement) {
+        const dir = e.currentTarget.parentElement.getAttribute('dir');
+        if (dir === 'left') {
+          setTransformWidth((prevState) => prevState - width);
+          if (window.innerWidth >= 720) {
+            setListSize((prevState) => prevState - 6);
+          } else {
+            setListSize((prevState) => prevState - 3);
+          }
+        }
+        if (dir === 'right') {
+          setTransformWidth((prevState) => prevState + width);
+          if (window.innerWidth >= 720) {
+            setListSize((prevState) => prevState + 6);
+          } else {
+            setListSize((prevState) => prevState + 3);
+          }
         }
       }
-      if (dir === 'right') {
-        setTransformWidth((prevState) => prevState + width);
-        if (window.innerWidth >= 720) {
-          setListSize((prevState) => prevState + 6);
-        } else {
-          setListSize((prevState) => prevState + 3);
-        }
-      }
-    }
-  };
+    },
+    []
+  );
 
   return (
     <InfoSection>

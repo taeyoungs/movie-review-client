@@ -66,6 +66,7 @@ const ReviewHeader = styled.header`
 
 const ReviewHeaderInner = styled.div`
   position: relative;
+  z-index: 3;
 `;
 
 const ReviewTitle = styled.em`
@@ -88,7 +89,6 @@ const ExitButton = styled.button`
   padding: 0;
   cursor: pointer;
   outline: none;
-  z-index: 3;
 `;
 
 const WriteButton = styled.button<{ contentLen: number }>`
@@ -223,4 +223,4 @@ const ToggleReview: React.FC<IProps> = ({ toggleReview, userReview }) => {
   );
 };
 
-export default ToggleReview;
+export default React.memo(ToggleReview);

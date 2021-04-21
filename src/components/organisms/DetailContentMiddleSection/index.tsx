@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import DetailVideo from 'components/molecules/DetailVideo';
 import GridInner from 'components/molecules/GridInner';
@@ -246,35 +246,38 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
     // };
   }, []);
 
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    let width = 0;
-    if (videoListRef.current) {
-      width = videoListRef.current.clientWidth;
-    }
-    if (e.currentTarget.parentElement) {
-      const dir = e.currentTarget.parentElement.getAttribute('dir');
-      if (dir === 'left') {
-        setTransformWidth((prevState) => prevState - width);
-        if (window.innerWidth >= 1024) {
-          setListSize((prevState) => prevState - 2);
-        } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-          setListSize((prevState) => prevState - 4);
-        } else {
-          setListSize((prevState) => prevState - 2);
+  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      let width = 0;
+      if (videoListRef.current) {
+        width = videoListRef.current.clientWidth;
+      }
+      if (e.currentTarget.parentElement) {
+        const dir = e.currentTarget.parentElement.getAttribute('dir');
+        if (dir === 'left') {
+          setTransformWidth((prevState) => prevState - width);
+          if (window.innerWidth >= 1024) {
+            setListSize((prevState) => prevState - 2);
+          } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+            setListSize((prevState) => prevState - 4);
+          } else {
+            setListSize((prevState) => prevState - 2);
+          }
+        }
+        if (dir === 'right') {
+          setTransformWidth((prevState) => prevState + width);
+          if (window.innerWidth >= 1024) {
+            setListSize((prevState) => prevState + 2);
+          } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
+            setListSize((prevState) => prevState + 4);
+          } else {
+            setListSize((prevState) => prevState + 2);
+          }
         }
       }
-      if (dir === 'right') {
-        setTransformWidth((prevState) => prevState + width);
-        if (window.innerWidth >= 1024) {
-          setListSize((prevState) => prevState + 2);
-        } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-          setListSize((prevState) => prevState + 4);
-        } else {
-          setListSize((prevState) => prevState + 2);
-        }
-      }
-    }
-  };
+    },
+    []
+  );
 
   return (
     <VideoContainer>

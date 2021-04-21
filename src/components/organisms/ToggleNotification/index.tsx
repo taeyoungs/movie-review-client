@@ -139,4 +139,4 @@ const ToggleNotification: React.FC<IProps> = ({ toggleNotifi, userReview }) => {
   );
 };
 
-export default ToggleNotification;
+export default React.memo(ToggleNotification);

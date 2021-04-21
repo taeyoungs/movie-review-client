@@ -192,4 +192,4 @@ const ReviewItem: React.FC<IProps> = ({ review }) => {
   );
 };
 
-export default ReviewItem;
+export default React.memo(ReviewItem);

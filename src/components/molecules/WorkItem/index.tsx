@@ -148,4 +148,4 @@ const WorkItem: React.FC<IProps> = ({ work, mediaType, isLazy = true }) => {
   );
 };
 
-export default WorkItem;
+export default React.memo(WorkItem);

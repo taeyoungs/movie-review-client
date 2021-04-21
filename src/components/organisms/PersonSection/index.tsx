@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import WorkItem from 'components/molecules/WorkItem';
 import useMoreCredits from 'hooks/useMoreCredits';
@@ -166,45 +166,42 @@ interface IProps {
 }
 
 const PersonSection: React.FC<IProps> = ({ credits, totalCount, person }) => {
-  const [page, setPage] = useState(1);
+  const pageRef = useRef(1);
   const loadingRef = useRef<HTMLDivElement>(null);
 
   const { mutate, loading } = useMoreCredits({
     personId: `${person.id}`,
-    page,
+    page: pageRef.current,
   });
 
-  function handleLazyload() {
+  const handleLazyload = useCallback(() => {
     const scrollTop = window.pageYOffset;
     if (loadingRef.current) {
       if (loadingRef.current.offsetTop < window.innerHeight + scrollTop) {
-        const page = loadingRef.current.getAttribute('data-page');
-        if (page && totalCount > (+page + 1) * 9) {
+        if (totalCount > (pageRef.current + 1) * 9) {
           if (!loading) {
             mutate();
-            setPage((prevState) => prevState + 1);
+            pageRef.current += 1;
+            // setPage((prevState) => prevState + 1);
           }
         }
       }
     }
-  }
+  }, []);
 
   useEffect(() => {
     if ('IntersectionObserver' in window) {
       const documentObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const $el = entry.target;
-            const page = $el.getAttribute('data-page');
-            if (page) {
-              if (totalCount > (+page + 1) * 9) {
-                if (!loading) {
-                  mutate();
-                  setPage((prevState) => prevState + 1);
-                }
-              } else {
-                documentObserver.unobserve(entry.target);
+            if (totalCount > (pageRef.current + 1) * 9) {
+              if (!loading) {
+                mutate();
+                pageRef.current += 1;
+                // setPage((prevState) => prevState + 1);
               }
+            } else {
+              documentObserver.unobserve(entry.target);
             }
           }
         });
@@ -259,7 +256,7 @@ const PersonSection: React.FC<IProps> = ({ credits, totalCount, person }) => {
               ))}
             </WorkListContainer>
           </Container>
-          <LoadingScrollBlock ref={loadingRef} data-page={page}>
+          <LoadingScrollBlock ref={loadingRef}>
             {loading && <Icon icon="spinner" size={30} />}
           </LoadingScrollBlock>
         </PersonSectionInner>

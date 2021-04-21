@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import ReviewItem from 'components/molecules/ReviewItem';
@@ -117,31 +117,34 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
     // });
   }, []);
 
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    let width = 0;
-    if (reviewListRef.current) {
-      width = reviewListRef.current.clientWidth;
-    }
-    if (e.currentTarget.parentElement) {
-      const dir = e.currentTarget.parentElement.getAttribute('dir');
-      if (dir === 'left') {
-        setTransformWidth((prevState) => prevState - width);
-        if (window.innerWidth >= 720) {
-          setListSize((prevState) => prevState - 2);
-        } else {
-          setListSize((prevState) => prevState - 1);
+  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      let width = 0;
+      if (reviewListRef.current) {
+        width = reviewListRef.current.clientWidth;
+      }
+      if (e.currentTarget.parentElement) {
+        const dir = e.currentTarget.parentElement.getAttribute('dir');
+        if (dir === 'left') {
+          setTransformWidth((prevState) => prevState - width);
+          if (window.innerWidth >= 720) {
+            setListSize((prevState) => prevState - 2);
+          } else {
+            setListSize((prevState) => prevState - 1);
+          }
+        }
+        if (dir === 'right') {
+          setTransformWidth((prevState) => prevState + width);
+          if (window.innerWidth >= 720) {
+            setListSize((prevState) => prevState + 2);
+          } else {
+            setListSize((prevState) => prevState + 1);
+          }
         }
       }
-      if (dir === 'right') {
-        setTransformWidth((prevState) => prevState + width);
-        if (window.innerWidth >= 720) {
-          setListSize((prevState) => prevState + 2);
-        } else {
-          setListSize((prevState) => prevState + 1);
-        }
-      }
-    }
-  };
+    },
+    []
+  );
 
   return (
     <InfoSection>
@@ -193,4 +196,4 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
   );
 };
 
-export default ContentReviewSection;
+export default React.memo(ContentReviewSection);
