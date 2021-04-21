@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import Avatar, { AvatarSize } from 'products/Avatar';
 import { IReviewProps } from 'models/types';
@@ -6,6 +6,7 @@ import { ColorPalette } from 'models/color';
 import useToggleLike from 'hooks/useToggleLike';
 import Icon from 'Icon/Icon';
 import Cookie from 'js-cookie';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 
 const DetailInner = styled.div`
   background-color: #f0f0f0;
@@ -117,20 +118,20 @@ const LikeButton = styled.button<{ isLike: boolean }>`
 
 interface IProps {
   review: IReviewProps;
-  handleToggleLogin: () => void;
 }
 
-const ReviewDetail: React.FC<IProps> = ({ review, handleToggleLogin }) => {
+const ReviewDetail: React.FC<IProps> = ({ review }) => {
   const { toggleLike } = useToggleLike(review.id);
+  const dispatch = useToggleDispatch();
 
-  const handleToggleLike = () => {
+  const handleToggleLike = useCallback(() => {
     const signedin = Cookie.get('signedin');
     if (Boolean(signedin)) {
       toggleLike();
     } else {
-      handleToggleLogin();
+      dispatch({ type: 'TOGGLE_LOGIN' });
     }
-  };
+  }, []);
   return (
     <DetailInner>
       <ReviewWriter>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Avatar, { AvatarSize } from 'products/Avatar';
 import { IReviewProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import useToggleLike from 'hooks/useToggleLike';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 import Icon from 'Icon/Icon';
 import Cookie from 'js-cookie';
 
@@ -133,20 +134,20 @@ const LikeButton = styled.button<{ isLike: boolean }>`
 
 interface IProps {
   review: IReviewProps;
-  handleToggleLogin: () => void;
 }
 
-const ReviewItem: React.FC<IProps> = ({ review, handleToggleLogin }) => {
+const ReviewItem: React.FC<IProps> = ({ review }) => {
   const { toggleLike } = useToggleLike(review.id);
+  const dispatch = useToggleDispatch();
 
-  const handleToggleLike = () => {
+  const handleToggleLike = useCallback(() => {
     const signedin = Cookie.get('signedin');
     if (Boolean(signedin)) {
       toggleLike();
     } else {
-      handleToggleLogin();
+      dispatch({ type: 'TOGGLE_LOGIN' });
     }
-  };
+  }, []);
   return (
     <ReviewListItem>
       <ReviewItemInner>

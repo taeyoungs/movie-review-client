@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { useMutation } from '@apollo/client';
 import GridInner from 'components/molecules/GridInner';
+import useToggleDispatch from 'hooks/useToggleDispatch';
+import useAddReview from 'hooks/useAddReview';
 import { UPDATE_REVIEW } from 'queries/Mutation';
 import { IReviewProps } from 'models/types';
 import Icon from 'Icon/Icon';
-import useAddReview from 'hooks/useAddReview';
 
 const ReviewContainer = styled.div<{ toggleReview: boolean }>`
   display: ${(props) => (props.toggleReview ? 'block' : 'none')};
@@ -75,6 +76,7 @@ const ReviewTitle = styled.em`
   right: 0;
   text-align: center;
   font-weight: 700;
+  z-index: 2;
 `;
 
 const ExitButton = styled.button`
@@ -86,6 +88,7 @@ const ExitButton = styled.button`
   padding: 0;
   cursor: pointer;
   outline: none;
+  z-index: 3;
 `;
 
 const WriteButton = styled.button<{ contentLen: number }>`
@@ -96,6 +99,7 @@ const WriteButton = styled.button<{ contentLen: number }>`
   outline: none;
   margin: 14px 0;
   font-family: 'Nanum Gothic', sans-serif;
+  z-index: 3;
 `;
 
 const ContentContainer = styled.div`
@@ -133,23 +137,12 @@ const Textarea = styled.textarea`
 
 interface IProps {
   toggleReview: boolean;
-  handleToggleReview: () => void;
   userReview: IReviewProps;
 }
 
-const ToggleReview: React.FC<IProps> = ({
-  toggleReview,
-  handleToggleReview,
-  userReview,
-}) => {
+const ToggleReview: React.FC<IProps> = ({ toggleReview, userReview }) => {
   const [content, setContent] = useState(userReview.content || '');
-  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = (
-    e
-  ) => {
-    if (e.target === e.currentTarget) {
-      handleToggleReview();
-    }
-  };
+  const dispatch = useToggleDispatch();
 
   const [updateReviewMutation] = useMutation(UPDATE_REVIEW, {
     variables: {
@@ -164,26 +157,38 @@ const ToggleReview: React.FC<IProps> = ({
     reviewId: userReview.id,
   });
 
-  const handleUpdateReview = () => {
+  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (e.target === e.currentTarget) {
+        dispatch({ type: 'TOGGLE_REVIEW' });
+      }
+    },
+    []
+  );
+
+  const handleUpdateReview = useCallback(() => {
     updateReviewMutation();
-    handleToggleReview();
-  };
+    dispatch({ type: 'TOGGLE_REVIEW' });
+  }, []);
 
-  const handleAddReview = () => {
+  const handleAddReview = useCallback(() => {
     addReviewMutation();
-    handleToggleReview();
-  };
+    dispatch({ type: 'TOGGLE_REVIEW' });
+  }, []);
 
-  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    setContent(e.target.value);
-  };
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = useCallback(
+    (e) => {
+      setContent(e.target.value);
+    },
+    []
+  );
   return (
     <ReviewContainer toggleReview={toggleReview}>
       <ReviewInner onClick={handleToggleContainer}>
         <Review>
           <ReviewHeader>
             <ReviewHeaderInner>
-              <ExitButton onClick={handleToggleReview}>
+              <ExitButton onClick={() => dispatch({ type: 'TOGGLE_REVIEW' })}>
                 <Icon icon="cross" color="#f1c40f" size={16} />
               </ExitButton>
             </ReviewHeaderInner>

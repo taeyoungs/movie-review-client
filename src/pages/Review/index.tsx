@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
-import ToggleLogin from 'components/organisms/ToggleLogin';
 import ReviewDetail from 'components/organisms/ReviewDetail';
 import Loading from 'products/Loading';
 import { GET_REVIEW_QUERY } from 'queries/Query';
@@ -99,7 +98,6 @@ const DetailContainer = styled.div`
 `;
 
 const Review: React.FunctionComponent = () => {
-  const [toggleLogin, setToggleLogin] = useState(false);
   const location = useLocation();
   const history = useHistory();
 
@@ -116,18 +114,9 @@ const Review: React.FunctionComponent = () => {
     document.body.style.backgroundColor = '#fff';
   }, []);
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     history.goBack();
-  };
-
-  const handleToggleLogin = () => {
-    setToggleLogin((prevState) => !prevState);
-    if (!toggleLogin) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  };
+  }, []);
   return (
     <Main>
       {loading ? (
@@ -150,21 +139,13 @@ const Review: React.FunctionComponent = () => {
             <Content>
               <GridInner>
                 <DetailContainer>
-                  <ReviewDetail
-                    review={data.getReview}
-                    handleToggleLogin={handleToggleLogin}
-                  />
+                  <ReviewDetail review={data.getReview} />
                 </DetailContainer>
               </GridInner>
             </Content>
           </Section>
         )
       )}
-      <ToggleLogin
-        toggleLogin={toggleLogin}
-        handleToggleLogin={handleToggleLogin}
-        message="로그인이 필요한 기능입니다. 로그인 또는 회원가입을 진행해주세요."
-      />
     </Main>
   );
 };

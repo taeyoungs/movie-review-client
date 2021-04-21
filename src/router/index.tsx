@@ -7,6 +7,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import ToggleContextProvider from 'components/molecules/ToggleContextProvider';
 
 const Home = lazy(() => import('pages/Home'));
 const Movies = lazy(() => import('pages/Movies'));
@@ -22,18 +23,20 @@ const RouterContainer: React.FunctionComponent = () => {
     <Router>
       <Header />
       <Suspense fallback={<Loading />}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/movie" component={Movies} />
-          <Route exact path="/movie/:id" component={Detail} />
-          <Route exact path="/tv" component={Shows} />
-          <Route exact path="/tv/:id" component={Detail} />
-          <Route exact path="/review" component={Reviews} />
-          <Route exact path="/review/:id" component={Review} />
-          <Route exact path="/person/:id" component={Person} />
-          <Route exact path="/registration" component={Registration} />
-          <Redirect from="*" to="/" />
-        </Switch>
+        <ToggleContextProvider>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/movie" component={Movies} />
+            <Route exact path="/movie/:id" component={Detail} />
+            <Route exact path="/tv" component={Shows} />
+            <Route exact path="/tv/:id" component={Detail} />
+            <Route exact path="/review" component={Reviews} />
+            <Route exact path="/review/:id" component={Review} />
+            <Route exact path="/person/:id" component={Person} />
+            <Route exact path="/registration" component={Registration} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </ToggleContextProvider>
       </Suspense>
     </Router>
   );

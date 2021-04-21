@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 import Icon from 'Icon/Icon';
-import { Link } from 'react-router-dom';
 
 const GoLoginContainer = styled.div<{ toggleLogin: boolean }>`
   display: ${(props) => (props.toggleLogin ? 'block' : 'none')};
@@ -132,22 +133,20 @@ const GoLoginButton = styled.button`
 
 interface IProps {
   toggleLogin: boolean;
-  handleToggleLogin: () => void;
   message: string;
 }
 
-const ToggleLogin: React.FC<IProps> = ({
-  toggleLogin,
-  handleToggleLogin,
-  message,
-}) => {
-  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = (
-    e
-  ) => {
-    if (e.target === e.currentTarget) {
-      handleToggleLogin();
-    }
-  };
+const ToggleLogin: React.FC<IProps> = ({ toggleLogin, message }) => {
+  const dispatch = useToggleDispatch();
+
+  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (e.target === e.currentTarget) {
+        dispatch({ type: 'TOGGLE_LOGIN' });
+      }
+    },
+    []
+  );
 
   return (
     <GoLoginContainer toggleLogin={toggleLogin}>
@@ -155,7 +154,7 @@ const ToggleLogin: React.FC<IProps> = ({
         <GoLogin>
           <GoLoginHeader>
             <GoLoginHeaderInner>
-              <ExitButton onClick={handleToggleLogin}>
+              <ExitButton onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}>
                 <Icon icon="cross" color="#f1c40f" size={16} />
               </ExitButton>
             </GoLoginHeaderInner>

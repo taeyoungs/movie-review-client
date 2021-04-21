@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useQuery } from '@apollo/client';
@@ -14,7 +14,6 @@ import DetailContentTopSection from 'components/organisms/DetailContentTopSectio
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
 import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
 import ContentUserReviewSection from 'components/organisms/ContentUserReviewSection';
-import ToggleLogin from 'components/organisms/ToggleLogin';
 import ToggleReview from 'components/organisms/ToggleReview';
 import ToggleNotification from 'components/organisms/ToggleNotification';
 import Footer from 'components/organisms/Footer';
@@ -25,6 +24,7 @@ import {
   IReviewProps,
   IWorkProps,
 } from 'models/types';
+import useToggleState from 'hooks/useToggleState';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -50,9 +50,10 @@ const Inner = styled.div`
 `;
 
 const Detail: React.FunctionComponent = () => {
-  const [toggleLogin, setToggleLogin] = useState(false);
-  const [toggleReview, setToggleReview] = useState(false);
-  const [toggleNotifi, setToggleNotifi] = useState(false);
+  const toggle = useToggleState();
+
+  const { toggleReview, toggleNotifi } = toggle;
+
   const location: {
     state: { reload: boolean };
     pathname: string;
@@ -112,39 +113,6 @@ const Detail: React.FunctionComponent = () => {
     }
   }, []);
 
-  const handleToggleLogin = useCallback(() => {
-    setToggleLogin((prevState) => {
-      if (!prevState) {
-        document.body.style.overflowY = 'hidden';
-      } else {
-        document.body.style.overflowY = 'auto';
-      }
-      return !prevState;
-    });
-  }, []);
-
-  const handleToggleReview = useCallback(() => {
-    setToggleReview((prevState) => {
-      if (!prevState) {
-        document.body.style.overflowY = 'hidden';
-      } else {
-        document.body.style.overflowY = 'auto';
-      }
-      return !prevState;
-    });
-  }, []);
-
-  const handleToggleNotifi = useCallback(() => {
-    setToggleNotifi((prevState) => {
-      if (!prevState) {
-        document.body.style.overflowY = 'hidden';
-      } else {
-        document.body.style.overflowY = 'auto';
-      }
-      return !prevState;
-    });
-  }, []);
-
   return (
     <Main>
       {loading &&
@@ -161,7 +129,6 @@ const Detail: React.FunctionComponent = () => {
           <>
             <DetailSummarySection
               movie={data.detail}
-              handleToggleLogin={handleToggleLogin}
               userReview={userReview?.getUserReview || null}
             />
             <ContentSection>
@@ -172,12 +139,9 @@ const Detail: React.FunctionComponent = () => {
                     userReview?.getUserReview ? (
                       <ContentUserReviewSection
                         userReview={userReview.getUserReview}
-                        handleToggleNotifi={handleToggleNotifi}
-                        handleToggleReview={handleToggleReview}
                       />
                     ) : null
                   }
-                  handleToggleLogin={handleToggleLogin}
                   reviews={reviewData.reviews}
                   casts={castData.casts}
                 />
@@ -192,22 +156,15 @@ const Detail: React.FunctionComponent = () => {
           </>
         )
       )}
-      <ToggleLogin
-        toggleLogin={toggleLogin}
-        handleToggleLogin={handleToggleLogin}
-        message="로그인이 필요한 기능입니다. 로그인 또는 회원가입을 진행해주세요."
-      />
       {userReview?.getUserReview && (
         <ToggleReview
           toggleReview={toggleReview}
-          handleToggleReview={handleToggleReview}
           userReview={userReview.getUserReview}
         />
       )}
       {userReview?.getUserReview &&
         userReview?.getUserReview.content.length > 0 && (
           <ToggleNotification
-            handleToggleNotifi={handleToggleNotifi}
             toggleNotifi={toggleNotifi}
             userReview={userReview.getUserReview}
           />

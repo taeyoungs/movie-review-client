@@ -4,6 +4,7 @@ import GridInner from 'components/molecules/GridInner';
 import Avatar, { AvatarSize } from 'products/Avatar';
 import { IReviewProps } from 'models/types';
 import Cookie from 'js-cookie';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 
 const ReviewBtnContainer = styled.div`
   @media (min-width: 720px) {
@@ -128,17 +129,14 @@ const MenuItemBtn = styled.button`
 
 interface IProps {
   userReview: IReviewProps;
-  handleToggleReview: () => void;
-  handleToggleNotifi: () => void;
 }
 
-const ContentUserReviewSection: React.FC<IProps> = ({
-  userReview,
-  handleToggleReview,
-  handleToggleNotifi,
-}) => {
+const ContentUserReviewSection: React.FC<IProps> = ({ userReview }) => {
   const avatarUrl = Cookie.get('avatar');
   const username = Cookie.get('login');
+
+  const dispatch = useToggleDispatch();
+
   return (
     <ReviewBtnContainer>
       <ReviewBtnInner>
@@ -151,7 +149,9 @@ const ContentUserReviewSection: React.FC<IProps> = ({
                     이 작품에 대한 평가를 글로 남겨보세요.
                   </ReviewNotification>
                   <ReviewBtnWrapper>
-                    <ReviewBtn onClick={handleToggleReview}>
+                    <ReviewBtn
+                      onClick={() => dispatch({ type: 'TOGGLE_REVIEW' })}
+                    >
                       리뷰 남기기
                     </ReviewBtn>
                   </ReviewBtnWrapper>
@@ -166,12 +166,16 @@ const ContentUserReviewSection: React.FC<IProps> = ({
                   <UserReviewContent>{userReview.content}</UserReviewContent>
                   <UserReviewMenu>
                     <UserReviewMenuItem>
-                      <MenuItemBtn onClick={handleToggleNotifi}>
+                      <MenuItemBtn
+                        onClick={() => dispatch({ type: 'TOGGLE_NOTIFI' })}
+                      >
                         삭제
                       </MenuItemBtn>
                     </UserReviewMenuItem>
                     <UserReviewMenuItem>
-                      <MenuItemBtn onClick={handleToggleReview}>
+                      <MenuItemBtn
+                        onClick={() => dispatch({ type: 'TOGGLE_REVIEW' })}
+                      >
                         수정
                       </MenuItemBtn>
                     </UserReviewMenuItem>

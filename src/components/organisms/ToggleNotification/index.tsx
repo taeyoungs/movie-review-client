@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import useRemoveReview from 'hooks/useRemoveReview';
 import { IReviewProps } from 'models/types';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 
 const NotifiContainer = styled.div<{ toggleNotifi: boolean }>`
   display: ${(props) => (props.toggleNotifi ? 'block' : 'none')};
@@ -86,32 +87,31 @@ const NotifiMenuItem = styled.button`
 
 interface IProps {
   toggleNotifi: boolean;
-  handleToggleNotifi: () => void;
+
   userReview: IReviewProps;
 }
 
-const ToggleNotification: React.FC<IProps> = ({
-  toggleNotifi,
-  handleToggleNotifi,
-  userReview,
-}) => {
+const ToggleNotification: React.FC<IProps> = ({ toggleNotifi, userReview }) => {
+  const dispatch = useToggleDispatch();
+
   const { mutate: removeReviewMutation } = useRemoveReview({
     movieId: userReview.movieId,
     reviewId: userReview.id,
   });
 
-  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = (
-    e
-  ) => {
-    if (e.target === e.currentTarget) {
-      handleToggleNotifi();
-    }
-  };
+  const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (e.target === e.currentTarget) {
+        dispatch({ type: 'TOGGLE_NOTIFI' });
+      }
+    },
+    []
+  );
 
-  const handleRemoveReview = () => {
+  const handleRemoveReview = useCallback(() => {
     removeReviewMutation();
-    handleToggleNotifi();
-  };
+    dispatch({ type: 'TOGGLE_NOTIFI' });
+  }, []);
 
   return (
     <NotifiContainer toggleNotifi={toggleNotifi}>
@@ -122,7 +122,9 @@ const ToggleNotification: React.FC<IProps> = ({
               <NotifiTitle>알림</NotifiTitle>
               <NotifiContent>리뷰를 삭제하시겠어요?</NotifiContent>
               <NotifiMenu>
-                <NotifiMenuItem onClick={handleToggleNotifi}>
+                <NotifiMenuItem
+                  onClick={() => dispatch({ type: 'TOGGLE_NOTIFI' })}
+                >
                   취소
                 </NotifiMenuItem>
                 <NotifiMenuItem onClick={handleRemoveReview}>

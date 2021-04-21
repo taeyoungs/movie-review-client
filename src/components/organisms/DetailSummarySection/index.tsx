@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import RatedStar from 'products/RatedStar';
 import { useMutation } from '@apollo/client';
@@ -7,6 +7,7 @@ import { GET_USER_REVIEW_QUERY } from 'queries/Query';
 import { IDetailProps, IReviewProps } from 'models/types';
 import Cookie from 'js-cookie';
 import Icon from 'Icon/Icon';
+import useToggleDispatch from 'hooks/useToggleDispatch';
 
 const SummarySection = styled.section`
   background-color: #fff;
@@ -259,16 +260,12 @@ const HoverNotification = styled.div`
 
 interface IProps {
   movie: IDetailProps;
-  handleToggleLogin: () => void;
   userReview: IReviewProps | null;
 }
 
-const DetailSummarySection: React.FC<IProps> = ({
-  movie,
-  handleToggleLogin,
-  userReview,
-}) => {
+const DetailSummarySection: React.FC<IProps> = ({ movie, userReview }) => {
   const [rating, setRating] = useState(0);
+  const dispatch = useToggleDispatch();
 
   const [createReviewMutation] = useMutation(CREATE_REVIEW, {
     variables: {
@@ -296,14 +293,14 @@ const DetailSummarySection: React.FC<IProps> = ({
     }
   }, [rating]);
 
-  function handleClick(i: number) {
+  const handleClick = useCallback((i: number) => {
     const isSigned = Cookie.get('signedin');
     if (Boolean(isSigned)) {
       setRating(i);
     } else {
-      handleToggleLogin();
+      dispatch({ type: 'TOGGLE_LOGIN' });
     }
-  }
+  }, []);
 
   return (
     <SummarySection>

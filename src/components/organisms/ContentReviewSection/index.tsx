@@ -94,13 +94,9 @@ const DivideBorder = styled.hr`
 
 interface IProps {
   reviews: IReviewProps[];
-  handleToggleLogin: () => void;
 }
 
-const ContentReviewSection: React.FC<IProps> = ({
-  reviews,
-  handleToggleLogin,
-}) => {
+const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
   const [transformWidth, setTransformWidth] = useState(0);
   const [listSize, setListSize] = useState(0);
   const reviewListRef = useRef<HTMLUListElement>(null);
@@ -162,11 +158,7 @@ const ContentReviewSection: React.FC<IProps> = ({
             <GridInner>
               <ReviewList ref={reviewListRef}>
                 {reviews.map((review) => (
-                  <ReviewItem
-                    key={review.id}
-                    review={review}
-                    handleToggleLogin={handleToggleLogin}
-                  />
+                  <ReviewItem key={review.id} review={review} />
                 ))}
                 {reviews.length === 0 && (
                   <EmptyReview>등록된 리뷰가 없습니다. 😳</EmptyReview>
@@ -201,4 +193,4 @@ const ContentReviewSection: React.FC<IProps> = ({
   );
 };
 
-export default React.memo(ContentReviewSection);
+export default ContentReviewSection;

@@ -101,7 +101,6 @@ interface IProps {
   userReview: React.ReactNode | null;
   reviews: IReviewProps[];
   casts: ICastProps[];
-  handleToggleLogin: () => void;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
@@ -109,7 +108,6 @@ const DetailContentTopSection: React.FC<IProps> = ({
   userReview,
   reviews,
   casts,
-  handleToggleLogin,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
 
@@ -162,10 +160,7 @@ const DetailContentTopSection: React.FC<IProps> = ({
           </InfoSection>
           {/* {castSection} */}
           <ContentCastSection casts={casts} />
-          <ContentReviewSection
-            reviews={reviews}
-            handleToggleLogin={handleToggleLogin}
-          />
+          <ContentReviewSection reviews={reviews} />
         </TopRoundedContent>
       </Content>
     </ContentContainer>
