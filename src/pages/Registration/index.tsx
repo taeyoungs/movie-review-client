@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Input, { InputAppearance, InputType } from 'components/atoms/Input';
@@ -11,6 +11,7 @@ import {
 import useSocialAuth from 'hooks/useSocialAuth';
 import useLocalSignIn from 'hooks/useLocalSignIn';
 import useLocalSignUp from 'hooks/useLocalSignUp';
+import useInputs from 'hooks/useInputs';
 import { ColorPalette } from 'models/color';
 
 const Main = styled.main`
@@ -93,18 +94,65 @@ const ErrorMsg = styled.div`
   margin-bottom: 10px;
 `;
 
+interface IErrorProps {
+  idError: string;
+  pwError: string;
+  gqlError: string;
+}
+
+type Action = 'SET_ID_ERROR' | 'SET_PW_ERROR' | 'SET_GQL_ERROR' | 'CLEAR_ALL';
+interface IActionProps {
+  type: Action;
+  content: string;
+}
+
+const errorReducer = (state: IErrorProps, action: IActionProps) => {
+  switch (action.type) {
+    case 'SET_ID_ERROR':
+      return {
+        ...state,
+        idError: action.content,
+      };
+    case 'SET_PW_ERROR':
+      return {
+        ...state,
+        pwError: action.content,
+      };
+    case 'SET_GQL_ERROR':
+      return {
+        ...state,
+        gqlError: action.content,
+      };
+    case 'CLEAR_ALL':
+      return {
+        idError: '',
+        pwError: '',
+        gqlError: '',
+      };
+    default:
+      throw new Error('Unhandled action');
+  }
+};
+
 const Registration: React.FunctionComponent = () => {
   const location: { state: { before: string } } = useLocation();
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
-  const [error1, setError1] = useState('');
-  const [error2, setError2] = useState('');
+  const [error, dispatch] = useReducer(errorReducer, {
+    idError: '',
+    pwError: '',
+    gqlError: '',
+  });
   const [isSignUp, setIsSignUp] = useState(false);
-  const [gqlError, setGqlError] = useState('');
 
   const { onSocialAuth } = useSocialAuth({ path: location.state.before });
   const { onLocalSignIn } = useLocalSignIn({ path: location.state.before });
   const { onLocalSignUp } = useLocalSignUp({ path: location.state.before });
+
+  const { form, onChange, reset } = useInputs({
+    id: '',
+    pw: '',
+  });
+
+  const { id, pw } = form;
 
   function isGoogleLoginResponse(
     type: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -121,27 +169,19 @@ const Registration: React.FunctionComponent = () => {
     onSocialAuth(token);
   };
 
-  const handleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setId(event.target.value);
-  };
-
-  const handlePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPw(event.target.value);
-  };
-
-  const handleError1 = () => {
+  const handleIdError = () => {
     if (id === '') {
-      setError1('아이디를 입력해주세요.');
+      dispatch({ type: 'SET_ID_ERROR', content: '아이디를 입력해주세요.' });
     } else {
-      setError1('');
+      dispatch({ type: 'SET_ID_ERROR', content: '' });
     }
   };
 
-  const handleError2 = () => {
+  const handlePwError = () => {
     if (pw === '') {
-      setError2('비밀번호를 입력해주세요.');
+      dispatch({ type: 'SET_PW_ERROR', content: '비밀번호를 입력해주세요.' });
     } else {
-      setError2('');
+      dispatch({ type: 'SET_PW_ERROR', content: '' });
     }
   };
 
@@ -150,12 +190,12 @@ const Registration: React.FunctionComponent = () => {
   ) => {
     e.preventDefault();
 
-    handleError1();
-    handleError2();
+    handleIdError();
+    handlePwError();
 
     if (id !== '' && pw !== '') {
       const error = await onLocalSignIn(id, pw);
-      setGqlError(error);
+      dispatch({ type: 'SET_GQL_ERROR', content: error });
     }
   };
 
@@ -164,12 +204,12 @@ const Registration: React.FunctionComponent = () => {
   ) => {
     e.preventDefault();
 
-    handleError1();
-    handleError2();
+    handleIdError();
+    handlePwError();
 
     if (id !== '' && pw !== '') {
       const error = await onLocalSignUp(id, pw);
-      setGqlError(error);
+      dispatch({ type: 'SET_GQL_ERROR', content: error });
     }
   };
 
@@ -182,9 +222,8 @@ const Registration: React.FunctionComponent = () => {
               selected={isSignUp}
               onClick={() => {
                 setIsSignUp(true);
-                setPw('');
-                setGqlError('');
-                setId('');
+                dispatch({ type: 'CLEAR_ALL', content: '' });
+                reset();
               }}
             >
               회원가입
@@ -193,24 +232,24 @@ const Registration: React.FunctionComponent = () => {
               selected={!isSignUp}
               onClick={() => {
                 setIsSignUp(false);
-                setPw('');
-                setGqlError('');
-                setId('');
+                dispatch({ type: 'CLEAR_ALL', content: '' });
+                reset();
               }}
             >
               로그인
             </SignType>
           </FormTypeContainer>
-          {gqlError && <ErrorMsg>❗ {gqlError}</ErrorMsg>}
+          {error.gqlError && <ErrorMsg>❗ {error.gqlError}</ErrorMsg>}
           <Input
             id="user-id"
             label="아이디"
             placeholder="아이디를 입력해주세요."
             appearance={InputAppearance.PRIMARY}
             value={id}
-            onChange={handleIdChange}
-            error={error1}
-            onBlur={handleError1}
+            onChange={onChange}
+            error={error.idError}
+            onBlur={handleIdError}
+            name="id"
           />
           <Input
             id="password"
@@ -218,10 +257,11 @@ const Registration: React.FunctionComponent = () => {
             placeholder="비밀번호를 입력해주세요."
             appearance={InputAppearance.PRIMARY}
             value={pw}
-            onChange={handlePwChange}
+            onChange={onChange}
             type={InputType.PASSWORD}
-            error={error2}
-            onBlur={handleError2}
+            error={error.pwError}
+            onBlur={handlePwError}
+            name="pw"
           />
           {isSignUp ? (
             <SubmitButton onClick={handleSignUp}>회원가입</SubmitButton>

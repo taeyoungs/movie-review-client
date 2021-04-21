@@ -53,6 +53,7 @@ export interface IProps {
   type?: InputType;
   placeholder?: string;
   disabled?: boolean;
+  name?: string;
 }
 
 const Input: React.FC<IProps> = ({
@@ -69,6 +70,7 @@ const Input: React.FC<IProps> = ({
   error,
   placeholder,
   disabled,
+  name,
 }) => {
   return (
     <Wrapper orientation={orientation}>
@@ -89,6 +91,7 @@ const Input: React.FC<IProps> = ({
           placeholder={placeholder}
           disabled={disabled}
           type={type}
+          name={name}
         />
         <Error error={error}>{error}</Error>
       </InnerWrapper>
