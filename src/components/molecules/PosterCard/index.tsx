@@ -32,7 +32,7 @@ function formatDate(date: string): string {
 
 const PosterCard: React.FC<IProps> = ({
   poster_path,
-  vote_average = 4.2,
+  vote_average = 0,
   title,
   release_date,
   isDark = false,
@@ -56,12 +56,14 @@ const PosterCard: React.FC<IProps> = ({
                 isDark={isDark}
                 className="lazy"
                 alt={title}
+                isLazy={true}
               ></Poster>
             ) : (
               <Poster
                 src={`https://image.tmdb.org/t/p/w500${poster_path}`}
                 isDark={isDark}
                 alt={title}
+                isLazy={false}
               ></Poster>
             )}
           </PosterInner>
@@ -71,7 +73,7 @@ const PosterCard: React.FC<IProps> = ({
         <Rating isDark={isDark}>
           <Icon icon="star" color={ColorPalette.Yellow.YELLOW_600} size={22} />
           <P weight={600} margin={[0, 0, 0, 3]}>
-            {vote_average}
+            {vote_average || 0}
           </P>
         </Rating>
         <P size={16} weight={600} margin={[15, 0, 5, 0]}>

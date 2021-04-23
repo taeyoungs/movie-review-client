@@ -24,25 +24,36 @@ const Trending: React.FunctionComponent = () => {
 
   useEffect(() => {
     if ('IntersectionObserver' in window) {
+      const lazyImages = document.querySelectorAll('.lazy');
       const trendingTitle = document.querySelector('.trending--title');
-      console.log(trendingTitle);
-      if (trendingTitle) {
-        const imageObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const trending = entry.target;
-              console.log(trending);
-              trending.classList.remove('lazy');
+
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const $el = entry.target;
+            const dataSrc = $el.getAttribute('data-src');
+            if (dataSrc) {
+              $el.setAttribute('src', dataSrc);
+              $el.setAttribute('style', 'opacity: 1');
+              $el.classList.remove('lazy');
+            }
+            if ($el.classList.contains('trending--title')) {
               getTrending({
                 variables: {
                   mediaType: options.mediaType,
                   timeWindow: options.timeWindow,
                 },
               });
-              imageObserver.unobserve(trendingTitle);
             }
-          });
+            imageObserver.unobserve($el);
+          }
         });
+      });
+
+      lazyImages.forEach((image) => {
+        imageObserver.observe(image);
+      });
+      if (trendingTitle) {
         imageObserver.observe(trendingTitle);
       }
     }

@@ -19,11 +19,11 @@ const RBlock = styled.figure`
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 `;
 
-const Poster = styled.img<{ isDark?: boolean }>`
+const Poster = styled.img<{ isDark?: boolean; isLazy: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1;
+  opacity: ${(props) => (props.isLazy ? 0 : 1)};
   cursor: pointer;
   ${(props) =>
     !props.isDark &&
@@ -31,6 +31,7 @@ const Poster = styled.img<{ isDark?: boolean }>`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     `}
+  transition: opacity 400ms;
 `;
 
 const Rating = styled.div<{ isDark?: boolean }>`
