@@ -9,11 +9,14 @@ import {
   REVIEWS_QUERY,
   SIMILARWORKS_QUERY,
 } from 'queries/Query';
+import ToggleContextProvider from 'components/molecules/ToggleContextProvider';
 import DetailSummarySection from 'components/organisms/DetailSummarySection';
 import DetailContentTopSection from 'components/organisms/DetailContentTopSection';
 import DetailContentMiddleSection from 'components/organisms/DetailContentMiddleSection';
 import DetailContentBottomSection from 'components/organisms/DetailContentBottomSection';
 import ContentUserReviewSection from 'components/organisms/ContentUserReviewSection';
+import ContentCastSection from 'components/organisms/ContentCastSection';
+import ContentReviewSection from 'components/organisms/ContentReviewSection';
 import ToggleReview from 'components/organisms/ToggleReview';
 import ToggleNotification from 'components/organisms/ToggleNotification';
 import Footer from 'components/organisms/Footer';
@@ -24,7 +27,6 @@ import {
   IReviewProps,
   IWorkProps,
 } from 'models/types';
-import useToggleState from 'hooks/useToggleState';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -50,10 +52,6 @@ const Inner = styled.div`
 `;
 
 const Detail: React.FunctionComponent = () => {
-  const toggle = useToggleState();
-
-  const { toggleReview, toggleNotifi } = toggle;
-
   const location: {
     state: { reload: boolean };
     pathname: string;
@@ -114,62 +112,59 @@ const Detail: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <Main>
-      {loading &&
-      castLoading &&
-      reviewLoading &&
-      similarWorksLoading &&
-      userReviewLoading ? (
-        <Loading />
-      ) : (
-        data &&
-        castData &&
-        reviewData &&
-        similarWorksData && (
-          <>
-            <DetailSummarySection
-              movie={data.detail}
-              userReview={userReview?.getUserReview || null}
-            />
-            <ContentSection>
-              <Inner>
-                <DetailContentTopSection
-                  movie={data.detail}
-                  userReview={
-                    userReview?.getUserReview ? (
-                      <ContentUserReviewSection
-                        userReview={userReview.getUserReview}
-                      />
-                    ) : null
-                  }
-                  reviews={reviewData.reviews}
-                  casts={castData.casts}
-                />
-                <DetailContentMiddleSection movie={data.detail} />
-                <DetailContentBottomSection
-                  similarWorks={similarWorksData.similarWorks}
-                  mediaType={location.pathname.split('/')[1]}
-                />
-              </Inner>
-            </ContentSection>
-            <Footer />
-          </>
-        )
-      )}
-      {userReview?.getUserReview && (
-        <ToggleReview
-          toggleReview={toggleReview}
-          userReview={userReview.getUserReview}
-        />
-      )}
-      {userReview?.getUserReview &&
-        userReview?.getUserReview.content.length > 0 && (
-          <ToggleNotification
-            toggleNotifi={toggleNotifi}
-            userReview={userReview.getUserReview}
-          />
+    <ToggleContextProvider>
+      <Main>
+        {loading &&
+        castLoading &&
+        reviewLoading &&
+        similarWorksLoading &&
+        userReviewLoading ? (
+          <Loading />
+        ) : (
+          data &&
+          castData &&
+          reviewData &&
+          similarWorksData && (
+            <>
+              <DetailSummarySection
+                movie={data.detail}
+                userReview={userReview?.getUserReview || null}
+              />
+              <ContentSection>
+                <Inner>
+                  <DetailContentTopSection
+                    movie={data.detail}
+                    userReview={
+                      userReview?.getUserReview ? (
+                        <ContentUserReviewSection
+                          userReview={userReview.getUserReview}
+                        />
+                      ) : null
+                    }
+                  >
+                    <ContentCastSection casts={castData.casts} />
+                    <ContentReviewSection reviews={reviewData.reviews} />
+                  </DetailContentTopSection>
+                  <DetailContentMiddleSection movie={data.detail} />
+                  <DetailContentBottomSection
+                    similarWorks={similarWorksData.similarWorks}
+                    mediaType={location.pathname.split('/')[1]}
+                  />
+                </Inner>
+              </ContentSection>
+              <Footer />
+            </>
+          )
         )}
-    </Main>
+        {userReview?.getUserReview && (
+          <ToggleReview userReview={userReview.getUserReview} />
+        )}
+        {userReview?.getUserReview &&
+          userReview?.getUserReview.content.length > 0 && (
+            <ToggleNotification userReview={userReview.getUserReview} />
+          )}
+      </Main>
+    </ToggleContextProvider>
   );
 };
 

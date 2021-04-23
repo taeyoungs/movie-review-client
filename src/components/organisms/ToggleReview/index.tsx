@@ -7,6 +7,7 @@ import useAddReview from 'hooks/useAddReview';
 import { UPDATE_REVIEW } from 'queries/Mutation';
 import { IReviewProps } from 'models/types';
 import Icon from 'Icon/Icon';
+import useToggleState from 'hooks/useToggleState';
 
 const ReviewContainer = styled.div<{ toggleReview: boolean }>`
   display: ${(props) => (props.toggleReview ? 'block' : 'none')};
@@ -136,13 +137,13 @@ const Textarea = styled.textarea`
 `;
 
 interface IProps {
-  toggleReview: boolean;
   userReview: IReviewProps;
 }
 
-const ToggleReview: React.FC<IProps> = ({ toggleReview, userReview }) => {
+const ToggleReview: React.FC<IProps> = ({ userReview }) => {
   const [content, setContent] = useState(userReview.content || '');
   const dispatch = useToggleDispatch();
+  const toggle = useToggleState();
 
   const [updateReviewMutation] = useMutation(UPDATE_REVIEW, {
     variables: {
@@ -183,7 +184,7 @@ const ToggleReview: React.FC<IProps> = ({ toggleReview, userReview }) => {
     []
   );
   return (
-    <ReviewContainer toggleReview={toggleReview}>
+    <ReviewContainer toggleReview={toggle.toggleReview}>
       <ReviewInner onClick={handleToggleContainer}>
         <Review>
           <ReviewHeader>

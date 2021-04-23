@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
-import ContentReviewSection from 'components/organisms/ContentReviewSection';
-import ContentCastSection from 'components/organisms/ContentCastSection';
-import { ICastProps, IDetailProps, IReviewProps } from 'models/types';
+import { IDetailProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 
 const ContentContainer = styled.div`
@@ -99,15 +97,13 @@ const OverviewButton = styled.span`
 interface IProps {
   movie: IDetailProps;
   userReview: React.ReactNode | null;
-  reviews: IReviewProps[];
-  casts: ICastProps[];
+  children: React.ReactNode;
 }
 
 const DetailContentTopSection: React.FC<IProps> = ({
   movie,
   userReview,
-  reviews,
-  casts,
+  children,
 }) => {
   const [fullOverview, setFullOverview] = useState(false);
 
@@ -158,12 +154,11 @@ const DetailContentTopSection: React.FC<IProps> = ({
               <DivideBorder />
             </GridInner>
           </InfoSection>
-          <ContentCastSection casts={casts} />
-          <ContentReviewSection reviews={reviews} />
+          {children}
         </TopRoundedContent>
       </Content>
     </ContentContainer>
   );
 };
 
-export default React.memo(DetailContentTopSection);
+export default DetailContentTopSection;

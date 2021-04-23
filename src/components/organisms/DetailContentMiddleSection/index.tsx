@@ -370,4 +370,4 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
   );
 };
 
-export default React.memo(DetailContentMiddleSection);
+export default DetailContentMiddleSection;

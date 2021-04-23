@@ -369,4 +369,4 @@ const DetailSummarySection: React.FC<IProps> = ({ movie, userReview }) => {
   );
 };
 
-export default React.memo(DetailSummarySection);
+export default DetailSummarySection;

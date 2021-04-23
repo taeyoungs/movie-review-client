@@ -4,6 +4,7 @@ import GridInner from 'components/molecules/GridInner';
 import useRemoveReview from 'hooks/useRemoveReview';
 import { IReviewProps } from 'models/types';
 import useToggleDispatch from 'hooks/useToggleDispatch';
+import useToggleState from 'hooks/useToggleState';
 
 const NotifiContainer = styled.div<{ toggleNotifi: boolean }>`
   display: ${(props) => (props.toggleNotifi ? 'block' : 'none')};
@@ -86,13 +87,12 @@ const NotifiMenuItem = styled.button`
 `;
 
 interface IProps {
-  toggleNotifi: boolean;
-
   userReview: IReviewProps;
 }
 
-const ToggleNotification: React.FC<IProps> = ({ toggleNotifi, userReview }) => {
+const ToggleNotification: React.FC<IProps> = ({ userReview }) => {
   const dispatch = useToggleDispatch();
+  const toggle = useToggleState();
 
   const { mutate: removeReviewMutation } = useRemoveReview({
     movieId: userReview.movieId,
@@ -114,7 +114,7 @@ const ToggleNotification: React.FC<IProps> = ({ toggleNotifi, userReview }) => {
   }, []);
 
   return (
-    <NotifiContainer toggleNotifi={toggleNotifi}>
+    <NotifiContainer toggleNotifi={toggle.toggleNotifi}>
       <NotifiInner onClick={handleToggleContainer}>
         <Inset>
           <Notifi>
