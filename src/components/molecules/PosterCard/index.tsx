@@ -1,7 +1,14 @@
 import React from 'react';
 import P from 'components/atoms/P';
 import Link from 'components/molecules/Link';
-import { Content, Poster, Rating, RBlock } from './WithEmotion';
+import {
+  Content,
+  Poster,
+  Rating,
+  RBlock,
+  PosterWrapper,
+  PosterInner,
+} from './WithEmotion';
 import { ColorPalette } from 'models/color';
 import Icon from 'Icon/Icon';
 
@@ -24,7 +31,7 @@ function formatDate(date: string): string {
 }
 
 const PosterCard: React.FC<IProps> = ({
-  poster_path = 'https://image.tmdb.org/t/p/w220_and_h330_face/rCcL0gv0frDkGLktAbmaAsz7TX6.jpg',
+  poster_path,
   vote_average = 4.2,
   title,
   release_date,
@@ -37,18 +44,28 @@ const PosterCard: React.FC<IProps> = ({
   return (
     <RBlock>
       <Link href={href}>
-        {lazy ? (
-          <Poster
-            data-src={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
+        <PosterWrapper>
+          <PosterInner
             isDark={isDark}
-            className="lazy"
-          ></Poster>
-        ) : (
-          <Poster
-            src={`https://image.tmdb.org/t/p/w220_and_h330_face${poster_path}`}
-            isDark={isDark}
-          ></Poster>
-        )}
+            title={title || name || 'Youngs'}
+            isPoster={poster_path ? true : false}
+          >
+            {lazy ? (
+              <Poster
+                data-src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                isDark={isDark}
+                className="lazy"
+                alt={title}
+              ></Poster>
+            ) : (
+              <Poster
+                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                isDark={isDark}
+                alt={title}
+              ></Poster>
+            )}
+          </PosterInner>
+        </PosterWrapper>
       </Link>
       <Content isDark={isDark}>
         <Rating isDark={isDark}>

@@ -14,16 +14,16 @@ const Bg = styled.div<{ isDark?: boolean }>`
 
 const RBlock = styled.figure`
   box-sizing: border-box;
-  margin-right: 20px;
-  width: 180px;
-  min-width: 180px;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 `;
 
 const Poster = styled.img<{ isDark?: boolean }>`
   width: 100%;
-  height: calc(180px * 1.5);
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
   cursor: pointer;
   ${(props) =>
     !props.isDark &&
@@ -31,9 +31,6 @@ const Poster = styled.img<{ isDark?: boolean }>`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     `}
-  &:hover {
-    opacity: 0.8;
-  }
 `;
 
 const Rating = styled.div<{ isDark?: boolean }>`
@@ -64,4 +61,51 @@ const Content = styled.figcaption<{ isDark?: boolean }>`
     `}
 `;
 
-export { Bg, RBlock, Poster, Rating, Content };
+const PosterWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 145.37037%;
+`;
+
+const PosterInner = styled.div<{
+  isDark: boolean;
+  title: string;
+  isPoster: boolean;
+}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  overflow: hidden;
+  transition: 300ms;
+  ${(props) =>
+    props.isDark &&
+    `
+    border-radius: 5px;
+  `}
+
+  ${(props) =>
+    !props.isPoster &&
+    `
+  &:before {
+    content: '${props.title}';
+    font-size: 15px;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 20px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    color: #808080;
+    padding: 0 10px;
+  }
+  `}
+`;
+
+export { Bg, RBlock, Poster, Rating, Content, PosterWrapper, PosterInner };

@@ -156,7 +156,7 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
               <CastInner>
                 <Cast ref={castListRef}>
                   {casts.map((cast) => (
-                    <CastItem cast={cast} />
+                    <CastItem key={cast.id} cast={cast} />
                   ))}
                 </Cast>
                 <DivideBorder />

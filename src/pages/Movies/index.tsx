@@ -1,11 +1,14 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
-interface IProps {
-  temp?: string;
+const Main = styled.main`
+  margin-top: 3.5rem;
+  width: 100%;
+  background-color: #fff;
+`;
+
+function Movies(): JSX.Element {
+  return <Main>Movies</Main>;
 }
-
-const Movies: React.FC<IProps> = () => {
-  return <div>Movies</div>;
-};
 
 export default Movies;

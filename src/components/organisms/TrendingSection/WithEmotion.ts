@@ -19,7 +19,7 @@ const ToggleBtn = styled.label`
     height: 25px;
     background-color: ${ColorPalette.Main.CTA_PRIMARY};
     border-radius: 20px;
-    z-index: 9;
+    z-index: 2;
     transition: 0.3s ease-in-out;
   }
   &:nth-of-type(1) {
@@ -44,7 +44,7 @@ const ToggleText = styled.span`
   font-size: 14px;
   padding: 8px 20px;
   font-weight: 300;
-  z-index: 10;
+  z-index: 3;
 `;
 
 export { ToggleBtn, HiddenBox, ToggleText };

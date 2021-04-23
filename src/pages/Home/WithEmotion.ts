@@ -117,13 +117,17 @@ const HomeScrollSection = styled.section`
   }
 `;
 
-const ScrollDiv = styled.div`
-  padding: 20px 0px 40px;
-  display: flex;
+const ScrollDivContainer = styled.div`
+  margin: 20px 0px 40px;
+`;
+
+const ScrollDiv = styled.ul`
+  white-space: nowrap;
   overflow-y: hidden;
   overflow-x: scroll;
-  min-height: 370px;
   position: relative;
+  min-height: 340px;
+  padding: 0 0 20px;
   &::-webkit-scrollbar {
     height: 7px;
   }
@@ -134,6 +138,25 @@ const ScrollDiv = styled.div`
   }
   &::-webkit-scrollbar-track {
     background-color: transparent;
+  }
+`;
+
+const ScrollItem = styled.li`
+  width: 50%;
+  padding: 0 5px;
+  display: inline-block;
+  vertical-align: top;
+  @media (min-width: 520px) {
+    width: calc(100% / 3);
+  }
+  @media (min-width: 720px) {
+    width: 25%;
+  }
+  @media (min-width: 1024px) {
+    width: calc(100% / 5);
+  }
+  @media (min-width: 1280px) {
+    width: calc(100% / 6);
   }
 `;
 
@@ -154,4 +177,6 @@ export {
   HomeScrollSection,
   ScrollDiv,
   SectionInner,
+  ScrollItem,
+  ScrollDivContainer,
 };

@@ -3,7 +3,7 @@ interface IGenre {
   name: string;
 }
 
-interface IVideo {
+export interface IVideo {
   id: string;
   key: string;
   name: string;

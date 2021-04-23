@@ -1,42 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import {
   HomeScrollSection,
   ScrollDiv,
   SectionInner,
+  ScrollDivContainer,
+  ScrollItem,
 } from 'pages/Home/WithEmotion';
 import Loading from 'products/Loading';
 import PosterCard from 'components/molecules/PosterCard';
-import { TRENDING_MOVIES_QUERY, TRENDING_SHOWS_QUERY } from 'queries/Query';
-import { IMovieProps, IShowProps } from 'models/types';
+import { GET_TRENDING_QUERY } from 'queries/Query';
+import { IMovieProps } from 'models/types';
 import { HiddenBox, ToggleBtn, ToggleText } from './WithEmotion';
 
 const Trending: React.FunctionComponent = () => {
-  const [mediaType, setMediaType] = useState(false);
-  const [timeWindow, setTimeWindow] = useState('day');
-  const [
-    getTrendingMovies,
-    { loading: movieLoading, data: movies },
-  ] = useLazyQuery<{
-    trendingMovies: Array<IMovieProps>;
-  }>(TRENDING_MOVIES_QUERY);
-  const [
-    getTrendingShows,
-    { loading: showLoading, data: shows },
-  ] = useLazyQuery<{
-    trendingShows: Array<IShowProps>;
-  }>(TRENDING_SHOWS_QUERY);
+  const [options, setOptions] = useState({
+    mediaType: 'movie',
+    timeWindow: 'day',
+  });
+  const [getTrending, { loading, data }] = useLazyQuery<{
+    getTrending: Array<IMovieProps>;
+  }>(GET_TRENDING_QUERY);
 
   useEffect(() => {
     if ('IntersectionObserver' in window) {
-      const trendingTitle = document.querySelector('.lazy');
+      const trendingTitle = document.querySelector('.trending--title');
+      console.log(trendingTitle);
       if (trendingTitle) {
         const imageObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const trending = entry.target;
+              console.log(trending);
               trending.classList.remove('lazy');
-              getTrendingMovies({ variables: { timeWindow } });
+              getTrending({
+                variables: {
+                  mediaType: options.mediaType,
+                  timeWindow: options.timeWindow,
+                },
+              });
               imageObserver.unobserve(trendingTitle);
             }
           });
@@ -46,38 +48,39 @@ const Trending: React.FunctionComponent = () => {
     }
   }, []);
 
-  const handleMediaType = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = event.target.checked;
+  const handleToggleOptions = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, checked } = e.target;
+      let value = '';
+      if (name === 'mediaType') value = checked ? 'tv' : 'movie';
+      else value = checked ? 'week' : 'day';
 
-    setMediaType(checked);
-    if (checked) {
-      getTrendingShows({ variables: { timeWindow } });
-    } else {
-      getTrendingMovies({ variables: { timeWindow } });
-    }
-  };
-
-  const handleTimeWindow = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const type = event.target.checked ? 'week' : 'day';
-
-    setTimeWindow(type);
-    if (mediaType) {
-      getTrendingShows({ variables: { timeWindow: type } });
-    } else {
-      getTrendingMovies({ variables: { timeWindow: type } });
-    }
-  };
+      setOptions((options) => {
+        getTrending({
+          variables: {
+            ...options,
+            [name]: value,
+          },
+        });
+        return {
+          ...options,
+          [name]: value,
+        };
+      });
+    },
+    []
+  );
 
   return (
     <HomeScrollSection>
       <SectionInner>
         <h2>
-          <span className="lazy">트렌딩</span>
+          <span className="trending--title">트렌딩</span>
           <HiddenBox
             type="checkbox"
-            name="media-type"
+            name="mediaType"
             id="media-type"
-            onChange={handleMediaType}
+            onChange={handleToggleOptions}
           />
           <ToggleBtn htmlFor="media-type">
             <ToggleText>영화</ToggleText>
@@ -85,44 +88,33 @@ const Trending: React.FunctionComponent = () => {
           </ToggleBtn>
           <HiddenBox
             type="checkbox"
-            name="time-window"
+            name="timeWindow"
             id="time-window"
-            onChange={handleTimeWindow}
+            onChange={handleToggleOptions}
           />
           <ToggleBtn htmlFor="time-window">
             <ToggleText>오늘</ToggleText>
             <ToggleText>이번 주</ToggleText>
           </ToggleBtn>
         </h2>
-        <ScrollDiv>
-          {mediaType ? (
-            showLoading ? (
+        <ScrollDivContainer>
+          <ScrollDiv>
+            {loading ? (
               <Loading />
             ) : (
-              shows &&
-              shows.trendingShows.map((show) => (
-                <PosterCard
-                  key={show.id}
-                  {...show}
-                  isDark
-                  href={`/tv/${show.id}`}
-                />
+              data &&
+              data.getTrending.map((work) => (
+                <ScrollItem key={work.id}>
+                  <PosterCard
+                    {...work}
+                    isDark
+                    href={`/${options.mediaType}/${work.id}`}
+                  />
+                </ScrollItem>
               ))
-            )
-          ) : movieLoading ? (
-            <Loading />
-          ) : (
-            movies &&
-            movies.trendingMovies.map((movie) => (
-              <PosterCard
-                key={movie.id}
-                {...movie}
-                isDark
-                href={`/movie/${movie.id}`}
-              />
-            ))
-          )}
-        </ScrollDiv>
+            )}
+          </ScrollDiv>
+        </ScrollDivContainer>
       </SectionInner>
     </HomeScrollSection>
   );

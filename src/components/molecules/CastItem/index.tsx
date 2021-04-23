@@ -104,7 +104,7 @@ interface IProps {
 
 function CastItem({ cast }: IProps): JSX.Element {
   return (
-    <CastItemContainer key={cast.id}>
+    <CastItemContainer>
       <ELink to={`/person/${cast.id}`}>
         <PersonContainer>
           <PersonInner>

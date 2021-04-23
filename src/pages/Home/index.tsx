@@ -7,6 +7,8 @@ import {
   HomeScrollSection,
   ScrollDiv,
   SectionInner,
+  ScrollItem,
+  ScrollDivContainer,
 } from './WithEmotion';
 import PosterCard from 'components/molecules/PosterCard';
 import Swiper from 'components/organisms/Swiper';
@@ -32,47 +34,46 @@ const Home: React.FunctionComponent = () => {
 
   return (
     <Main role="main">
-      <Container>
-        <GridContainer>
-          {showLoading ? (
-            <Loading />
-          ) : (
-            showData &&
-            showData.shows && (
-              <>
+      {showLoading && movieLoading ? (
+        <Loading />
+      ) : (
+        showData &&
+        movieData && (
+          <>
+            <Container>
+              <GridContainer>
                 <Swiper
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
                   shows={showData.shows}
                 />
                 <SideSlideSection activeIndex={activeIndex} />
-              </>
-            )
-          )}
-        </GridContainer>
-      </Container>
-      <HomeScrollSection>
-        <SectionInner>
-          <h2>박스오피스</h2>
-          <ScrollDiv>
-            {movieLoading ? (
-              <Loading />
-            ) : (
-              movieData &&
-              movieData.movies.map((movie) => (
-                <PosterCard
-                  key={movie.id}
-                  {...movie}
-                  isDark
-                  href={`/movie/${movie.id}`}
-                />
-              ))
-            )}
-          </ScrollDiv>
-        </SectionInner>
-      </HomeScrollSection>
-      <TrendingSection />
-      <Footer />
+              </GridContainer>
+            </Container>
+            <HomeScrollSection>
+              <SectionInner>
+                <h2>박스오피스</h2>
+                <ScrollDivContainer>
+                  <ScrollDiv>
+                    {movieData.movies.map((movie, index) => (
+                      <ScrollItem key={movie.id}>
+                        <PosterCard
+                          {...movie}
+                          isDark
+                          href={`/movie/${movie.id}`}
+                          lazy={index > 7 ? true : false}
+                        />
+                      </ScrollItem>
+                    ))}
+                  </ScrollDiv>
+                </ScrollDivContainer>
+              </SectionInner>
+            </HomeScrollSection>
+            <TrendingSection />
+            <Footer />
+          </>
+        )
+      )}
     </Main>
   );
 };

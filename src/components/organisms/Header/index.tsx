@@ -54,13 +54,13 @@ const Header: React.FunctionComponent = () => {
         </LogoContainer>
 
         <VisibleMenu>
-          <SLink to="/movies">
+          <SLink to="/movie">
             <Button appearance={ButtonAppearance.PRIMARY}>영화</Button>
           </SLink>
-          <SLink to="/shows">
+          <SLink to="/show">
             <Button appearance={ButtonAppearance.PRIMARY}>TV 프로그램</Button>
           </SLink>
-          <SLink to="/reviews">
+          <SLink to="/review">
             <Button appearance={ButtonAppearance.PRIMARY}>리뷰</Button>
           </SLink>
         </VisibleMenu>

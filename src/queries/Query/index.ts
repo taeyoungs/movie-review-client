@@ -37,26 +37,14 @@ export const POPULAR_MOVIES_QUERY = gql`
   }
 `;
 
-export const TRENDING_MOVIES_QUERY = gql`
-  query TrendingMovies($timeWindow: String!) {
-    trendingMovies(timeWindow: $timeWindow) {
+export const GET_TRENDING_QUERY = gql`
+  query getTrending($mediaType: String!, $timeWindow: String!) {
+    getTrending(mediaType: $mediaType, timeWindow: $timeWindow) {
       id
       poster_path
       title
       vote_average
       release_date
-    }
-  }
-`;
-
-export const TRENDING_SHOWS_QUERY = gql`
-  query TrendingShows($timeWindow: String!) {
-    trendingShows(timeWindow: $timeWindow) {
-      id
-      poster_path
-      name
-      vote_average
-      first_air_date
     }
   }
 `;
