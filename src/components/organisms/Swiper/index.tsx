@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SlidePoster from 'components/molecules/SlidePoster';
 import {
   MainPoster,
@@ -13,21 +13,24 @@ import {
   ArrowContainer,
 } from './WithEmotion';
 import useInterval from 'hooks/useInterval';
+import useAIndexState from 'hooks/useAIndexState';
+import useAIndexDisptach from 'hooks/useAIndexDispatch';
 import { ColorPalette } from 'models/color';
 import { IShowProps } from 'models/types';
-import Icon from 'Icon/Icon';
 import { setWidth } from 'utils';
+import Icon from 'Icon/Icon';
 
 interface IProps {
   shows: Array<IShowProps>;
-  activeIndex: number;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
+const Swiper: React.FC<IProps> = ({ shows }) => {
   const [imgSize, setImgSize] = useState<number>(0);
   const [tDuration, setTDuration] = useState(0);
   const [play, setPlay] = useState(true);
+
+  const state = useAIndexState();
+  const dispatch = useAIndexDisptach();
 
   useEffect(() => {
     setImgSize(setWidth());
@@ -45,40 +48,40 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
     };
   }, []);
 
-  const handlePrevSwipe = () => {
+  const handlePrevSwipe = useCallback(() => {
     if (shows) {
       setTDuration(500);
-      setActiveIndex((prevState) => prevState - 1);
-      if (activeIndex === 1) {
+      dispatch({ type: 'DECREASE_INDEX' });
+      if (state.activeIndex === 1) {
         setTimeout(() => {
           setTDuration(0);
-          setActiveIndex(9);
+          dispatch({ type: 'SET_INDEX', index: 9 });
         }, 500);
       }
     }
-  };
+  }, [state.activeIndex]);
 
-  const handleNextSwipe = () => {
+  const handleNextSwipe = useCallback(() => {
     if (shows) {
       setTDuration(500);
-      setActiveIndex((prevState) => prevState + 1);
-      if (activeIndex === 9) {
+      dispatch({ type: 'INCREASE_INDEX' });
+      if (state.activeIndex === 9) {
         setTimeout(() => {
           setTDuration(0);
-          setActiveIndex(1);
+          dispatch({ type: 'SET_INDEX', index: 1 });
         }, 500);
       }
     }
-  };
+  }, [state.activeIndex]);
 
   useInterval(handleNextSwipe, play ? 10000 : null);
 
-  const handlePlay = () => {
+  const handlePlay = useCallback(() => {
     if (play) {
       clearTimeout();
     }
     setPlay((prevState) => !prevState);
-  };
+  }, []);
 
   const Arrow: React.FC<{ next?: boolean; pause?: boolean }> = ({
     next = false,
@@ -113,8 +116,8 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
           style={{
             transform: `translate(-${
               window.innerWidth < 1024
-                ? imgSize * activeIndex + 17 * activeIndex
-                : imgSize * activeIndex
+                ? imgSize * state.activeIndex + 17 * state.activeIndex
+                : imgSize * state.activeIndex
             }px, 0)`,
             transitionDuration: `${tDuration}ms`,
           }}
@@ -122,15 +125,15 @@ const Swiper: React.FC<IProps> = ({ shows, setActiveIndex, activeIndex }) => {
           <BackdropContainer>
             <DuplicateContainer style={{ width: imgSize }} />
           </BackdropContainer>
-          {shows.slice(0, 9).map((show) => (
-            <SlidePoster key={show.id} {...show} imgSize={imgSize} />
+          {shows.map((show) => (
+            <SlidePoster key={show.id} show={show} imgSize={imgSize} />
           ))}
-          <SlidePoster {...shows[0]} imgSize={imgSize} />
+          <SlidePoster show={shows[0]} imgSize={imgSize} />
         </SwiperWarpper>
         <Buttons>
           <DotContainer>
-            {shows.slice(0, 9).map((v, i) => (
-              <Dot key={i} active={i + 1 === activeIndex} />
+            {shows.map((v, i) => (
+              <Dot key={i} active={i + 1 === state.activeIndex} />
             ))}
           </DotContainer>
           <ArrowContainer>

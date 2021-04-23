@@ -9,6 +9,7 @@ import {
 } from './WithEmotion';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { IShowProps } from 'models/types';
 
 const PosterOverview = styled.div`
   line-height: 20px;
@@ -28,41 +29,32 @@ const ELink = styled(Link)`
 `;
 
 interface IProps {
-  id: number;
-  poster_path: string;
-  name: string;
-  overview: string;
-  backdrop_path: string;
+  show: IShowProps;
   imgSize: number;
 }
 
-const SlidePoster: React.FC<IProps> = ({
-  id,
-  poster_path,
-  name,
-  overview,
-  backdrop_path,
-  imgSize,
-}) => {
+const SlidePoster: React.FC<IProps> = ({ show, imgSize }) => {
   return (
-    <ELink to={`/tv/${id}`}>
-      <BackdropContainer key={id} className="backdrop-container">
+    <ELink to={`/tv/${show.id}`}>
+      <BackdropContainer className="backdrop-container">
         <Backdrop
-          src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-          alt={name}
+          src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`}
+          alt={show.name}
           style={{ width: imgSize }}
         />
         <GradientContainer />
         <Info>
           <Poster
-            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-            alt={name}
+            src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
+            alt={show.name}
           />
         </Info>
         <Content>
-          <p className="poster-title">{name}</p>
+          <p className="poster-title">{show.name}</p>
           <PosterOverview>
-            {overview.length > 130 ? overview.slice(0, 130) + '...' : overview}
+            {show.overview.length > 130
+              ? show.overview.slice(0, 130) + '...'
+              : show.overview}
           </PosterOverview>
         </Content>
       </BackdropContainer>
@@ -70,4 +62,4 @@ const SlidePoster: React.FC<IProps> = ({
   );
 };
 
-export default SlidePoster;
+export default React.memo(SlidePoster);
