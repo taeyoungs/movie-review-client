@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import UpNextItem from 'components/molecules/UpNextItem';
-import { IShowProps } from 'models/types';
+import { IMovieProps } from 'models/types';
 import { ColorPalette } from 'models/color';
 import { SlideContainer, UpNext } from './WithEmotion';
 import useAIndexState from 'hooks/useAIndexState';
@@ -37,7 +37,7 @@ const Slide = styled.div`
 `;
 
 interface IProps {
-  shows: IShowProps[];
+  shows: IMovieProps[];
 }
 
 const SideSlideSection: React.FC<IProps> = ({ shows }) => {

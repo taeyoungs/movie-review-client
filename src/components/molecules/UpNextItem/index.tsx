@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { ColorPalette } from 'models/color';
-import { IShowProps } from 'models/types';
+import { IMovieProps } from 'models/types';
 import P from 'components/atoms/P';
 import Icon from 'Icon/Icon';
 
@@ -103,7 +103,7 @@ const ELink = styled(Link)`
 `;
 
 interface IProps {
-  show: IShowProps;
+  show: IMovieProps;
 }
 
 function UpNextItem({ show }: IProps): JSX.Element {
@@ -113,7 +113,7 @@ function UpNextItem({ show }: IProps): JSX.Element {
         <PosterPadding>
           <UpNextPoster
             src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
-            alt={show.name}
+            alt={show.title}
           />
         </PosterPadding>
       </PosterContainer>
@@ -125,7 +125,7 @@ function UpNextItem({ show }: IProps): JSX.Element {
             </VideoButton>
             <VideoNotfi>예고편</VideoNotfi>
           </VideoButtonContainer>
-          <P>{show.name}</P>
+          <P>{show.title}</P>
           <P ellipsis color={ColorPalette.Neutral.NEUTRAL_200} size={13}>
             {show.overview}
           </P>

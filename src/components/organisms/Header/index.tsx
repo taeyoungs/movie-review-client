@@ -57,7 +57,7 @@ const Header: React.FunctionComponent = () => {
           <SLink to="/movie">
             <Button appearance={ButtonAppearance.PRIMARY}>영화</Button>
           </SLink>
-          <SLink to="/show">
+          <SLink to="/tv">
             <Button appearance={ButtonAppearance.PRIMARY}>TV 프로그램</Button>
           </SLink>
           <SLink to="/review">

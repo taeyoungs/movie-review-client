@@ -76,9 +76,9 @@ const PosterCard: React.FC<IProps> = ({
             {vote_average || 0}
           </P>
         </Rating>
-        <P size={16} weight={600} margin={[15, 0, 5, 0]}>
+        <P size={16} weight={600} margin={[15, 0, 5, 0]} ellipsis>
           {!isDark ? (
-            <Link isTitle href={href}>
+            <Link istitle href={href} whiteSpace>
               {title && title}
               {name && name}
             </Link>

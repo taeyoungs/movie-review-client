@@ -25,11 +25,13 @@ export const POPULAR_SHOWS_QUERY = gql`
   }
 `;
 
-export const POPULAR_MOVIES_QUERY = gql`
-  query PopularMovies($page: Int!) {
-    movies(page: $page) {
+export const GET_WORKS_QUERY = gql`
+  query getWorks($page: Int!, $contentType: String!, $mediaType: String!) {
+    works(page: $page, contentType: $contentType, mediaType: $mediaType) {
       id
       poster_path
+      backdrop_path
+      overview
       title
       vote_average
       release_date

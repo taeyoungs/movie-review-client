@@ -17,19 +17,19 @@ import SideSlideSection from 'components/organisms/SideSlideSection';
 import TrendingSection from 'components/organisms/TrendingSection';
 import Footer from 'components/organisms/Footer';
 import Loading from 'products/Loading';
-import { POPULAR_MOVIES_QUERY, POPULAR_SHOWS_QUERY } from 'queries/Query';
-import { IMovieProps, IShowProps } from 'models/types';
+import { GET_WORKS_QUERY } from 'queries/Query';
+import { IMovieProps } from 'models/types';
 
 const Home: React.FunctionComponent = () => {
   const { loading: showLoading, data: showData } = useQuery<{
-    shows: Array<IShowProps>;
-  }>(POPULAR_SHOWS_QUERY, {
-    variables: { page: 1 },
+    works: Array<IMovieProps>;
+  }>(GET_WORKS_QUERY, {
+    variables: { page: 1, mediaType: 'tv', contentType: 'popular' },
   });
   const { loading: movieLoading, data: movieData } = useQuery<{
-    movies: Array<IMovieProps>;
-  }>(POPULAR_MOVIES_QUERY, {
-    variables: { page: 1 },
+    works: Array<IMovieProps>;
+  }>(GET_WORKS_QUERY, {
+    variables: { page: 1, mediaType: 'movie', contentType: 'popular' },
   });
 
   return (
@@ -43,8 +43,8 @@ const Home: React.FunctionComponent = () => {
             <>
               <Container>
                 <GridContainer>
-                  <Swiper shows={showData.shows.slice(0, 9)} />
-                  <SideSlideSection shows={showData.shows.slice(0, 9)} />
+                  <Swiper shows={showData.works.slice(0, 9)} />
+                  <SideSlideSection shows={showData.works.slice(0, 9)} />
                 </GridContainer>
               </Container>
               <HomeScrollSection>
@@ -52,7 +52,7 @@ const Home: React.FunctionComponent = () => {
                   <h2>박스오피스</h2>
                   <ScrollDivContainer>
                     <ScrollDiv>
-                      {movieData.movies.map((movie, index) => (
+                      {movieData.works.map((movie, index) => (
                         <ScrollItem key={movie.id}>
                           <PosterCard
                             {...movie}

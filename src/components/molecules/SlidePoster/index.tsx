@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BackdropContainer } from 'pages/Home/WithEmotion';
 import {
   Backdrop,
@@ -8,8 +9,7 @@ import {
   Content,
 } from './WithEmotion';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { IShowProps } from 'models/types';
+import { IMovieProps } from 'models/types';
 
 const PosterOverview = styled.div`
   line-height: 20px;
@@ -29,7 +29,7 @@ const ELink = styled(Link)`
 `;
 
 interface IProps {
-  show: IShowProps;
+  show: IMovieProps;
   imgSize: number;
 }
 
@@ -39,18 +39,18 @@ const SlidePoster: React.FC<IProps> = ({ show, imgSize }) => {
       <BackdropContainer className="backdrop-container">
         <Backdrop
           src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`}
-          alt={show.name}
+          alt={show.title}
           style={{ width: imgSize }}
         />
         <GradientContainer />
         <Info>
           <Poster
             src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
-            alt={show.name}
+            alt={show.title}
           />
         </Info>
         <Content>
-          <p className="poster-title">{show.name}</p>
+          <p className="poster-title">{show.title}</p>
           <PosterOverview>
             {show.overview.length > 130
               ? show.overview.slice(0, 130) + '...'

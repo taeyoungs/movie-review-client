@@ -16,12 +16,12 @@ import useInterval from 'hooks/useInterval';
 import useAIndexState from 'hooks/useAIndexState';
 import useAIndexDisptach from 'hooks/useAIndexDispatch';
 import { ColorPalette } from 'models/color';
-import { IShowProps } from 'models/types';
+import { IMovieProps } from 'models/types';
 import { setWidth } from 'utils';
 import Icon from 'Icon/Icon';
 
 interface IProps {
-  shows: Array<IShowProps>;
+  shows: Array<IMovieProps>;
 }
 
 const Swiper: React.FC<IProps> = ({ shows }) => {
