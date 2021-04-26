@@ -26,9 +26,8 @@ interface IMenuProps {
 
 const SidebarMenu: React.FC<IProps> = ({ isShow = false, handleGoBack }) => {
   const menuList: Array<IMenuProps> = [
-    { menuName: '영화', pathName: '/movies', iconName: 'movie' },
-    { menuName: 'TV 프로그램', pathName: '/movies', iconName: 'show' },
-    { menuName: '사람', pathName: '/people', iconName: 'person' },
+    { menuName: '영화', pathName: '/movie', iconName: 'movie' },
+    { menuName: 'TV 프로그램', pathName: '/tv', iconName: 'show' },
     { menuName: '리뷰', pathName: '/reviews', iconName: 'review' },
   ];
 
