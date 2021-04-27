@@ -8,6 +8,7 @@ import Loading from 'products/Loading';
 import { GET_REVIEW_QUERY } from 'queries/Query';
 import { IReviewProps } from 'models/types';
 import Icon from 'Icon/Icon';
+import ToggleContextProvider from 'components/molecules/ToggleContextProvider';
 
 const Main = styled.main`
   padding-top: 3.5rem;
@@ -118,35 +119,37 @@ const Review: React.FunctionComponent = () => {
     history.goBack();
   }, []);
   return (
-    <Main>
-      {loading ? (
-        <Loading />
-      ) : (
-        data && (
-          <Section>
-            <SectionHeader>
-              <GoBack>
-                <IconWrapper onClick={handleGoBack}>
-                  <Icon icon="arrowRight" color="#f1c40f" size={18} />
-                </IconWrapper>
-                <IconWrapper></IconWrapper>
-              </GoBack>
-              <ScrollTopTitle>
-                <TopTitle>리뷰</TopTitle>
-              </ScrollTopTitle>
-              <ScrollDownTitle></ScrollDownTitle>
-            </SectionHeader>
-            <Content>
-              <GridInner>
-                <DetailContainer>
-                  <ReviewDetail review={data.getReview} />
-                </DetailContainer>
-              </GridInner>
-            </Content>
-          </Section>
-        )
-      )}
-    </Main>
+    <ToggleContextProvider>
+      <Main>
+        {loading ? (
+          <Loading />
+        ) : (
+          data && (
+            <Section>
+              <SectionHeader>
+                <GoBack>
+                  <IconWrapper onClick={handleGoBack}>
+                    <Icon icon="arrowRight" color="#f1c40f" size={18} />
+                  </IconWrapper>
+                  <IconWrapper></IconWrapper>
+                </GoBack>
+                <ScrollTopTitle>
+                  <TopTitle>리뷰</TopTitle>
+                </ScrollTopTitle>
+                <ScrollDownTitle></ScrollDownTitle>
+              </SectionHeader>
+              <Content>
+                <GridInner>
+                  <DetailContainer>
+                    <ReviewDetail review={data.getReview} />
+                  </DetailContainer>
+                </GridInner>
+              </Content>
+            </Section>
+          )
+        )}
+      </Main>
+    </ToggleContextProvider>
   );
 };
 

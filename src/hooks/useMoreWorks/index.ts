@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { IMovieProps, IWorksProps } from 'models/types';
+import { IWorksProps } from 'models/types';
 import { GET_MORE_WORKS } from 'queries/Mutation';
 import { GET_WORKS_QUERY } from 'queries/Query';
 

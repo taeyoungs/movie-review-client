@@ -2,19 +2,25 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 const useGetAvatar = (): { avatar: string; login: string } => {
-  const [avatar, setAvatar] = useState('');
-  const [login, setLogin] = useState('');
+  const [info, setInfo] = useState({
+    avatar: '',
+    login: '',
+  });
+
+  const { avatar, login } = info;
 
   useEffect(() => {
     const userAvatar = Cookies.get('avatar');
     const login = Cookies.get('login');
-    if (userAvatar) {
-      setAvatar(userAvatar);
-    }
-    if (login) {
-      setLogin(login);
-    }
-  });
+    setInfo((info) => {
+      return {
+        ...info,
+        ...(userAvatar && { avatar: userAvatar }),
+        ...(login && { login }),
+      };
+    });
+  }, []);
+
   return { avatar, login };
 };
 

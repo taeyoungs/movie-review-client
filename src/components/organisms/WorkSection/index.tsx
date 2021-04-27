@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Loading from 'products/Loading';
 import WorkContainer from 'components/organisms/WorkContainer';
 import useCategoryState from 'hooks/useCategoryState';
