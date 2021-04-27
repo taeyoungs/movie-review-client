@@ -28,6 +28,7 @@ export interface IMovieProps {
   runtime: number;
   tagline: string;
   overview: string;
+  total_pages: number;
 }
 
 export interface IDetailProps {
@@ -96,4 +97,9 @@ export interface IWorkProps {
   poster_path: string;
   vote_average: number;
   media_type?: string;
+}
+
+export interface IWorksProps {
+  works: IMovieProps[];
+  totalPage: number;
 }

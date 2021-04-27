@@ -18,16 +18,16 @@ import TrendingSection from 'components/organisms/TrendingSection';
 import Footer from 'components/organisms/Footer';
 import Loading from 'products/Loading';
 import { GET_WORKS_QUERY } from 'queries/Query';
-import { IMovieProps } from 'models/types';
+import { IWorksProps } from 'models/types';
 
 const Home: React.FunctionComponent = () => {
   const { loading: showLoading, data: showData } = useQuery<{
-    works: Array<IMovieProps>;
+    getWorks: IWorksProps;
   }>(GET_WORKS_QUERY, {
     variables: { page: 1, mediaType: 'tv', contentType: 'popular' },
   });
   const { loading: movieLoading, data: movieData } = useQuery<{
-    works: Array<IMovieProps>;
+    getWorks: IWorksProps;
   }>(GET_WORKS_QUERY, {
     variables: { page: 1, mediaType: 'movie', contentType: 'popular' },
   });
@@ -43,8 +43,10 @@ const Home: React.FunctionComponent = () => {
             <>
               <Container>
                 <GridContainer>
-                  <Swiper shows={showData.works.slice(0, 9)} />
-                  <SideSlideSection shows={showData.works.slice(0, 9)} />
+                  <Swiper shows={showData.getWorks.works.slice(0, 9)} />
+                  <SideSlideSection
+                    shows={showData.getWorks.works.slice(0, 9)}
+                  />
                 </GridContainer>
               </Container>
               <HomeScrollSection>
@@ -52,7 +54,7 @@ const Home: React.FunctionComponent = () => {
                   <h2>박스오피스</h2>
                   <ScrollDivContainer>
                     <ScrollDiv>
-                      {movieData.works.map((movie, index) => (
+                      {movieData.getWorks.works.map((movie, index) => (
                         <ScrollItem key={movie.id}>
                           <PosterCard
                             {...movie}

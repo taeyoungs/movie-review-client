@@ -34,7 +34,7 @@ const PosterCard: React.FC<IProps> = ({
   poster_path,
   vote_average = 0,
   title,
-  release_date,
+  release_date = '준비 중입니다.',
   isDark = false,
   href = '#',
   lazy = false,

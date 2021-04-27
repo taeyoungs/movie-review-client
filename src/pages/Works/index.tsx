@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Panel from 'components/molecules/Panel';
 import CategoryContextProvider from 'components/molecules/CategoryContextProvider';
 import WorkSection from 'components/organisms/WorkSection';
+import Footer from 'components/organisms/Footer';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -29,6 +30,8 @@ function Movies(): JSX.Element {
   const location = useLocation();
   const mediaType = location.pathname.split('/')[1];
 
+  console.log('Works component rendering');
+
   return (
     <CategoryContextProvider>
       <Main>
@@ -43,6 +46,7 @@ function Movies(): JSX.Element {
             movieCategory={MovieCategory}
           />
         </WorkSection>
+        <Footer />
       </Main>
     </CategoryContextProvider>
   );

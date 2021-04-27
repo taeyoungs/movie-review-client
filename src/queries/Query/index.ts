@@ -27,14 +27,17 @@ export const POPULAR_SHOWS_QUERY = gql`
 
 export const GET_WORKS_QUERY = gql`
   query getWorks($page: Int!, $contentType: String!, $mediaType: String!) {
-    works(page: $page, contentType: $contentType, mediaType: $mediaType) {
-      id
-      poster_path
-      backdrop_path
-      overview
-      title
-      vote_average
-      release_date
+    getWorks(page: $page, contentType: $contentType, mediaType: $mediaType) {
+      works {
+        id
+        poster_path
+        backdrop_path
+        overview
+        title
+        vote_average
+        release_date
+      }
+      totalPage
     }
   }
 `;

@@ -1,16 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import Loading from 'products/Loading';
 import WorkContainer from 'components/organisms/WorkContainer';
 import useCategoryState from 'hooks/useCategoryState';
 import useCategoryDispatch from 'hooks/useCategoryDispatch';
 import { GET_WORKS_QUERY } from 'queries/Query';
-import { IMovieProps } from 'models/types';
+import { IWorksProps } from 'models/types';
 
 const Section = styled.section`
   width: 100%;
   min-height: calc(100vh - 3.5rem);
+  padding-bottom: 50px;
 `;
 
 const Container = styled.div`
@@ -63,28 +64,29 @@ function WorkSection({
 }: IProps): JSX.Element {
   const state = useCategoryState();
   const dispatch = useCategoryDispatch();
+  const pageRef = useRef(2);
 
   const { category } = state;
 
-  const pageRef = useRef(1);
-
-  const [getWorks, { loading, data }] = useLazyQuery<{
-    works: Array<IMovieProps>;
+  const { loading, data, refetch } = useQuery<{
+    getWorks: IWorksProps;
   }>(GET_WORKS_QUERY, {
     variables: {
-      page: pageRef.current,
+      page: 1,
       mediaType,
       contentType: state.category,
     },
   });
 
   useEffect(() => {
-    pageRef.current = 1;
+    pageRef.current = 2;
     dispatch({ type: 'SET_CATEGORY', content: 'popular' });
+    // console.log('Changed mediaType');
   }, [mediaType]);
   useEffect(() => {
-    pageRef.current = 1;
-    getWorks();
+    pageRef.current = 2;
+    refetch();
+    // console.log('Changed category');
   }, [state.category]);
 
   return (
@@ -103,7 +105,13 @@ function WorkSection({
             {loading ? (
               <Loading />
             ) : (
-              data && <WorkContainer works={data.works} />
+              data && (
+                <WorkContainer
+                  works={data.getWorks.works}
+                  totalPage={data.getWorks.totalPage}
+                  pageRef={pageRef}
+                />
+              )
             )}
           </Content>
         </ContainerInner>

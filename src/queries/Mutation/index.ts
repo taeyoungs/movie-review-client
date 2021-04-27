@@ -77,3 +77,25 @@ export const GET_MORE_CREDITS = gql`
     }
   }
 `;
+
+export const GET_MORE_WORKS = gql`
+  mutation GetMoreWorks(
+    $page: Int!
+    $contentType: String!
+    $mediaType: String!
+  ) {
+    getMoreWorks(
+      page: $page
+      contentType: $contentType
+      mediaType: $mediaType
+    ) {
+      id
+      poster_path
+      backdrop_path
+      overview
+      title
+      vote_average
+      release_date
+    }
+  }
+`;
