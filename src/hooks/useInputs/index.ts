@@ -1,11 +1,6 @@
 import { useCallback, useState } from 'react';
 
-interface IRegistrationProps {
-  id: string;
-  pw: string;
-}
-
-const useInputs = (initialState: IRegistrationProps) => {
+const useInputs = (initialState: Record<string, string>) => {
   const [form, setForm] = useState(initialState);
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(

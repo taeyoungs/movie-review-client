@@ -24,6 +24,7 @@ const Template: Story<IProps> = (args) => (
         title={item}
         selected={'All' === item}
         onClick={() => alert(`Click ${item}`)}
+        name={item}
       />
     ))}
   </Menu>
@@ -59,6 +60,7 @@ export const SearchbarMenu: React.FunctionComponent = () => {
               key={item}
               title={item}
               selected={title === item}
+              name={item}
               onClick={() => {
                 setTitle(item);
                 setIsOpen(false);
@@ -92,6 +94,7 @@ export const PopupMenu = (): JSX.Element => {
           {itemTitleList.map((item) => (
             <MenuItem
               key={item}
+              name={item}
               title={item}
               selected={title === item}
               onClick={() => {
@@ -113,6 +116,7 @@ export const MenuWithIcon = (): JSX.Element => {
         <MenuItem
           key={index}
           title={item}
+          name={item}
           selected={'All' === item}
           onClick={() => alert(item)}
           iconName={iconTitleList[index]}

@@ -30,8 +30,6 @@ function Movies(): JSX.Element {
   const location = useLocation();
   const mediaType = location.pathname.split('/')[1];
 
-  console.log('Works component rendering');
-
   return (
     <CategoryContextProvider>
       <Main>

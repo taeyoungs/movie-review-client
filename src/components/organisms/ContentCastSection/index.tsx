@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
-import { ICastProps } from 'models/types';
-import { ColorPalette } from 'models/color';
-import Icon from 'Icon/Icon';
 import CastItem from 'components/molecules/CastItem';
+import { ICastProps } from 'models/types';
+import Icon from 'Icon/Icon';
 
 const InfoSection = styled.section`
   padding: 8px 0 0;

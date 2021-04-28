@@ -7,11 +7,18 @@ interface IProps {
   selected: boolean;
   iconName?: IconType;
   onClick: (event: React.MouseEvent<HTMLLIElement>) => void;
+  name: string;
 }
 
-const MenuItem: React.FC<IProps> = ({ title, selected, onClick, iconName }) => {
+const MenuItem: React.FC<IProps> = ({
+  title,
+  selected,
+  onClick,
+  iconName,
+  name,
+}) => {
   return (
-    <EMenuItem selected={selected} onClick={onClick}>
+    <EMenuItem selected={selected} onClick={onClick} data-name={name}>
       {iconName && <Icon icon={iconName} size={14} />} {title}
     </EMenuItem>
   );

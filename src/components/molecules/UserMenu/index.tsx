@@ -46,6 +46,7 @@ const UserMenu: React.FunctionComponent = () => {
           <MenuItem
             key={index}
             title={item}
+            name={item}
             selected={false}
             onClick={
               index === 0
