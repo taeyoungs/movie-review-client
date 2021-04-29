@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import DetailVideo from 'components/molecules/DetailVideo';
 import VideoItem from 'components/molecules/VideoItem';
 import GridInner from 'components/molecules/GridInner';
+import useListTransform from 'hooks/useListTransform';
 import { IDetailProps } from 'models/types';
 import Icon from 'Icon/Icon';
 
@@ -114,17 +115,16 @@ interface IProps {
 }
 
 const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
-  const [transformWidth, setTransformWidth] = useState(0);
-  const [listSize, setListSize] = useState(0);
-  const videoListRef = useRef<HTMLUListElement>(null);
+  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const { transformWidth, currentListSize } = state;
 
   useEffect(() => {
     if (window.innerWidth >= 1024) {
-      setListSize(2);
+      setSize(2);
     } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-      setListSize(4);
+      setSize(4);
     } else {
-      setListSize(2);
+      setSize(2);
     }
 
     if ('IntersectionObserver' in window) {
@@ -147,64 +147,7 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
 
       lazyImages.forEach((img) => imageObserver.observe(img));
     }
-
-    // window.addEventListener('resize', () => {
-    //   setTransformWidth(0);
-    //   if (window.innerWidth >= 1024) {
-    //     setListSize(2);
-    //   } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-    //     setListSize(4);
-    //   } else {
-    //     setListSize(2);
-    //   }
-    // });
-
-    // return () => {
-    //   window.removeEventListener('resize', () => {
-    //     setTransformWidth(0);
-    //     if (window.innerWidth >= 1024) {
-    //       setListSize(2);
-    //     } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-    //       setListSize(4);
-    //     } else {
-    //       setListSize(2);
-    //     }
-    //   });
-    // };
   }, []);
-
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      let width = 0;
-      if (videoListRef.current) {
-        width = videoListRef.current.clientWidth;
-      }
-      if (e.currentTarget.parentElement) {
-        const dir = e.currentTarget.parentElement.getAttribute('dir');
-        if (dir === 'left') {
-          setTransformWidth((prevState) => prevState - width);
-          if (window.innerWidth >= 1024) {
-            setListSize((prevState) => prevState - 2);
-          } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-            setListSize((prevState) => prevState - 4);
-          } else {
-            setListSize((prevState) => prevState - 2);
-          }
-        }
-        if (dir === 'right') {
-          setTransformWidth((prevState) => prevState + width);
-          if (window.innerWidth >= 1024) {
-            setListSize((prevState) => prevState + 2);
-          } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-            setListSize((prevState) => prevState + 4);
-          } else {
-            setListSize((prevState) => prevState + 2);
-          }
-        }
-      }
-    },
-    []
-  );
 
   return (
     <VideoContainer>
@@ -236,7 +179,7 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
                 }}
               >
                 <GridInner>
-                  <VideoList ref={videoListRef}>
+                  <VideoList ref={ulElementRef}>
                     {movie.videos.map((video) => (
                       <VideoItem key={video.id} video={video} />
                     ))}
@@ -259,7 +202,7 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
             <ArrowButtonBlock
               dir="right"
               className="arrow-button"
-              displayNone={movie.videos.length <= listSize}
+              displayNone={movie.videos.length <= currentListSize}
             >
               <ArrowButton onClick={handleSwipe}>
                 <Icon icon="arrowRight" size={16} />

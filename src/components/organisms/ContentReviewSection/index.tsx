@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import ReviewItem from 'components/molecules/ReviewItem';
+import useListTransform from 'hooks/useListTransform';
 import { IReviewProps } from 'models/types';
 import Icon from 'Icon/Icon';
 
@@ -97,54 +98,16 @@ interface IProps {
 }
 
 const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
-  const [transformWidth, setTransformWidth] = useState(0);
-  const [listSize, setListSize] = useState(0);
-  const reviewListRef = useRef<HTMLUListElement>(null);
+  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const { transformWidth, currentListSize } = state;
 
   useEffect(() => {
     if (window.innerWidth >= 720) {
-      setListSize(2);
+      setSize(2);
     } else {
-      setListSize(1);
+      setSize(1);
     }
-    // window.addEventListener('resize', () => {
-    //   setTransformWidth(0);
-    //   if (window.innerWidth >= 720) {
-    //     setListSize(2);
-    //   } else {
-    //     setListSize(1);
-    //   }
-    // });
   }, []);
-
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      let width = 0;
-      if (reviewListRef.current) {
-        width = reviewListRef.current.clientWidth;
-      }
-      if (e.currentTarget.parentElement) {
-        const dir = e.currentTarget.parentElement.getAttribute('dir');
-        if (dir === 'left') {
-          setTransformWidth((prevState) => prevState - width);
-          if (window.innerWidth >= 720) {
-            setListSize((prevState) => prevState - 2);
-          } else {
-            setListSize((prevState) => prevState - 1);
-          }
-        }
-        if (dir === 'right') {
-          setTransformWidth((prevState) => prevState + width);
-          if (window.innerWidth >= 720) {
-            setListSize((prevState) => prevState + 2);
-          } else {
-            setListSize((prevState) => prevState + 1);
-          }
-        }
-      }
-    },
-    []
-  );
 
   return (
     <InfoSection>
@@ -159,7 +122,7 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
             }}
           >
             <GridInner>
-              <ReviewList ref={reviewListRef}>
+              <ReviewList ref={ulElementRef}>
                 {reviews.map((review) => (
                   <ReviewItem key={review.id} review={review} />
                 ))}
@@ -182,7 +145,7 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
         <ArrowButtonBlock
           dir="right"
           className="arrow-button"
-          displayNone={reviews.length <= listSize}
+          displayNone={reviews.length <= currentListSize}
         >
           <ArrowButton onClick={handleSwipe}>
             <Icon icon="arrowRight" size={16} />

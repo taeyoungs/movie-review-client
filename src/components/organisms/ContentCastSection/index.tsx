@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import CastItem from 'components/molecules/CastItem';
 import { ICastProps } from 'models/types';
 import Icon from 'Icon/Icon';
+import useListTransform from 'hooks/useListTransform';
 
 const InfoSection = styled.section`
   padding: 8px 0 0;
@@ -90,55 +91,16 @@ interface IProps {
 }
 
 const ContentCastSection: React.FC<IProps> = ({ casts }) => {
-  const [transformWidth, setTransformWidth] = useState(0);
-  const [listSize, setListSize] = useState(0);
-  const castListRef = useRef<HTMLUListElement>(null);
+  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const { transformWidth, currentListSize } = state;
 
   useEffect(() => {
     if (window.innerWidth >= 720) {
-      setListSize(6);
+      setSize(6);
     } else {
-      setListSize(3);
+      setSize(3);
     }
-
-    // window.addEventListener('resize', () => {
-    //   setTransformWidth(0);
-    //   if (window.innerWidth >= 720) {
-    //     setListSize(6);
-    //   } else {
-    //     setListSize(3);
-    //   }
-    // });
   }, []);
-
-  const handleSwipe: React.MouseEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      let width = 0;
-      if (castListRef.current) {
-        width = castListRef.current.clientWidth;
-      }
-      if (e.currentTarget.parentElement) {
-        const dir = e.currentTarget.parentElement.getAttribute('dir');
-        if (dir === 'left') {
-          setTransformWidth((prevState) => prevState - width);
-          if (window.innerWidth >= 720) {
-            setListSize((prevState) => prevState - 6);
-          } else {
-            setListSize((prevState) => prevState - 3);
-          }
-        }
-        if (dir === 'right') {
-          setTransformWidth((prevState) => prevState + width);
-          if (window.innerWidth >= 720) {
-            setListSize((prevState) => prevState + 6);
-          } else {
-            setListSize((prevState) => prevState + 3);
-          }
-        }
-      }
-    },
-    []
-  );
 
   return (
     <InfoSection>
@@ -152,7 +114,7 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
           >
             <InfoSectionContainer>
               <CastInner>
-                <Cast ref={castListRef}>
+                <Cast ref={ulElementRef}>
                   {casts.map((cast) => (
                     <CastItem key={cast.id} cast={cast} />
                   ))}
@@ -174,7 +136,7 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
         <ArrowButtonBlock
           dir="right"
           className="arrow-button"
-          displayNone={casts.length <= listSize}
+          displayNone={casts.length <= currentListSize}
         >
           <ArrowButton onClick={handleSwipe}>
             <Icon icon="arrowRight" size={16} />
