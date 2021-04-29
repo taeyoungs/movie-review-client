@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import ReviewItem from 'components/molecules/ReviewItem';
+import ListArrowBtnBlock from 'components/molecules/ListArrowBtnBlock';
 import useListTransform from 'hooks/useListTransform';
 import { IReviewProps } from 'models/types';
-import Icon from 'Icon/Icon';
 
 const InfoSection = styled.section`
   padding: 8px 0 0;
@@ -49,44 +49,6 @@ const ReviewCount = styled.span`
   margin: 12px 0 12px 6px;
 `;
 
-const ArrowButtonBlock = styled.div<{ dir: string; displayNone: boolean }>`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  transition: opacity 300ms ease;
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  ${(props) =>
-    props.dir === 'left' &&
-    `
-    
-    left: 10px;
-    & div {
-      transform: rotate(-180deg);
-    }
-  `}
-  ${(props) => props.dir === 'left' && props.displayNone && 'display: none'}
-  ${(props) =>
-    props.dir === 'right' &&
-    `
-    right: 10px;
-  `}
-  ${(props) => props.dir === 'right' && props.displayNone && 'display: none'}
-`;
-
-const ArrowButton = styled.div`
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  background-color: #fff;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const DivideBorder = styled.hr`
   border: 0;
   border-bottom: 1px solid #f0f0f0;
@@ -98,14 +60,19 @@ interface IProps {
 }
 
 const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
-  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const {
+    state,
+    ulElementRef,
+    setInitialSize,
+    handleSwipe,
+  } = useListTransform([1, 2]);
   const { transformWidth, currentListSize } = state;
 
   useEffect(() => {
     if (window.innerWidth >= 720) {
-      setSize(2);
+      setInitialSize(2);
     } else {
-      setSize(1);
+      setInitialSize(1);
     }
   }, []);
 
@@ -133,24 +100,12 @@ const ContentReviewSection: React.FC<IProps> = ({ reviews }) => {
             </GridInner>
           </ReviewSwiper>
         </ReviewExposure>
-        <ArrowButtonBlock
-          dir="left"
-          className="arrow-button"
-          displayNone={transformWidth === 0}
-        >
-          <ArrowButton onClick={handleSwipe}>
-            <Icon icon="arrowRight" size={16} />
-          </ArrowButton>
-        </ArrowButtonBlock>
-        <ArrowButtonBlock
-          dir="right"
-          className="arrow-button"
-          displayNone={reviews.length <= currentListSize}
-        >
-          <ArrowButton onClick={handleSwipe}>
-            <Icon icon="arrowRight" size={16} />
-          </ArrowButton>
-        </ArrowButtonBlock>
+        <ListArrowBtnBlock
+          transformWidth={transformWidth}
+          handleSwipe={handleSwipe}
+          contentsLen={reviews.length}
+          currentListSize={currentListSize}
+        />
       </ReviewContainer>
       <GridInner>
         <DivideBorder />

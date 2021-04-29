@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import CastItem from 'components/molecules/CastItem';
-import { ICastProps } from 'models/types';
-import Icon from 'Icon/Icon';
+import ListArrowBtnBlock from 'components/molecules/ListArrowBtnBlock';
 import useListTransform from 'hooks/useListTransform';
+import { ICastProps } from 'models/types';
 
 const InfoSection = styled.section`
   padding: 8px 0 0;
@@ -42,44 +42,6 @@ const Cast = styled.ul`
   margin: 4px -5px 16px;
 `;
 
-const ArrowButtonBlock = styled.div<{ dir: string; displayNone: boolean }>`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  transition: opacity 300ms ease;
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  ${(props) =>
-    props.dir === 'left' &&
-    `
-    
-    left: 10px;
-    & div {
-      transform: rotate(-180deg);
-    }
-  `}
-  ${(props) => props.dir === 'left' && props.displayNone && 'display: none'}
-  ${(props) =>
-    props.dir === 'right' &&
-    `
-    right: 10px;
-  `}
-  ${(props) => props.dir === 'right' && props.displayNone && 'display: none'}
-`;
-
-const ArrowButton = styled.div`
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  background-color: #fff;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const DivideBorder = styled.hr`
   border: 0;
   border-bottom: 1px solid #f0f0f0;
@@ -91,14 +53,21 @@ interface IProps {
 }
 
 const ContentCastSection: React.FC<IProps> = ({ casts }) => {
-  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const {
+    state,
+    ulElementRef,
+    setInitialSize,
+    handleSwipe,
+  } = useListTransform([3, 6]);
   const { transformWidth, currentListSize } = state;
+
+  console.log(casts.length, currentListSize);
 
   useEffect(() => {
     if (window.innerWidth >= 720) {
-      setSize(6);
+      setInitialSize(6);
     } else {
-      setSize(3);
+      setInitialSize(3);
     }
   }, []);
 
@@ -124,24 +93,12 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
             </InfoSectionContainer>
           </CastSwiper>
         </CastExposure>
-        <ArrowButtonBlock
-          dir="left"
-          className="arrow-button"
-          displayNone={transformWidth === 0}
-        >
-          <ArrowButton onClick={handleSwipe}>
-            <Icon icon="arrowRight" size={16} />
-          </ArrowButton>
-        </ArrowButtonBlock>
-        <ArrowButtonBlock
-          dir="right"
-          className="arrow-button"
-          displayNone={casts.length <= currentListSize}
-        >
-          <ArrowButton onClick={handleSwipe}>
-            <Icon icon="arrowRight" size={16} />
-          </ArrowButton>
-        </ArrowButtonBlock>
+        <ListArrowBtnBlock
+          transformWidth={transformWidth}
+          handleSwipe={handleSwipe}
+          contentsLen={casts.length}
+          currentListSize={currentListSize}
+        />
       </CastContainer>
     </InfoSection>
   );

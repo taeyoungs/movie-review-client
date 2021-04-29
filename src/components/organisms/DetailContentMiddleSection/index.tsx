@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import DetailVideo from 'components/molecules/DetailVideo';
 import VideoItem from 'components/molecules/VideoItem';
 import GridInner from 'components/molecules/GridInner';
+import ListArrowBtnBlock from 'components/molecules/ListArrowBtnBlock';
 import useListTransform from 'hooks/useListTransform';
 import { IDetailProps } from 'models/types';
-import Icon from 'Icon/Icon';
 
 const VideoContainer = styled.div`
   @media (min-width: 720px) {
@@ -58,44 +58,6 @@ const VideoList = styled.ul`
   margin: 5px -5px 24px;
 `;
 
-const ArrowButtonBlock = styled.div<{ dir: string; displayNone: boolean }>`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  transition: opacity 300ms ease;
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  ${(props) =>
-    props.dir === 'left' &&
-    `
-    
-    left: 10px;
-    & div {
-      transform: rotate(-180deg);
-    }
-  `}
-  ${(props) => props.dir === 'left' && props.displayNone && 'display: none'}
-  ${(props) =>
-    props.dir === 'right' &&
-    `
-    right: 10px;
-  `}
-  ${(props) => props.dir === 'right' && props.displayNone && 'display: none'}
-`;
-
-const ArrowButton = styled.div`
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  background-color: #fff;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const DivideBorder = styled.hr`
   border: 0;
   border-bottom: 1px solid #f0f0f0;
@@ -115,16 +77,21 @@ interface IProps {
 }
 
 const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
-  const { state, ulElementRef, setSize, handleSwipe } = useListTransform();
+  const {
+    state,
+    ulElementRef,
+    setInitialSize,
+    handleSwipe,
+  } = useListTransform([2, 4, 2]);
   const { transformWidth, currentListSize } = state;
 
   useEffect(() => {
     if (window.innerWidth >= 1024) {
-      setSize(2);
+      setInitialSize(2);
     } else if (window.innerWidth < 1024 && window.innerWidth >= 720) {
-      setSize(4);
+      setInitialSize(4);
     } else {
-      setSize(2);
+      setInitialSize(2);
     }
 
     if ('IntersectionObserver' in window) {
@@ -190,24 +157,12 @@ const DetailContentMiddleSection: React.FC<IProps> = ({ movie }) => {
                 </GridInner>
               </VideoSwiper>
             </VideoListExposure>
-            <ArrowButtonBlock
-              dir="left"
-              className="arrow-button"
-              displayNone={transformWidth === 0}
-            >
-              <ArrowButton onClick={handleSwipe}>
-                <Icon icon="arrowRight" size={16} />
-              </ArrowButton>
-            </ArrowButtonBlock>
-            <ArrowButtonBlock
-              dir="right"
-              className="arrow-button"
-              displayNone={movie.videos.length <= currentListSize}
-            >
-              <ArrowButton onClick={handleSwipe}>
-                <Icon icon="arrowRight" size={16} />
-              </ArrowButton>
-            </ArrowButtonBlock>
+            <ListArrowBtnBlock
+              transformWidth={transformWidth}
+              handleSwipe={handleSwipe}
+              contentsLen={movie.videos.length}
+              currentListSize={currentListSize}
+            />
           </VideoListContainer>
           <GridInner>
             <DivideBorder />
