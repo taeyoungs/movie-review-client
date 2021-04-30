@@ -113,6 +113,9 @@ const Review: React.FunctionComponent = () => {
 
   useEffect(() => {
     document.body.style.backgroundColor = '#fff';
+    return () => {
+      document.body.style.backgroundColor = '#000';
+    };
   }, []);
 
   const handleGoBack = useCallback(() => {

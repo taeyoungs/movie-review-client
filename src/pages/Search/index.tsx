@@ -36,6 +36,24 @@ const Query = styled.h1`
   }
 `;
 
+const NoResults = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Notification = styled.div`
+  text-align: center;
+  padding: 10px 0 20px;
+  color: #a0a0a0;
+  font-size: 15px;
+  letter-spacing: -0.5px;
+  line-height: 20px;
+  white-space: pre-wrap;
+`;
+
 // ToDo: query 3개 - 영화, TV 프로그램, 사람
 // Section 3개인데 동일한 디자인 props만 다르게
 // 더보기 페이지도 동일
@@ -104,6 +122,15 @@ function Search(): JSX.Element {
             headerTitle="사람"
           />
         )}
+        {movieData?.multiSearch.length === 0 &&
+          showData?.multiSearch.length === 0 &&
+          personData?.multiSearch.length === 0 && (
+            <NoResults>
+              <Notification>
+                검색 결과가 없습니다. 다른 키워드로 검색해보세요. (ง •_•)ง
+              </Notification>
+            </NoResults>
+          )}
       </Section>
     </Main>
   );
