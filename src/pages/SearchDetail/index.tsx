@@ -25,7 +25,10 @@ function SearchDetail(): JSX.Element {
   const { query } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
   const { loading, data } = useQuery<{
-    multiSearch: ISearchProps[];
+    multiSearch: {
+      searches: ISearchProps[];
+      totalPage: number;
+    };
   }>(MULTI_SEARCH_QUERY, {
     variables: {
       term: query,
@@ -48,7 +51,14 @@ function SearchDetail(): JSX.Element {
               : '사람'
           }
         />
-        {data && <SearchDetailContent items={data.multiSearch} />}
+        {data && (
+          <SearchDetailContent
+            totalPage={data.multiSearch.totalPage}
+            items={data.multiSearch.searches}
+            mediaType={mediaType}
+            query={query as string}
+          />
+        )}
       </SearchDetailSection>
     </Main>
   );

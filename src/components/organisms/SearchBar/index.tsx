@@ -22,7 +22,9 @@ import { ISearchProps } from 'models/types';
 import Icon, { IconType } from 'Icon/Icon';
 
 interface IProps {
-  multiSearch: Array<ISearchProps>;
+  multiSearch: {
+    searches: ISearchProps[];
+  };
 }
 
 const iconTitleList: Array<IconType> = ['search', 'movie', 'show', 'person'];
@@ -208,7 +210,7 @@ const SearchBar: React.FunctionComponent = () => {
             {loading ? (
               <Loading />
             ) : (
-              data && <ResultSection multiSearch={data.multiSearch} />
+              data && <ResultSection multiSearch={data.multiSearch.searches} />
             )}
           </ResultContainer>
         </Wrapper>

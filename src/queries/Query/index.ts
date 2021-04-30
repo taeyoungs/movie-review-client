@@ -3,12 +3,15 @@ import { gql } from '@apollo/client';
 export const MULTI_SEARCH_QUERY = gql`
   query MultiSearch($term: String!, $page: Int!, $searchType: String!) {
     multiSearch(term: $term, page: $page, searchType: $searchType) {
-      id
-      poster_path
-      media_type
-      title
-      vote_average
-      release_date
+      searches {
+        id
+        poster_path
+        media_type
+        title
+        vote_average
+        release_date
+      }
+      totalPage
     }
   }
 `;

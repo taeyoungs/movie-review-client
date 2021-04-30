@@ -31,8 +31,8 @@ function useMoreWorks({ page, contentType, mediaType }: IProps) {
         cache.writeQuery({
           query: GET_WORKS_QUERY,
           data: {
-            ...existedWorks.getWorks,
             getWorks: {
+              ...existedWorks.getWorks,
               works: existedWorks.getWorks.works.concat(extraWorks),
               totalPage: existedWorks.getWorks.totalPage,
             },

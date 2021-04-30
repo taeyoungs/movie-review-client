@@ -99,3 +99,20 @@ export const GET_MORE_WORKS = gql`
     }
   }
 `;
+
+export const GET_MORE_SEARCH_DATA = gql`
+  mutation GetMoreSearchData(
+    $term: String!
+    $page: Int!
+    $searchType: String!
+  ) {
+    getMoreSearchData(term: $term, page: $page, searchType: $searchType) {
+      id
+      poster_path
+      media_type
+      title
+      vote_average
+      release_date
+    }
+  }
+`;

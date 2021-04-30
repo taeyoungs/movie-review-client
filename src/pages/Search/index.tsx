@@ -63,7 +63,10 @@ function Search(): JSX.Element {
   const { query } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
   const { loading: movieLoading, data: movieData } = useQuery<{
-    multiSearch: ISearchProps[];
+    multiSearch: {
+      searches: ISearchProps[];
+      totalPage: number;
+    };
   }>(MULTI_SEARCH_QUERY, {
     variables: {
       term: query,
@@ -72,7 +75,10 @@ function Search(): JSX.Element {
     },
   });
   const { loading: showLoading, data: showData } = useQuery<{
-    multiSearch: ISearchProps[];
+    multiSearch: {
+      searches: ISearchProps[];
+      totalPage: number;
+    };
   }>(MULTI_SEARCH_QUERY, {
     variables: {
       term: query,
@@ -81,7 +87,10 @@ function Search(): JSX.Element {
     },
   });
   const { loading: personLoading, data: personData } = useQuery<{
-    multiSearch: ISearchProps[];
+    multiSearch: {
+      searches: ISearchProps[];
+      totalPage: number;
+    };
   }>(MULTI_SEARCH_QUERY, {
     variables: {
       term: query,
@@ -102,30 +111,30 @@ function Search(): JSX.Element {
             </Query>
           </GridInner>
         </QueryContainer>
-        {movieData && movieData.multiSearch.length > 0 && (
+        {movieData && movieData.multiSearch.searches.length > 0 && (
           <SearchContentSection
-            items={movieData.multiSearch.slice(0, 9)}
+            items={movieData.multiSearch.searches.slice(0, 9)}
             query={query as string}
             headerTitle="영화"
           />
         )}
-        {showData && showData.multiSearch.length > 0 && (
+        {showData && showData.multiSearch.searches.length > 0 && (
           <SearchContentSection
-            items={showData.multiSearch.slice(0, 9)}
+            items={showData.multiSearch.searches.slice(0, 9)}
             query={query as string}
             headerTitle="TV 프로그램"
           />
         )}
-        {personData && personData.multiSearch.length > 0 && (
+        {personData && personData.multiSearch.searches.length > 0 && (
           <SearchContentSection
-            items={personData.multiSearch.slice(0, 9)}
+            items={personData.multiSearch.searches.slice(0, 9)}
             query={query as string}
             headerTitle="사람"
           />
         )}
-        {movieData?.multiSearch.length === 0 &&
-          showData?.multiSearch.length === 0 &&
-          personData?.multiSearch.length === 0 && (
+        {movieData?.multiSearch.searches.length === 0 &&
+          showData?.multiSearch.searches.length === 0 &&
+          personData?.multiSearch.searches.length === 0 && (
             <NoResults>
               <Notification>
                 검색 결과가 없습니다. 다른 키워드로 검색해보세요. (ง •_•)ง
