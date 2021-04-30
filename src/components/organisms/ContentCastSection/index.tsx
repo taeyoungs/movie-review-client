@@ -61,8 +61,6 @@ const ContentCastSection: React.FC<IProps> = ({ casts }) => {
   } = useListTransform([3, 6]);
   const { transformWidth, currentListSize } = state;
 
-  console.log(casts.length, currentListSize);
-
   useEffect(() => {
     if (window.innerWidth >= 720) {
       setInitialSize(6);

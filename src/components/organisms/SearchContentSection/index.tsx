@@ -54,7 +54,7 @@ const Swiper = styled.div`
 const DivideBorder = styled.hr`
   border: 0;
   border-bottom: 1px solid #f0f0f0;
-  margin: 20px 0 0;
+  margin: 0 20px;
 `;
 
 interface IProps {
@@ -90,7 +90,7 @@ function SearchContentSection({
     handleInitialSize();
     window.addEventListener('resize', handleInitialSize);
     return () => {
-      window.addEventListener('resize', handleInitialSize);
+      window.removeEventListener('resize', handleInitialSize);
     };
   }, []);
 

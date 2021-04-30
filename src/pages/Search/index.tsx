@@ -13,6 +13,7 @@ const Main = styled.main`
   margin-top: 3.5rem;
   width: 100%;
   background-color: #fff;
+  min-height: calc(100vh - 3.5rem);
 `;
 
 const Section = styled.section`

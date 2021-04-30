@@ -16,6 +16,7 @@ const Review = lazy(() => import('pages/Review'));
 const Reviews = lazy(() => import('pages/Reviews'));
 const Person = lazy(() => import('pages/Person'));
 const Search = lazy(() => import('pages/Search'));
+const SearchDetail = lazy(() => import('pages/SearchDetail'));
 const Registration = lazy(() => import('pages/Registration'));
 
 const RouterContainer: React.FunctionComponent = () => {
@@ -26,13 +27,14 @@ const RouterContainer: React.FunctionComponent = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/movie" component={Works} />
-          <Route exact path="/movie/:id" component={Detail} />
+          <Route path="/movie/:id" component={Detail} />
           <Route exact path="/tv" component={Works} />
-          <Route exact path="/tv/:id" component={Detail} />
+          <Route path="/tv/:id" component={Detail} />
           <Route exact path="/review" component={Reviews} />
-          <Route exact path="/review/:id" component={Review} />
-          <Route exact path="/person/:id" component={Person} />
+          <Route path="/review/:id" component={Review} />
+          <Route path="/person/:id" component={Person} />
           <Route exact path="/search" component={Search} />
+          <Route path="/search/:mediaType" component={SearchDetail} />
           <Route exact path="/registration" component={Registration} />
           <Redirect from="*" to="/" />
         </Switch>
