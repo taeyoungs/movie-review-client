@@ -149,10 +149,10 @@ const SearchBar: React.FunctionComponent = () => {
           case 'movie':
             history.push(`/search/movie?query=${term}`);
             break;
-          case 'movie':
+          case 'tv':
             history.push(`/search/tv?query=${term}`);
             break;
-          case 'movie':
+          case 'person':
             history.push(`/search/person?query=${term}`);
             break;
           default:

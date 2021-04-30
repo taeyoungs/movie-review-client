@@ -1,7 +1,13 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import SearchContentSection from 'components/organisms/SearchContentSection';
 import GridInner from 'components/molecules/GridInner';
-import { Link } from 'react-router-dom';
+import Loading from 'products/Loading';
+import { useQuery } from '@apollo/client';
+import { MULTI_SEARCH_QUERY } from 'queries/Query';
+import { ISearchProps } from 'models/types';
+import qs from 'qs';
 
 const Main = styled.main`
   margin-top: 3.5rem;
@@ -13,31 +19,20 @@ const Section = styled.section`
   padding: 0 0 32px;
 `;
 
-const SearchContentSection = styled.section`
-  padding: 8px 0;
+const QueryContainer = styled.div`
+  padding: 30px 0 10px;
 `;
 
-const ContentHeader = styled.header`
+const Query = styled.h1`
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  line-height: 22px;
   overflow: hidden;
-`;
+  word-break: break-all;
+  text-overflow: ellipsis;
 
-const HeaderTitle = styled.h2`
-  float: left;
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.7px;
-  line-height: 28px;
-  margin: 8px 0;
-`;
-
-const HeaderMoreButton = styled.div`
-  float: right;
-`;
-
-const MoreButton = styled.div`
-  margin: 12px 0;
-  & a {
-    color: #f1c40f;
+  & span {
+    font-weight: 700;
   }
 `;
 
@@ -45,21 +40,70 @@ const MoreButton = styled.div`
 // Section 3개인데 동일한 디자인 props만 다르게
 // 더보기 페이지도 동일
 function Search(): JSX.Element {
+  const location = useLocation();
+  const { query } = qs.parse(location.search, { ignoreQueryPrefix: true });
+
+  const { loading: movieLoading, data: movieData } = useQuery<{
+    multiSearch: ISearchProps[];
+  }>(MULTI_SEARCH_QUERY, {
+    variables: {
+      term: query,
+      page: 1,
+      searchType: 'movie',
+    },
+  });
+  const { loading: showLoading, data: showData } = useQuery<{
+    multiSearch: ISearchProps[];
+  }>(MULTI_SEARCH_QUERY, {
+    variables: {
+      term: query,
+      page: 1,
+      searchType: 'tv',
+    },
+  });
+  const { loading: personLoading, data: personData } = useQuery<{
+    multiSearch: ISearchProps[];
+  }>(MULTI_SEARCH_QUERY, {
+    variables: {
+      term: query,
+      page: 1,
+      searchType: 'person',
+    },
+  });
+
+  if (movieLoading || showLoading || personLoading) return <Loading />;
+
   return (
     <Main>
       <Section>
-        <SearchContentSection>
+        <QueryContainer>
           <GridInner>
-            <ContentHeader>
-              <HeaderTitle>영화</HeaderTitle>
-              <HeaderMoreButton>
-                <MoreButton>
-                  <Link to="#">더보기</Link>
-                </MoreButton>
-              </HeaderMoreButton>
-            </ContentHeader>
+            <Query>
+              <span>"{query}"</span>로 검색한 결과입니다.
+            </Query>
           </GridInner>
-        </SearchContentSection>
+        </QueryContainer>
+        {movieData && movieData.multiSearch.length > 0 && (
+          <SearchContentSection
+            items={movieData.multiSearch.slice(0, 9)}
+            query={query as string}
+            headerTitle="영화"
+          />
+        )}
+        {showData && showData.multiSearch.length > 0 && (
+          <SearchContentSection
+            items={showData.multiSearch.slice(0, 9)}
+            query={query as string}
+            headerTitle="TV 프로그램"
+          />
+        )}
+        {personData && personData.multiSearch.length > 0 && (
+          <SearchContentSection
+            items={personData.multiSearch.slice(0, 9)}
+            query={query as string}
+            headerTitle="사람"
+          />
+        )}
       </Section>
     </Main>
   );

@@ -2,7 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Icon from 'Icon/Icon';
 
-const ArrowButtonBlock = styled.div<{ dir: string; displayNone: boolean }>`
+const ArrowButtonBlock = styled.div<{
+  dir: string;
+  displayNone: boolean;
+}>`
   display: flex;
   height: 100%;
   align-items: center;

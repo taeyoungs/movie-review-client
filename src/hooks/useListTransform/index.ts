@@ -40,7 +40,6 @@ function reducer(state: IStateProps, action: IAction) {
         throw new Error('Cannot find action size payload');
       }
     case 'SET_TRANSFORM_RIGHT':
-      console.log(state.size, state.currentListSize);
       if (action.width) {
         return {
           ...state,
@@ -51,11 +50,10 @@ function reducer(state: IStateProps, action: IAction) {
         throw new Error('Cannot find action width payload');
       }
     case 'SET_TRANSFORM_LEFT':
-      console.log(state.size, state.currentListSize);
       if (action.width) {
         return {
           ...state,
-          transformWidth: state.transformWidth + action.width,
+          transformWidth: state.transformWidth - action.width,
           currentListSize: state.currentListSize - state.size,
         };
       } else {
@@ -102,7 +100,7 @@ function useListTransform(sizeArr: number[]) {
     if (e.currentTarget.parentElement) {
       const dir = e.currentTarget.parentElement.getAttribute('dir');
       if (dir === 'left') {
-        dispatch({ type: 'SET_TRANSFORM_LEFT', width: -width });
+        dispatch({ type: 'SET_TRANSFORM_LEFT', width });
       }
       if (dir === 'right') {
         dispatch({ type: 'SET_TRANSFORM_RIGHT', width });
