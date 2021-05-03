@@ -51,6 +51,7 @@ const SubmitButton = styled.button`
   background-color: ${ColorPalette.Main.CTA_PRIMARY};
   font-weight: 600;
   margin-bottom: 30px;
+  font-family: 'Nanum Gothic', sans-serif;
 `;
 
 const SocialLoginContainer = styled.div`

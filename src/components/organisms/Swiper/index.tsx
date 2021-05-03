@@ -32,18 +32,17 @@ const Swiper: React.FC<IProps> = ({ shows }) => {
   const state = useAIndexState();
   const dispatch = useAIndexDisptach();
 
+  const handleDutration = useCallback(() => {
+    setTDuration(0);
+    setImgSize(setWidth());
+  }, []);
+
   useEffect(() => {
     setImgSize(setWidth());
 
-    window.addEventListener('resize', () => {
-      setTDuration(0);
-      setImgSize(setWidth());
-    });
+    window.addEventListener('resize', handleDutration);
     return () => {
-      window.removeEventListener('resize', () => {
-        setTDuration(0);
-        setImgSize(setWidth());
-      });
+      window.removeEventListener('resize', handleDutration);
       setPlay(false);
     };
   }, []);

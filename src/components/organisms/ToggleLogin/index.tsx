@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import GridInner from 'components/molecules/GridInner';
 import useToggleDispatch from 'hooks/useToggleDispatch';
@@ -137,6 +137,7 @@ interface IProps {
 }
 
 const ToggleLogin: React.FC<IProps> = ({ toggleLogin, message }) => {
+  const history = useHistory();
   const dispatch = useToggleDispatch();
 
   const handleToggleContainer: React.MouseEventHandler<HTMLDivElement> = useCallback(
@@ -147,6 +148,14 @@ const ToggleLogin: React.FC<IProps> = ({ toggleLogin, message }) => {
     },
     []
   );
+
+  const goRegistrationPage = useCallback(() => {
+    dispatch({ type: 'TOGGLE_LOGIN' });
+    history.push({
+      pathname: '/registration',
+      state: { before: location.pathname },
+    });
+  }, []);
 
   return (
     <GoLoginContainer toggleLogin={toggleLogin}>
@@ -168,14 +177,9 @@ const ToggleLogin: React.FC<IProps> = ({ toggleLogin, message }) => {
               </GoLoginNotifi>
               <GoLoginButtonContainer>
                 <GridInner>
-                  <Link
-                    to={(location) => ({
-                      pathname: '/registration',
-                      state: { before: location.pathname },
-                    })}
-                  >
-                    <GoLoginButton>회원가입 / 로그인</GoLoginButton>
-                  </Link>
+                  <GoLoginButton onClick={goRegistrationPage}>
+                    회원가입 / 로그인
+                  </GoLoginButton>
                 </GridInner>
               </GoLoginButtonContainer>
             </GoLoginContentInner>
